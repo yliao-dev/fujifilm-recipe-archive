@@ -3,12 +3,21 @@ import { useState } from 'react'
 import { FaMapMarker } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
-interface JobProp{
-  job: React.ReactNode;
-  bg?: string;
+// Define the type for the job object
+interface Job {
+  id: string;
+  type: string;
+  title: string;
+  description: string;
+  salary: string;
+  location: string;
 }
 
-const JobListing = ( {job} ) => {
+interface JobListingProps {
+  job: Job;
+}
+
+const JobListing: React.FC<JobListingProps> = ({ job }) => {
     const [showFullDescription, setShowFullDescription] = useState(false);
     let description = job.description;
     if(!showFullDescription) {
