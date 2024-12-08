@@ -24,6 +24,6 @@
   },
   "include": [
     "src",
-    "src/types/**/*.d.ts"  // Make sure this line includes your .d.ts files
+    "src/types/**/*.d.ts" // Make sure this line includes your .d.ts files
   ]
 }
