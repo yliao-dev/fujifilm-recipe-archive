@@ -3,42 +3,21 @@ package main
 import (
 	"context"
 	"fmt"
+	"golang-backend/handler"
+	"golang-backend/middleware"
+
 	"log"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 
-type Company struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	ContactEmail string `json:"contactEmail"`
-	ContactPhone string `json:"contactPhone"`
-}
 
-type Body struct {
-	ID          string  `json:"id"`
-	Title       string  `json:"title"`
-	Type        string  `json:"type"`
-	Description string  `json:"description"`
-	Location    string  `json:"location"`
-	Salary      string  `json:"salary"`
-	Company     Company `json:"company"`
-}
 
-type Item struct {
-	ID primitive.ObjectID `json:"_id.omitempty" bson:"_id,omitempty"`
-	Status bool `json:"status"`
-	Body Body `json:"body"`
-}
-
-var collection *mongo.Collection
 
 
 func main() {
@@ -46,7 +25,7 @@ func main() {
 
 	if os.Getenv("ENV") != "production" {
 		// load the .evn file if not in production
-		err := godotenv.Load("../.env")
+		err := godotenv.Load("../client/.env")
 		if err != nil {
 			log.Fatal("error loading .env file", err)
 		}
@@ -72,17 +51,22 @@ func main() {
 		log.Fatalf("Failed to ping MongoDB: %v", err)
 	}
 	fmt.Println("Connected to MONGODB ATLAS")
-
-	collection = client.Database("golang_db").Collection("items")
-
 	// -------- MongoDB END Section -------- //
 	
 	// -------- API Calls Section -------- //
+
 	app := fiber.New()
-	app.Get("/api/items", getItems)
-	app.Post("/api/items", createItems)
-	app.Patch("/api/items/:id", patchItems)
-	app.Delete("/api/items/:id", deleteItems)
+
+	// Middleware
+	app.Use(middleware.LoggingMiddleware)         // Log every request
+	app.Use(middleware.CORSConfig())             // Handle CORS
+	app.Use(middleware.AuthMiddleware)           // Handle authentication (only for certain routes)
+	app.Use(middleware.AttachDBMiddleware(client)) // Attach MongoDB to request
+
+	app.Get("/api/items", handler.GetItems)
+	app.Post("/api/items", handler.CreateItems)
+	app.Patch("/api/items/:id", handler.PatchItems)
+	app.Delete("/api/items/:id", handler.DeleteItems)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -95,8 +79,6 @@ func main() {
 
 	log.Fatal(app.Listen("0.0.0.0:" + port))
 }
-
-
 // func checkDocumentSize() error {
 // 	// Create a document
 // 	job := bson.M{
@@ -113,7 +95,6 @@ func main() {
 // 			"contactPhone": "555-555-5555",
 // 		},
 // 	}
-
 // 	// Check the size of the document before inserting it
 // 	docBytes, err := bson.Marshal(job)
 // 	if err != nil {
@@ -123,71 +104,4 @@ func main() {
 // 	return nil
 // }
 
-func getItems(c *fiber.Ctx) error {
-	var items []Item
-	var cursor *mongo.Cursor // represents an iterator for query results.
-	var err error
-	// bson.M{}: An empty BSON map used as the filter, meaning return all documents.
-	if cursor, err = collection.Find(context.Background(), bson.M{}); err != nil {
-		return err
-	}
-	defer cursor.Close(context.Background())
-
-	for cursor.Next(context.Background()) {
-		var item Item
-		if err := cursor.Decode(&item); err != nil {
-			return err
-		}
-		items = append(items, item)
-	}
-
-	return c.JSON(items)
-}
-
-func createItems(c *fiber.Ctx) error {
-	var insertResult *mongo.InsertOneResult
-	var err error
-	item := new(Item)
-	c.BodyParser(item)
-	if err := c.BodyParser(item); err != nil {
-		return err
-	}
-	if item.Body.ID == "" {
-		return c.Status(400).JSON(fiber.Map{"error": "item body cannot be empty"})
-	}
-	if insertResult, err = collection.InsertOne(context.Background(), item); err != nil {
-		return err
-	}
-	item.ID = insertResult.InsertedID.(primitive.ObjectID)
-	return c.Status(201).JSON(item) 
-}
-
-func patchItems(c *fiber.Ctx) error {
-	var objectID primitive.ObjectID
-	var err error
-	id := c.Params("id")
-	if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
-		return c.Status(400).JSON(fiber.Map{"error": "invalid todo ID"})
-	}
-	filter := bson.M{"_id": objectID}
-	update := bson.M{"$set": bson.M{"status": true}}
-	if _, err = collection.UpdateOne(context.Background(), filter, update); err != nil {
-		return err
-	}
-	return c.Status(200).JSON(fiber.Map{"success": true})
-
-}
-func deleteItems(c *fiber.Ctx) error {
-	var objectID primitive.ObjectID
-	var err error
-	id := c.Params("id")
-	if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
-		return c.Status(400).JSON(fiber.Map{"error": "invalid item ID for delete"})
-	}
-	filter := bson.M{"_id": objectID}
-	if _, err = collection.DeleteOne(context.Background(), filter); err != nil {
-		return err
-	}
-	return c.Status(200).JSON(fiber.Map{"success": true})
-}
 
