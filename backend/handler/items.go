@@ -35,28 +35,26 @@ type Item struct {
 
 
 // store _id in frontend, use _id to fetch jobs
-// func GetItem(c *fiber.Ctx) error {
-// 	var collection = c.Locals("db").(*mongo.Collection)
-// 	var err error
-// 	var objectID primitive.ObjectID
-// 	var item = Item
-// 	var id = c.Params("id")
+func GetItem(c *fiber.Ctx) error {
+	var collection = c.Locals("db").(*mongo.Collection)
+	var err error
+	var objectID primitive.ObjectID
+	var item Item
+	var id = c.Params("id")
 
-// 	if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
-// 		return c.Status(400).JSON(fiber.Map{"error": "invalid item ID for get"})
-// 	}
-// 	filter := bson.M{"_id": objectID}
-// 	if err = collection.FindOne(context.Background(), filter).Decode(&item); err != nil {
-// 				if err == mongo.ErrNoDocuments {
-// 			return c.Status(404).JSON(fiber.Map{"error": "item not found"})
-// 		}
-// 		// If there is any other error, return a 500 internal error
-// 		return c.Status(500).JSON(fiber.Map{"error": "failed to fetch item"})
-// 	}
-
-
-// 	return c.JSON(item)
-// }
+	if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "invalid item ID for get"})
+	}
+	filter := bson.M{"_id": objectID}
+	if err = collection.FindOne(context.Background(), filter).Decode(&item); err != nil {
+				if err == mongo.ErrNoDocuments {
+			return c.Status(404).JSON(fiber.Map{"error": "item not found"})
+		}
+		// If there is any other error, return a 500 internal error
+		return c.Status(500).JSON(fiber.Map{"error": "failed to fetch item"})
+	}
+	return c.JSON(item)
+}
 
 func GetItems(c *fiber.Ctx) error {
 	var collection = c.Locals("db").(*mongo.Collection)

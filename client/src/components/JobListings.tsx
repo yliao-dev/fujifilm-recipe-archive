@@ -51,10 +51,10 @@ const JobListings = ({ isHome = false }) => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {items.map((item, index) => (
                 <JobListing
-                  key={item.body._id || index}
-                  body={item.body as Job}
+                  key={item._id || index}
                   _id={item._id}
                   status={item.status}
+                  body={item.body as Job}
                 />
               ))}
             </div>

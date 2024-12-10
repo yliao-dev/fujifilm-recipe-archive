@@ -16,6 +16,7 @@ const JobPage = () => {
     queryKey: ["item", id],
     queryFn: async () => {
       try {
+        console.log(id);
         const res = await fetch(`${BASE_URL}/items/${id}`);
         const data = await res.json();
         if (!res.ok) {
@@ -28,7 +29,7 @@ const JobPage = () => {
       }
     },
   });
-  console.log(item);
+  //   console.log(item);
   if (isError) {
     return (
       <div>

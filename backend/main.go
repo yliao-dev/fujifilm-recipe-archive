@@ -64,7 +64,7 @@ func main() {
 	app.Use(middleware.AttachDBMiddleware(client)) // Attach MongoDB to request
 
 	app.Get("/api/items", handler.GetItems)
-	// app.Get("/api/items/:id", handler.GetItem)
+	app.Get("/api/items/:id", handler.GetItem)
 	app.Post("/api/items", handler.CreateItems)
 	app.Patch("/api/items/:id", handler.PatchItems)
 	app.Delete("/api/items/:id", handler.DeleteItems)

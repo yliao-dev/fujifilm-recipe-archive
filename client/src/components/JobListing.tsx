@@ -20,7 +20,7 @@ export type JobListingProps = {
   body: Job;
 };
 
-const JobListing: React.FC<JobListingProps> = ({ body }) => {
+const JobListing: React.FC<JobListingProps> = ({ _id, body }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
   let description = body.description;
   if (!showFullDescription) {
@@ -53,7 +53,7 @@ const JobListing: React.FC<JobListingProps> = ({ body }) => {
             {body.location}
           </div>
           <Link
-            to={`/jobs/${body.id}`}
+            to={`/jobs/${_id}`}
             className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm"
           >
             Read More
