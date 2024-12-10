@@ -60,10 +60,11 @@ func main() {
 	// Middleware
 	app.Use(middleware.LoggingMiddleware)         // Log every request
 	app.Use(middleware.CORSConfig())             // Handle CORS
-	app.Use(middleware.AuthMiddleware)           // Handle authentication (only for certain routes)
+	// app.Use(middleware.AuthMiddleware)           // Handle authentication (only for certain routes)
 	app.Use(middleware.AttachDBMiddleware(client)) // Attach MongoDB to request
 
 	app.Get("/api/items", handler.GetItems)
+	// app.Get("/api/items/:id", handler.GetItem)
 	app.Post("/api/items", handler.CreateItems)
 	app.Patch("/api/items/:id", handler.PatchItems)
 	app.Delete("/api/items/:id", handler.DeleteItems)

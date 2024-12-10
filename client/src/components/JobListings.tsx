@@ -1,29 +1,42 @@
-import { useEffect, useState } from "react";
-import JobListing from "./JobListing";
+import JobListing, { Job } from "./JobListing";
 import { BASE_URL } from "../config";
-import { JobListingProps } from "./JobListing";
 import Spinner from "./Spinner";
+import { Item } from "./AllJobsJSON";
+import { useQuery } from "@tanstack/react-query";
 
 const JobListings = ({ isHome = false }) => {
-  const [jobs, setJobs] = useState<JobListingProps[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchJobs = async () => {
+  // const [jobs, setJobs] = useState<JobListingProps[]>([]);
+  // const [loading, setLoading] = useState(true);
+  // React Query hook to fetch jobs
+  const {
+    data: items = [], // Use default value (empty array) for items
+    isLoading,
+    isError,
+    error,
+  } = useQuery<Item[]>({
+    queryKey: ["items"], // Unique key for this query
+    queryFn: async () => {
       try {
         const res = await fetch(`${BASE_URL}/items`);
         const data = await res.json();
-        setJobs(data);
-      } catch (error) {
-        console.log("error fetching data", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchJobs();
-    console.log(jobs);
-  }, []);
+        if (!res.ok) {
+          throw new Error(data.error || "something wrong");
+        }
 
+        return data || [];
+      } catch (error) {}
+      throw new Error("An error occurred while fetching data"); // Handling errors properly
+    },
+  });
+
+  if (isError) {
+    return (
+      <div>
+        <h2>Error Loading Jobs</h2>
+        <p>{(error as Error).message || "Something went wrong!"}</p>
+      </div>
+    );
+  }
   return (
     <>
       {/* <!-- Browse Jobs --> */}
@@ -32,16 +45,16 @@ const JobListings = ({ isHome = false }) => {
           <h2 className="text-3xl font-bold text-indigo-500 mb-6 text-center">
             {isHome ? "Recent Jobs" : "Browse Jobs"}
           </h2>
-          {loading ? (
-            <Spinner loading={loading} />
+          {isLoading ? (
+            <Spinner loading={isLoading} />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {jobs.map((job, index) => (
+              {items.map((item, index) => (
                 <JobListing
-                  key={job.body._id || index}
-                  body={job.body}
-                  _id={job._id}
-                  status={job.status}
+                  key={item.body._id || index}
+                  body={item.body as Job}
+                  _id={item._id}
+                  status={item.status}
                 />
               ))}
             </div>

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 // Define the type for the job object
 
 export type Job = {
-  _id: number;
+  id: number;
   type: string;
   title: string;
   description: string;
@@ -53,7 +53,7 @@ const JobListing: React.FC<JobListingProps> = ({ body }) => {
             {body.location}
           </div>
           <Link
-            to={`/job/${body._id}`}
+            to={`/jobs/${body.id}`}
             className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm"
           >
             Read More

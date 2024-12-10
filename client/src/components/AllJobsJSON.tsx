@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "../config";
 
-const AllJobsJSON = () => {
-  type Item = {
-    _id: number;
-    status: boolean;
-    body: Record<string, any>; // Use a generic object type for JSON
-  };
+export type Item = {
+  _id: number;
+  status: boolean;
+  body: Record<string, any>; // Use a generic object type for JSON
+};
 
+const AllJobsJSON = () => {
   // Get Items
   const {
     data: items = [],
@@ -17,16 +17,26 @@ const AllJobsJSON = () => {
     queryKey: ["items"],
     queryFn: async () => {
       try {
-        const res = await fetch(`${BASE_URL}/items`);
+        const res = await fetch(`${BASE_URL}/items`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await res.json();
         if (!res.ok) {
           throw new Error(data.error || "something wrong");
         }
+        console.log(data);
 
         return data || [];
-      } catch (error) {}
+      } catch (error) {
+        throw new Error("An error occurred while fetching data"); // Handling errors properly
+      }
     },
   });
+
+  console.log(items);
   if (isLoading) {
     // Display a loading state
     return <div>Loading...</div>;

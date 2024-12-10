@@ -2,13 +2,15 @@ package middleware
 
 import (
 	"log"
-	"net/http"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 // LoggingMiddleware logs the incoming HTTP request
-func LoggingMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("Request: %s %s", r.Method, r.URL.Path) // Log the HTTP method and path
-		next.ServeHTTP(w, r)  // Call the next handler in the chain
-	})
+func LoggingMiddleware(c *fiber.Ctx) error {
+	// Log the HTTP method and path
+	log.Printf("Request: %s %s", c.Method(), c.Path())
+
+	// Call the next handler in the chain
+	return c.Next()
 }
