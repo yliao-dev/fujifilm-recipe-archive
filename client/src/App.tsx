@@ -12,21 +12,23 @@ import JobsJSONPage from "./pages/JobsJSONPage";
 import JobPage from "./pages/JobPage";
 import AddJobPage from "./pages/AddJobPage";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<MainLayout />}>
-      <Route index element={<HomePage />} />
-      <Route path="/jobs" element={<JobsPage />} />
-      <Route path="/add-job" element={<AddJobPage />} />
-
-      <Route path="/jobs/:id" element={<JobPage />} />
-      <Route path="/job-json" element={<JobsJSONPage />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Route>
-  )
-);
-
 const App = () => {
+  // TODO: Move this API call to Pages
+  const addJob = (newJob: any) => {
+    console.log("newJob", newJob);
+  };
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="/jobs" element={<JobsPage />} />
+        <Route path="/add-job" element={<AddJobPage addJobSubmit={addJob} />} />
+        <Route path="/jobs/:id" element={<JobPage />} />
+        <Route path="/job-json" element={<JobsJSONPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    )
+  );
   return <RouterProvider router={router} />;
 };
 

@@ -1,6 +1,24 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+type AddJobData = {
+  title: string;
+  type: string;
+  location: string;
+  description: string;
+  salary: string;
+  company: {
+    name: string;
+    description: string;
+    contactEmail: string;
+    contactPhone: string;
+  };
+};
 
-const AddJobPage = () => {
+type AddJobPageProps = {
+  addJobSubmit: (newJob: AddJobData) => void;
+};
+
+const AddJobPage: React.FC<AddJobPageProps> = ({ addJobSubmit }) => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("Full-Time");
   const [location, setLocation] = useState("");
@@ -10,8 +28,24 @@ const AddJobPage = () => {
   const [companyDescription, setCompanyDescription] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
-  const submitForm = (e: { preventDefault: () => void }) => {
+  const navigate = useNavigate();
+  const submitForm = (_e: { preventDefault: () => void }) => {
     console.log(description);
+    const newJob = {
+      title,
+      type,
+      location,
+      description,
+      salary,
+      company: {
+        name: companyName,
+        description: companyDescription,
+        contactEmail,
+        contactPhone,
+      },
+    };
+    addJobSubmit(newJob);
+    navigate("/jobs"); // Navigate programmatically to the jobs page
   };
   return (
     <section className="bg-indigo-50">
