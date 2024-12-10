@@ -27,8 +27,6 @@ const AllJobsJSON = () => {
         if (!res.ok) {
           throw new Error(data.error || "something wrong");
         }
-        console.log(data);
-
         return data || [];
       } catch (error) {
         throw new Error("An error occurred while fetching data"); // Handling errors properly
@@ -36,7 +34,6 @@ const AllJobsJSON = () => {
     },
   });
 
-  console.log(items);
   if (isLoading) {
     // Display a loading state
     return <div>Loading...</div>;

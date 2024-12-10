@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"log"
 
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
@@ -33,21 +34,22 @@ type Item struct {
 	Body Body `json:"body"`
 }
 
-
 // store _id in frontend, use _id to fetch jobs
 func GetItem(c *fiber.Ctx) error {
 	var collection = c.Locals("db").(*mongo.Collection)
 	var err error
 	var objectID primitive.ObjectID
 	var item Item
-	var id = c.Params("id")
+	id := c.Params("id")
 
 	if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
+		log.Printf("Invalid ObjectID: %s", id) // Log invalid ObjectID
 		return c.Status(400).JSON(fiber.Map{"error": "invalid item ID for get"})
 	}
 	filter := bson.M{"_id": objectID}
 	if err = collection.FindOne(context.Background(), filter).Decode(&item); err != nil {
-				if err == mongo.ErrNoDocuments {
+	    log.Printf("Error fetching item: %v", err) // Log any errors	
+		if err == mongo.ErrNoDocuments {
 			return c.Status(404).JSON(fiber.Map{"error": "item not found"})
 		}
 		// If there is any other error, return a 500 internal error

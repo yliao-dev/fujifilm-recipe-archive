@@ -2,6 +2,16 @@ root = "."
 testdata_dir = "testdata"
 tmp_dir = "tmp"
 
+[dirs]
+# Watch these directories for changes
+includes = ["."]
+excludes = ["vendor", "tmp"]
+
+[files]
+# Watch these file extensions for changes
+includes = ["*.go"]
+excludes = []
+
 [build]
   args_bin = []
   bin = "./tmp/main"
