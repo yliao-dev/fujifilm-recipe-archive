@@ -18,6 +18,7 @@ const AddJobPage: React.FC = () => {
   const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
     const newJob = {
+      id: Math.floor(Math.random() * 1000000), // Initialize id as a random integer
       title,
       type,
       location,
@@ -30,16 +31,18 @@ const AddJobPage: React.FC = () => {
         contactPhone,
       },
     };
+
     mutate(newJob, {
-      onSuccess: () => {
-        // Navigate after successful mutation
-        navigate("/jobs");
+      onError: (error) => {
+        console.error("Error during mutation:", error.message);
       },
-      onError: (err) => {
-        // Handle error
-        console.error("Error creating job:", err);
+      onSuccess: (data) => {
+        console.log("Job created successfully:", data);
+        // Optionally navigate after successful creation
+        // navigate("/jobs");
       },
     });
+    // navigate("/jobs");
   };
 
   if (isError) {
