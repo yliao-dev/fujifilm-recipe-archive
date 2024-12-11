@@ -1,8 +1,6 @@
 import JobListing, { Job } from "./JobListing";
-import { BASE_URL } from "../config";
 import Spinner from "./Spinner";
-import { Item } from "./AllJobsJSON";
-import { useQuery } from "@tanstack/react-query";
+import useItems from "../hooks/useItems";
 
 const JobListings = ({ isHome = false }) => {
   // const [jobs, setJobs] = useState<JobListingProps[]>([]);
@@ -13,21 +11,7 @@ const JobListings = ({ isHome = false }) => {
     isLoading,
     isError,
     error,
-  } = useQuery<Item[]>({
-    queryKey: ["items"], // Unique key for this query
-    queryFn: async () => {
-      try {
-        const res = await fetch(`${BASE_URL}/items`);
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error(data.error || "something wrong");
-        }
-
-        return data || [];
-      } catch (error) {}
-      throw new Error("An error occurred while fetching data"); // Handling errors properly
-    },
-  });
+  } = useItems();
 
   if (isError) {
     return (

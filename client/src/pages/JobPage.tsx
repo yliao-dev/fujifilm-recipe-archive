@@ -1,48 +1,35 @@
-import { useQuery } from "@tanstack/react-query";
-import { BASE_URL } from "../config";
 import { Link, useParams } from "react-router-dom";
-import { Item } from "../components/AllJobsJSON";
 import Spinner from "../components/Spinner";
 import { FaArrowLeft, FaMapMarker } from "react-icons/fa";
+import useItem from "../hooks/useItem";
 
 const JobPage = () => {
   // destructuring
   // { id: '6755c489eff718785448cde6' }
   const { id } = useParams<{ id: string }>();
-  const {
-    data: item,
-    isLoading,
-    isError,
-    error,
-  } = useQuery<Item>({
-    queryKey: ["item", id],
-    queryFn: async () => {
-      try {
-        if (!id) {
-          throw new Error("ID is missing"); // Ensure ID is present
-        }
-        const res = await fetch(`${BASE_URL}/items/${id}`);
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error(data.error || "something wrong");
-        }
-        return data;
-      } catch (error) {
-        throw new Error("An error occurred while fetching data"); // Handling errors properly
-      }
-    },
-  });
+  // Ensuring id is defined before passing it to the hook
+  if (!id) {
+    return <div>No item ID provided.</div>; // Or any error state you'd prefer
+  }
+  const { data: item, isLoading, isError, error } = useItem(id);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   if (isError) {
     return (
       <div>
-        <h2>Error Loading Jobs</h2>
+        <h2>Error Loading Item</h2>
         <p>{(error as Error).message || "Something went wrong!"}</p>
       </div>
     );
   }
+
   // Early Exit for Undefined States
-  // Handle cases where the item is undefined or not found
-  if (!item) return <p>No data found</p>;
+  if (!item) {
+    return <p>No data found</p>;
+  }
 
   return isLoading ? (
     <Spinner loading={isLoading} />

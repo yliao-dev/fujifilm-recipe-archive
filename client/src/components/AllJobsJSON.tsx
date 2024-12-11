@@ -1,11 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "../config";
-
-export type Item = {
-  _id: number;
-  status: boolean;
-  body: Record<string, any>; // Use a generic object type for JSON
-};
+import { Item } from "../hooks/useItems";
 
 const AllJobsJSON = () => {
   // Get Items
