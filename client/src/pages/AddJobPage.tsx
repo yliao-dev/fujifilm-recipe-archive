@@ -15,7 +15,8 @@ const AddJobPage: React.FC = () => {
 
   const { mutate, isError, error } = useCreateItem();
   const navigate = useNavigate();
-  const submitForm = (_e: { preventDefault: () => void }) => {
+  const submitForm = (e: React.FormEvent) => {
+    e.preventDefault();
     const newJob = {
       title,
       type,
@@ -29,14 +30,16 @@ const AddJobPage: React.FC = () => {
         contactPhone,
       },
     };
-
-    try {
-      // Perform the mutation (POST request)
-      await mutate(newJob); // Wait for the mutation to complete
-      navigate("/jobs"); // Navigate programmatically to the jobs page after success
-    } catch (err) {
-      console.error("Error creating job:", err);
-    }
+    mutate(newJob, {
+      onSuccess: () => {
+        // Navigate after successful mutation
+        navigate("/jobs");
+      },
+      onError: (err) => {
+        // Handle error
+        console.error("Error creating job:", err);
+      },
+    });
   };
 
   if (isError) {
