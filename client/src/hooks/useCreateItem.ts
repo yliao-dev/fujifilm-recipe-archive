@@ -13,18 +13,14 @@ const createJob = async (jobBody: JobBody): Promise<CreateJobResponse> => {
     body: JSON.stringify(jobBody),
   });
 
-  console.log("Response status:", res.status); // Log the response status
-  console.log("Response headers:", res.headers);
   if (!res.ok) {
     try {
       const errorData: CreateJobError = await res.json(); // Handle error response
-      console.error("Error response:", errorData); // Log error data for debugging
       throw new Error(
         errorData.message || "Something went wrong while creating the job"
       );
     } catch (err) {
       // If JSON parsing fails, handle it gracefully
-      console.error("Error parsing response JSON:", err);
       throw new Error("Unexpected error occurred while creating the job.");
     }
   }

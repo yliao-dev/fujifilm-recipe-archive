@@ -42,3 +42,14 @@ export interface CreateJobError {
   message: string;
   code?: number;
 }
+
+// Response for a successful delete operation
+export interface DeleteJobResponse {
+  success: boolean;
+  message: string; // e.g., "Job deleted successfully"
+}
+
+// Error response structure for delete operation
+export interface DeleteJobError {
+  message: string; // e.g., "Job not found"
+}

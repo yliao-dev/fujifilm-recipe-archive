@@ -1,21 +1,33 @@
-import { Link, useParams } from "react-router-dom";
-import Spinner from "../components/Spinner";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeft, FaMapMarker } from "react-icons/fa";
 import useItem from "../hooks/useItem";
+import useDeleteItem from "../hooks/useDeleteItem";
 
 const JobPage = () => {
   // destructuring
-  // { id: '6755c489eff718785448cde6' }
   const { id } = useParams<{ id: string }>();
-  // Ensuring id is defined before passing it to the hook
   if (!id) {
     return <div>No item ID provided.</div>; // Or any error state you'd prefer
   }
-  const { data: item, isLoading, isError, error } = useItem(id);
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+  const { data: item, isError, error } = useItem(id);
+  const { mutate: deleteJob, isError: isDeleteError } = useDeleteItem();
+
+  const navigate = useNavigate();
+  const handleDelete = () => {
+    if (confirm("Are you sure you want to delete this job?")) {
+      deleteJob(id, {
+        onSuccess: () => {
+          console.log("Job deleted successfully");
+          navigate("/jobs"); // Redirect to job list after deletion
+        },
+        onError: (err: { message: any }) => {
+          console.error("Error deleting job:", err.message);
+          alert("Failed to delete the job. Please try again.");
+        },
+      });
+    }
+  };
 
   if (isError) {
     return (
@@ -26,14 +38,11 @@ const JobPage = () => {
     );
   }
 
-  // Early Exit for Undefined States
   if (!item) {
     return <p>No data found</p>;
   }
 
-  return isLoading ? (
-    <Spinner loading={isLoading} />
-  ) : (
+  return (
     <>
       <section>
         <div className="container m-auto py-6 px-6">
@@ -90,7 +99,6 @@ const JobPage = () => {
               <h3 className="text-xl">Contact Phone:</h3>
 
               <p className="my-2 bg-indigo-100 p-2 font-bold">
-                {" "}
                 {item.body.company.contactPhone}
               </p>
             </div>
@@ -103,9 +111,15 @@ const JobPage = () => {
               >
                 Edit Job
               </Link>
-              <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
+              <button
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+                onClick={handleDelete}
+              >
                 Delete Job
               </button>
+              {isDeleteError && (
+                <p className="text-red-500 mt-2">Error deleting the job!</p>
+              )}
             </div>
           </aside>
         </div>
