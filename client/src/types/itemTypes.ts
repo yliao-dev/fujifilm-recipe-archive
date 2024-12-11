@@ -53,3 +53,10 @@ export interface DeleteJobResponse {
 export interface DeleteJobError {
   message: string; // e.g., "Job not found"
 }
+
+export interface EditJobData {}
+export interface EditJobResponse {}
+export interface EditJobError {
+  message: string;
+  code?: number;
+}

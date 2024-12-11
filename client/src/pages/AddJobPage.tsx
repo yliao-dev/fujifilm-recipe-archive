@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCreateItem from "../hooks/useCreateItem";
+import { toast } from "react-toastify";
 
 const AddJobPage: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -43,6 +44,8 @@ const AddJobPage: React.FC = () => {
       onSuccess: (data) => {
         console.log("Job created successfully:", data);
         // Optionally navigate after successful creation
+        toast.success("Job added successfully");
+
         navigate("/jobs");
       },
     });

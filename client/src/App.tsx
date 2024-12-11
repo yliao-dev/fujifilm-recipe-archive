@@ -11,7 +11,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import JobsJSONPage from "./pages/JobsJSONPage";
 import JobPage from "./pages/JobPage";
 import AddJobPage from "./pages/AddJobPage";
-
+import EditJobPage from "./pages/EditJobPage";
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -20,6 +20,7 @@ const App = () => {
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/add-job" element={<AddJobPage />} />
         <Route path="/jobs/:id" element={<JobPage />} />
+        <Route path="/edit-job/:id" element={<EditJobPage />} />
         <Route path="/job-json" element={<JobsJSONPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
