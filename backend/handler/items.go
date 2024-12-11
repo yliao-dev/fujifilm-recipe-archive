@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
@@ -88,6 +89,7 @@ func CreateItems(c *fiber.Ctx) error {
 	item := new(Item)
 	c.BodyParser(item)
 	if err := c.BodyParser(item); err != nil {
+		fmt.Println(err)
 		return err
 	}
 	if item.Body.ID == "" {

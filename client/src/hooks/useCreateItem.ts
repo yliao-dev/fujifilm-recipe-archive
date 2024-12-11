@@ -1,22 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
 import { BASE_URL } from "../config"; // Replace with your actual config
-import { NewJob, CreateJobResponse, CreateJobError } from "../types"; // Your types
+import { CreateJobResponse, CreateJobError, JobBody } from "../types"; // Your types
 
 // Mutation function for creating a job
-const createJob = async (newJob: NewJob): Promise<CreateJobResponse> => {
-  const requestBody = {
-    body: newJob,
-  };
-
-  console.log("Request body:", requestBody); // Log request body for debugging
-
+const createJob = async (jobBody: JobBody): Promise<CreateJobResponse> => {
   // Send request to the server
   const res = await fetch(`${BASE_URL}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(requestBody),
+    body: JSON.stringify(jobBody),
   });
 
   console.log("Response status:", res.status); // Log the response status
@@ -42,7 +36,7 @@ const createJob = async (newJob: NewJob): Promise<CreateJobResponse> => {
 
 // Hook for using createJob mutation
 const useCreateItem = () => {
-  return useMutation<CreateJobResponse, Error, NewJob>({
+  return useMutation<CreateJobResponse, Error, JobBody>({
     mutationFn: createJob, // Pass mutation function
     onError: (error: Error) => {
       console.error("Error creating job:", error.message);

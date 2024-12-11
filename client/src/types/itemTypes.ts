@@ -10,6 +10,7 @@ export interface Item {
 }
 
 export interface NewJob {
+  id: string;
   title: string;
   type: string;
   location: string;
@@ -21,6 +22,11 @@ export interface NewJob {
     contactEmail: string;
     contactPhone: string;
   };
+}
+
+// Define JobBody to wrap NewJob
+export interface JobBody {
+  body: NewJob;
 }
 
 // Response after creating the job (adjust it to match your API's response shape)
