@@ -1,25 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCreateItem from "../hooks/useCreateItem";
-type AddJobData = {
-  title: string;
-  type: string;
-  location: string;
-  description: string;
-  salary: string;
-  company: {
-    name: string;
-    description: string;
-    contactEmail: string;
-    contactPhone: string;
-  };
-};
 
-type AddJobPageProps = {
-  addJobSubmit: (newJob: AddJobData) => void;
-};
-
-const AddJobPage: React.FC<AddJobPageProps> = () => {
+const AddJobPage: React.FC = () => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("Full-Time");
   const [location, setLocation] = useState("");
@@ -29,10 +12,11 @@ const AddJobPage: React.FC<AddJobPageProps> = () => {
   const [companyDescription, setCompanyDescription] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+
+  const { mutate, isError, error } = useCreateItem();
   const navigate = useNavigate();
   const submitForm = (_e: { preventDefault: () => void }) => {
-    console.log(description);
-    const newJob = ({
+    const newJob = {
       title,
       type,
       location,
@@ -44,9 +28,25 @@ const AddJobPage: React.FC<AddJobPageProps> = () => {
         contactEmail,
         contactPhone,
       },
-    } = useCreateItem(newJob));
-    navigate("/jobs"); // Navigate programmatically to the jobs page
+    };
+
+    try {
+      // Perform the mutation (POST request)
+      await mutate(newJob); // Wait for the mutation to complete
+      navigate("/jobs"); // Navigate programmatically to the jobs page after success
+    } catch (err) {
+      console.error("Error creating job:", err);
+    }
   };
+
+  if (isError) {
+    return (
+      <div>
+        <h2>Error Loading Jobs</h2>
+        <p>{(error as Error).message || "Something went wrong!"}</p>
+      </div>
+    );
+  }
   return (
     <section className="bg-indigo-50">
       <div className="container m-auto max-w-2xl py-24">
