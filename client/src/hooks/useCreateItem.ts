@@ -1,18 +1,40 @@
-import { useQuery } from "@tanstack/react-query";
+// useCreateItem.ts
+import { useMutation } from "react-query";
 import { BASE_URL } from "../config";
-import { Item } from "./useItems";
+import { NewJob } from "../types";
 
 const useCreateItem = () => {
-  return useQuery<Item, Error>({
-    queryKey: ["item"],
-    queryFn: async () => {
-      const res = await fetch(`${BASE_URL}/items/}`);
+  return useMutation(
+    async (newJob: NewJob) => {
+      const res = await fetch(`${BASE_URL}/items`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newJob),
+      });
+
       const data = await res.json();
+
       if (!res.ok) {
-        throw new Error(data.error || "Something went wrong");
+        throw new Error(
+          data.error || "Something went wrong while creating the job"
+        );
       }
-      return data;
+
+      return data; // Return the newly created job data
     },
-  });
+    {
+      onError: (error: Error) => {
+        // Handle error state here if needed
+        console.error("Error creating job:", error.message);
+      },
+      onSuccess: (data) => {
+        // Handle success state here if needed
+        console.log("Job created successfully:", data);
+      },
+    }
+  );
 };
+
 export default useCreateItem;

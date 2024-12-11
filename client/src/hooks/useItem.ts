@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "../config";
-import { Item } from "./useItems";
+import { Item } from "../types";
 
 const useItem = (id: string) => {
   return useQuery<Item, Error>({

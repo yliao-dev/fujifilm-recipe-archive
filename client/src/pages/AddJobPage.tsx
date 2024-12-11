@@ -31,20 +31,20 @@ const AddJobPage: React.FC<AddJobPageProps> = () => {
   const [contactPhone, setContactPhone] = useState("");
   const navigate = useNavigate();
   const submitForm = (_e: { preventDefault: () => void }) => {
-    // console.log(description);
-    // const newJob = ({
-    //   title,
-    //   type,
-    //   location,
-    //   description,
-    //   salary,
-    //   company: {
-    //     name: companyName,
-    //     description: companyDescription,
-    //     contactEmail,
-    //     contactPhone,
-    //   },
-    // } = useCreateItem(newJob));
+    console.log(description);
+    const newJob = ({
+      title,
+      type,
+      location,
+      description,
+      salary,
+      company: {
+        name: companyName,
+        description: companyDescription,
+        contactEmail,
+        contactPhone,
+      },
+    } = useCreateItem(newJob));
     navigate("/jobs"); // Navigate programmatically to the jobs page
   };
   return (
