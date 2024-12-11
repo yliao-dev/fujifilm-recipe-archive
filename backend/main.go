@@ -15,11 +15,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-
-
-
-
-
 func main() {
 	fmt.Println("Connecting server")
 
@@ -30,6 +25,7 @@ func main() {
 			log.Fatal("error loading .env file", err)
 		}
 	}
+	log.Printf("Running in %s", os.Getenv("ENV"))
 	// -------- MongoDB Section -------- //
 	var client *mongo.Client
 	var err error
@@ -80,29 +76,4 @@ func main() {
 
 	log.Fatal(app.Listen("0.0.0.0:" + port))
 }
-// func checkDocumentSize() error {
-// 	// Create a document
-// 	job := bson.M{
-// 		"id":          "1",  // From the "body" object
-// 		"title":       "Senior React Developer", // From the "body" object
-// 		"type":        "Full-Time", // From the "body" object
-// 		"description": "We are seeking a talented Front-End Developer to join our team in Boston, MA. The ideal candidate will have strong skills in HTML, CSS, and JavaScript, with experience working with modern JavaScript frameworks such as React or Angular.", // From the "body" object
-// 		"location":    "Boston, MA", // From the "body" object
-// 		"salary":      "$70K - $80K", // From the "body" object
-// 		"company": bson.M{ // Nested "company" object as another bson.M
-// 			"name":        "NewTek Solutions",
-// 			"description": "NewTek Solutions is a leading technology company specializing in web development and digital solutions. We pride ourselves on delivering high-quality products and services to our clients while fostering a collaborative and innovative work environment.",
-// 			"contactEmail": "contact@teksolutions.com",
-// 			"contactPhone": "555-555-5555",
-// 		},
-// 	}
-// 	// Check the size of the document before inserting it
-// 	docBytes, err := bson.Marshal(job)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	fmt.Printf("Document size: %d bytes\n", len(docBytes))
-// 	return nil
-// }
-
 
