@@ -4,11 +4,10 @@ import useItem from "../hooks/useItem";
 import useDeleteItem from "../hooks/useDeleteItem";
 import { toast } from "react-toastify";
 
-const JobPage = () => {
-  // destructuring
+const RecipePage = () => {
   const { id } = useParams<{ id: string }>();
   if (!id) {
-    return <div>No item ID provided.</div>; // Or any error state you'd prefer
+    return <div>No item ID provided.</div>;
   }
 
   const { data: item, isError, error } = useItem(id);
@@ -130,4 +129,4 @@ const JobPage = () => {
   );
 };
 
-export default JobPage;
+export default RecipePage;

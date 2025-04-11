@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useCreateItem from "../hooks/useCreateItem";
 import { toast } from "react-toastify";
 
-const AddJobPage: React.FC = () => {
+const AddRecipePage = () => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("Full-Time");
   const [location, setLocation] = useState("");
@@ -255,4 +255,4 @@ const AddJobPage: React.FC = () => {
   );
 };
 
-export default AddJobPage;
+export default AddRecipePage;
