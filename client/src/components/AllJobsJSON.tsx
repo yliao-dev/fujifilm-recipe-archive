@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "../config";
 import { Item } from "../hooks/useItems";
 
-const AllJobsJSON = () => {
+const AllRecipesJSON = () => {
   // Get Items
   const {
     data: items = [],
@@ -56,4 +56,4 @@ const AllJobsJSON = () => {
   );
 };
 
-export default AllJobsJSON;
+export default AllRecipesJSON;

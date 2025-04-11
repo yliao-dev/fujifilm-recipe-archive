@@ -3,7 +3,7 @@ import Spinner from "./Spinner";
 import useItems from "../hooks/useItems";
 
 const JobListings = ({ isHome = false }) => {
-  // const [recipes, setJobs] = useState<JobListingProps[]>([]);
+  // const [recipes, setRecipes] = useState<JobListingProps[]>([]);
   // const [loading, setLoading] = useState(true);
   // React Query hook to fetch recipes
   const {

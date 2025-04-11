@@ -4,18 +4,18 @@ import { EditJobResponse, EditJobData, EditJobError } from "../types"; // Add th
 
 // Mutation function for editing a recipe
 const editJob = async ({
-  jobId,
-  jobData,
+  recipeId,
+  recipeData,
 }: {
-  jobId: string;
-  jobData: EditJobData;
+  recipeId: string;
+  recipeData: EditJobData;
 }): Promise<EditJobResponse> => {
-  const res = await fetch(`${BASE_URL}/items/${jobId}`, {
+  const res = await fetch(`${BASE_URL}/items/${recipeId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(jobData),
+    body: JSON.stringify(recipeData),
   });
 
   if (!res.ok) {
@@ -36,7 +36,7 @@ const useEditJob = () => {
   return useMutation<
     EditJobResponse,
     Error,
-    { jobId: string; jobData: EditJobData }
+    { recipeId: string; recipeData: EditJobData }
   >({
     mutationFn: editJob, // Pass the mutation function
     onError: (error: Error) => {

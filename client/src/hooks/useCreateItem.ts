@@ -3,14 +3,14 @@ import { BASE_URL } from "../config"; // Replace with your actual config
 import { CreateJobResponse, CreateJobError, JobBody } from "../types"; // Your types
 
 // Mutation function for creating a recipe
-const createJob = async (jobBody: JobBody): Promise<CreateJobResponse> => {
+const createJob = async (recipeBody: JobBody): Promise<CreateJobResponse> => {
   // Send request to the server
   const res = await fetch(`${BASE_URL}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(jobBody),
+    body: JSON.stringify(recipeBody),
   });
 
   if (!res.ok) {

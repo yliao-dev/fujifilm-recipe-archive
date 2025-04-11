@@ -3,8 +3,8 @@ import { BASE_URL } from "../config"; // Replace with your actual config
 import { DeleteJobResponse, DeleteJobError } from "../types"; // Add these types to your type definitions
 
 // Mutation function for deleting a recipe
-const deleteJob = async (jobId: string): Promise<DeleteJobResponse> => {
-  const res = await fetch(`${BASE_URL}/items/${jobId}`, {
+const deleteJob = async (recipeId: string): Promise<DeleteJobResponse> => {
+  const res = await fetch(`${BASE_URL}/items/${recipeId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
