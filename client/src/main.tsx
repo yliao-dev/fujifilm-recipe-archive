@@ -1,11 +1,10 @@
-import { createRoot } from "react-dom/client";
-import App from "./App";
 import * as React from "react";
-import "./index.css";
+import App from "./App.tsx";
+import "./styles/index.css";
+import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
-// TypeScript type assertion to specify that the element exists
 const rootElement = document.getElementById("root") as HTMLElement;
 createRoot(rootElement).render(
   <React.StrictMode>
