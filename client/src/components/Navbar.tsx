@@ -15,9 +15,9 @@ const Navbar = () => {
           <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
             {/* Logo */}
             <NavLink className="flex flex-shrink-0 items-center mr-4" to="/">
-              <img className="h-10 w-auto" src={logo} alt="React Jobs" />
+              <img className="h-10 w-auto" src={logo} alt="React Recipes" />
               <span className="hidden md:block text-white text-2xl font-bold ml-2">
-                React Jobs
+                React Recipes
               </span>
             </NavLink>
             <div className="md:ml-auto">
@@ -29,20 +29,20 @@ const Navbar = () => {
                   Home
                 </NavLink>
                 <NavLink
-                  to="/jobs"
+                  to="/recipes"
                   className={({ isActive }) => linkClass({ isActive })}
                 >
-                  Jobs
+                  Recipes
                 </NavLink>
                 <NavLink
-                  to="/add-job"
+                  to="/add-recipe"
                   className={({ isActive }) => linkClass({ isActive })}
                 >
                   Add Job
                 </NavLink>
 
                 <NavLink
-                  to="/job-json"
+                  to="/recipe-json"
                   className={({ isActive }) => linkClass({ isActive })}
                 >
                   All Job JSON

@@ -3,9 +3,9 @@ import Spinner from "./Spinner";
 import useItems from "../hooks/useItems";
 
 const JobListings = ({ isHome = false }) => {
-  // const [jobs, setJobs] = useState<JobListingProps[]>([]);
+  // const [recipes, setJobs] = useState<JobListingProps[]>([]);
   // const [loading, setLoading] = useState(true);
-  // React Query hook to fetch jobs
+  // React Query hook to fetch recipes
   const {
     data: items = [], // Use default value (empty array) for items
     isLoading,
@@ -16,18 +16,18 @@ const JobListings = ({ isHome = false }) => {
   if (isError) {
     return (
       <div>
-        <h2>Error Loading Jobs</h2>
+        <h2>Error Loading Recipes</h2>
         <p>{(error as Error).message || "Something went wrong!"}</p>
       </div>
     );
   }
   return (
     <>
-      {/* <!-- Browse Jobs --> */}
+      {/* <!-- Browse Recipes --> */}
       <section className="bg-blue-50 px-4 py-10">
         <div className="container-xl lg:container m-auto">
           <h2 className="text-3xl font-bold text-indigo-500 mb-6 text-center">
-            {isHome ? "Recent Jobs" : "Browse Jobs"}
+            {isHome ? "Recent Recipes" : "Browse Recipes"}
           </h2>
           {isLoading ? (
             <Spinner loading={isLoading} />

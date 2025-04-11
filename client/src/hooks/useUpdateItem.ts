@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { BASE_URL } from "../config"; // Replace with your actual config
 import { EditJobResponse, EditJobData, EditJobError } from "../types"; // Add these types to your type definitions
 
-// Mutation function for editing a job
+// Mutation function for editing a recipe
 const editJob = async ({
   jobId,
   jobData,
@@ -21,9 +21,9 @@ const editJob = async ({
   if (!res.ok) {
     try {
       const errorData: EditJobError = await res.json();
-      throw new Error(errorData.message || "Failed to update the job.");
+      throw new Error(errorData.message || "Failed to update the recipe.");
     } catch (err) {
-      throw new Error("Unexpected error occurred while updating the job.");
+      throw new Error("Unexpected error occurred while updating the recipe.");
     }
   }
 
@@ -40,7 +40,7 @@ const useEditJob = () => {
   >({
     mutationFn: editJob, // Pass the mutation function
     onError: (error: Error) => {
-      console.error("Error editing job:", error.message);
+      console.error("Error editing recipe:", error.message);
     },
     onSuccess: (data: EditJobResponse) => {
       console.log("Job updated successfully:", data);

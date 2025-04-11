@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { BASE_URL } from "../config"; // Replace with your actual config
 import { DeleteJobResponse, DeleteJobError } from "../types"; // Add these types to your type definitions
 
-// Mutation function for deleting a job
+// Mutation function for deleting a recipe
 const deleteJob = async (jobId: string): Promise<DeleteJobResponse> => {
   const res = await fetch(`${BASE_URL}/items/${jobId}`, {
     method: "DELETE",
@@ -15,11 +15,11 @@ const deleteJob = async (jobId: string): Promise<DeleteJobResponse> => {
     try {
       const errorData: DeleteJobError = await res.json(); // Handle error response
       throw new Error(
-        errorData.message || "Something went wrong while deleting the job"
+        errorData.message || "Something went wrong while deleting the recipe"
       );
     } catch (err) {
       // If JSON parsing fails, handle it gracefully
-      throw new Error("Unexpected error occurred while deleting the job.");
+      throw new Error("Unexpected error occurred while deleting the recipe.");
     }
   }
 
@@ -33,7 +33,7 @@ const useDeleteItem = () => {
   return useMutation<DeleteJobResponse, Error, string>({
     mutationFn: deleteJob, // Pass mutation function
     onError: (error: Error) => {
-      console.error("Error deleting job:", error.message);
+      console.error("Error deleting recipe:", error.message);
       // Optionally, display an error notification or handle state updates here
     },
     onSuccess: (data: DeleteJobResponse) => {

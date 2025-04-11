@@ -46,7 +46,7 @@ const AddRecipePage = () => {
         // Optionally navigate after successful creation
         toast.success("Job added successfully");
 
-        navigate("/jobs");
+        navigate("/recipes");
       },
     });
   };
@@ -54,7 +54,7 @@ const AddRecipePage = () => {
   if (isError) {
     return (
       <div>
-        <h2>Error Loading Jobs</h2>
+        <h2>Error Loading Recipes</h2>
         <p>{(error as Error).message || "Something went wrong!"}</p>
       </div>
     );
@@ -115,7 +115,7 @@ const AddRecipePage = () => {
                 name="description"
                 className="border rounded w-full py-2 px-3"
                 rows={4}
-                placeholder="Add any job duties, expectations, requirements, etc"
+                placeholder="Add any recipe duties, expectations, requirements, etc"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></textarea>

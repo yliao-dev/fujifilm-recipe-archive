@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaMapMarker } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-// Define the type for the job object
+// Define the type for the recipe object
 
 export type Job = {
   id: number;
@@ -53,7 +53,7 @@ const JobListing: React.FC<JobListingProps> = ({ _id, body }) => {
             {body.location}
           </div>
           <Link
-            to={`/jobs/${_id}`}
+            to={`/recipes/${_id}`}
             className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm"
           >
             Read More

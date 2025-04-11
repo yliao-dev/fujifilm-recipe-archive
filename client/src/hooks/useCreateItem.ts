@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { BASE_URL } from "../config"; // Replace with your actual config
 import { CreateJobResponse, CreateJobError, JobBody } from "../types"; // Your types
 
-// Mutation function for creating a job
+// Mutation function for creating a recipe
 const createJob = async (jobBody: JobBody): Promise<CreateJobResponse> => {
   // Send request to the server
   const res = await fetch(`${BASE_URL}/items`, {
@@ -17,11 +17,11 @@ const createJob = async (jobBody: JobBody): Promise<CreateJobResponse> => {
     try {
       const errorData: CreateJobError = await res.json(); // Handle error response
       throw new Error(
-        errorData.message || "Something went wrong while creating the job"
+        errorData.message || "Something went wrong while creating the recipe"
       );
     } catch (err) {
       // If JSON parsing fails, handle it gracefully
-      throw new Error("Unexpected error occurred while creating the job.");
+      throw new Error("Unexpected error occurred while creating the recipe.");
     }
   }
 
@@ -35,7 +35,7 @@ const useCreateItem = () => {
   return useMutation<CreateJobResponse, Error, JobBody>({
     mutationFn: createJob, // Pass mutation function
     onError: (error: Error) => {
-      console.error("Error creating job:", error.message);
+      console.error("Error creating recipe:", error.message);
       // Optionally, you can display an error notification or handle state updates here
     },
     onSuccess: (data: CreateJobResponse) => {

@@ -29,7 +29,7 @@ export interface JobBody {
   body: NewJob;
 }
 
-// Response after creating the job (adjust it to match your API's response shape)
+// Response after creating the recipe (adjust it to match your API's response shape)
 export interface CreateJobResponse {
   id: string; // Example field, adjust based on actual API response
   title: string;

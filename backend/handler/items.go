@@ -35,7 +35,7 @@ type Item struct {
 	Body Body `json:"body"`
 }
 
-// store _id in frontend, use _id to fetch jobs
+// store _id in frontend, use _id to fetch recipes
 func GetItem(c *fiber.Ctx) error {
 	var collection = c.Locals("db").(*mongo.Collection)
 	var err error

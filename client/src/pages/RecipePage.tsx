@@ -15,16 +15,16 @@ const RecipePage = () => {
 
   const navigate = useNavigate();
   const handleDelete = () => {
-    if (confirm("Are you sure you want to delete this job?")) {
+    if (confirm("Are you sure you want to delete this recipe?")) {
       deleteJob(id, {
         onSuccess: () => {
           console.log("Job deleted successfully");
           toast.success("Job deleted successfully");
-          navigate("/jobs"); // Redirect to job list after deletion
+          navigate("/recipes"); // Redirect to recipe list after deletion
         },
         onError: (err: { message: any }) => {
-          console.error("Error deleting job:", err.message);
-          alert("Failed to delete the job. Please try again.");
+          console.error("Error deleting recipe:", err.message);
+          alert("Failed to delete the recipe. Please try again.");
         },
       });
     }
@@ -48,7 +48,7 @@ const RecipePage = () => {
       <section>
         <div className="container m-auto py-6 px-6">
           <Link
-            to="/jobs"
+            to="/recipes"
             className="text-indigo-500 hover:text-indigo-600 flex items-center"
           >
             <FaArrowLeft className="mr-2" /> Back to Job Listings
@@ -107,7 +107,7 @@ const RecipePage = () => {
             <div className="bg-white p-6 rounded-lg shadow-md mt-6">
               <h3 className="text-xl font-bold mb-6">Manage Job</h3>
               <Link
-                to={`/edit-job/${item._id}`}
+                to={`/edit-recipe/${item._id}`}
                 className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
               >
                 Edit Job
@@ -119,7 +119,7 @@ const RecipePage = () => {
                 Delete Job
               </button>
               {isDeleteError && (
-                <p className="text-red-500 mt-2">Error deleting the job!</p>
+                <p className="text-red-500 mt-2">Error deleting the recipe!</p>
               )}
             </div>
           </aside>

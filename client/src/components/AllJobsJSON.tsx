@@ -41,7 +41,7 @@ const AllJobsJSON = () => {
   return (
     <>
       <div>
-        <h1>All Jobs</h1>
+        <h1>All Recipes</h1>
         <ul>
           {items.map((item, index) => (
             <li key={item._id || index}>
