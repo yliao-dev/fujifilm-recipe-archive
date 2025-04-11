@@ -1,0 +1,44 @@
+[
+  {
+    "_id": { "$oid": "6617fcf41f1e5c0fbd51a001" },
+    "name": "Kodachrome 64",
+    "cameraModels": ["X-T3", "X-T30"],
+    "filmSimulation": "Classic Chrome",
+    "settings": {
+      "highlight": -1,
+      "shadow": -2,
+      "color": -1,
+      "grainEffect": "Strong",
+      "wbShift": "R: +3, B: -2",
+      "dr": "DR200",
+      "iso": "Auto",
+      "noiseReduction": -4
+    },
+    "tags": ["warm", "vintage", "sunlight"],
+    "sampleImageUrl": "/images/recipes/kodachrome64.jpg",
+    "creator": "Fuji X Weekly",
+    "notes": "Simulates Kodachrome film. Best for daylight and high contrast scenes.",
+    "createdAt": { "$date": "2024-10-15T08:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "6617fcf41f1e5c0fbd51a002" },
+    "name": "Urban Chrome",
+    "cameraModels": ["X100V", "X-S10", "X-T4"],
+    "filmSimulation": "Classic Chrome",
+    "settings": {
+      "highlight": 0,
+      "shadow": 2,
+      "color": 0,
+      "grainEffect": "Weak",
+      "wbShift": "R: +2, B: -3",
+      "dr": "DR100",
+      "iso": "Auto",
+      "noiseReduction": -2
+    },
+    "tags": ["street", "contrast", "modern"],
+    "sampleImageUrl": "/images/recipes/urban-chrome.jpg",
+    "creator": "FujifilmShooter92",
+    "notes": "Great for gritty urban environments. Preserves shadows while enhancing structure.",
+    "createdAt": { "$date": "2024-11-02T10:30:00Z" }
+  }
+]
