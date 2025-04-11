@@ -1,3 +1,19 @@
+@import "./variables.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+section {
+  padding: 1.2rem;
+  align-items: center;
+}
