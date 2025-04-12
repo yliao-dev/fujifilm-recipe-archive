@@ -10,7 +10,7 @@ const RecipeListPage = () => {
           <RecipeCards recipeData={RecipeData} />
         </section>
         <Link to="/" className="home__link">
-          Home Page →
+          Home Page
         </Link>
       </div>
     </>
