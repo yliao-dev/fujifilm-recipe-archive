@@ -1,11 +1,11 @@
 import RecipeCards from "../components/RecipeCards";
 import { RecipeData } from "../data/data";
 
-const RecipesPage = () => {
+const RecipeListPage = () => {
   return (
     <>
-      <div className="recipes__page">
-        <section className="card-grid">
+      <div className="recipeList">
+        <section className="recipeList__card-grid">
           <RecipeCards recipeData={RecipeData} />
         </section>
       </div>
@@ -13,4 +13,4 @@ const RecipesPage = () => {
   );
 };
 
-export default RecipesPage;
+export default RecipeListPage;

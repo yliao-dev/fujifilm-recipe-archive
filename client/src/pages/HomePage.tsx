@@ -20,7 +20,7 @@ const HomePage = () => {
         />
       </section>
 
-      <section className="card-grid">
+      <section className="home__card-grid">
         <RecipeCards recipeData={RecipeData.slice(0, 3)} />
       </section>
 

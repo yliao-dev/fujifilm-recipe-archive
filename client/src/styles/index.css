@@ -1,6 +1,6 @@
 @import "./variables.css";
 @import "./homePage.css";
-@import "./recipesPage.css";
+@import "./recipeListPage.css";
 @import "./recipe.css";
 @tailwind base;
 @tailwind components;

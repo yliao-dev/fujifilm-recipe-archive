@@ -4,7 +4,7 @@ import useItem from "../hooks/useItem";
 import useDeleteItem from "../hooks/useDeleteItem";
 import { toast } from "react-toastify";
 
-const RecipePage = () => {
+const RecipeDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   if (!id) {
     return <div>No item ID provided.</div>;
@@ -129,4 +129,4 @@ const RecipePage = () => {
   );
 };
 
-export default RecipePage;
+export default RecipeDetailPage;

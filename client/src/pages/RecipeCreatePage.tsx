@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useCreateItem from "../hooks/useCreateItem";
 import { toast } from "react-toastify";
 
-const AddRecipePage = () => {
+const RecipeCreatePage = () => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("Full-Time");
   const [location, setLocation] = useState("");
@@ -255,4 +255,4 @@ const AddRecipePage = () => {
   );
 };
 
-export default AddRecipePage;
+export default RecipeCreatePage;
