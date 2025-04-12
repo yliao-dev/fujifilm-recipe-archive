@@ -1,0 +1,20 @@
+.recipes__page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+/* Tablet and above */
+@media (min-width: 768px) {
+  /* .card-grid {
+    grid-template-columns: repeat(4, 1fr);
+  } */
+}
+
+/* Desktop and above */
+@media (min-width: 1024px) {
+}

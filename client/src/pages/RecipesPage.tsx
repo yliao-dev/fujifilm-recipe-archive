@@ -1,5 +1,16 @@
+import RecipeCards from "../components/RecipeCards";
+import { RecipeData } from "../data/data";
+
 const RecipesPage = () => {
-  return <section className="bg-blue-50 px-4 py-6"></section>;
+  return (
+    <>
+      <div className="recipes__page">
+        <section className="card-grid">
+          <RecipeCards recipeData={RecipeData} />
+        </section>
+      </div>
+    </>
+  );
 };
 
 export default RecipesPage;
