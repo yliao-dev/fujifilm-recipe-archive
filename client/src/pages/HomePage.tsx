@@ -5,7 +5,7 @@ import { RecipeData } from "../data/data";
 const HomePage = () => {
   return (
     <div className="home">
-      <section className="home-intro">
+      <section className="home__intro">
         <h1>
           Explore Custom{" "}
           <span>
@@ -15,7 +15,7 @@ const HomePage = () => {
         </h1>
         <input
           type="text"
-          className="home-search"
+          className="home__search"
           placeholder="Search film simulation recipes..."
         />
       </section>
@@ -24,7 +24,7 @@ const HomePage = () => {
         <RecipeCards recipeData={RecipeData.slice(0, 3)} />
       </section>
 
-      <Link to="/recipes" className="home-link">
+      <Link to="/recipes" className="home__link">
         View All Recipes →
       </Link>
     </div>

@@ -18,9 +18,9 @@
 
 /* Tablet and above */
 @media (min-width: 768px) {
-  /* .card-grid {
+  .recipeList__card-grid {
     grid-template-columns: repeat(4, 1fr);
-  } */
+  }
 }
 
 /* Desktop and above */

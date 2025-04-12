@@ -1,4 +1,4 @@
-import RecipeItem from "./Recipe";
+import RecipeItem from "./RecipeCard";
 import { RecipeCardProps } from "../types/recipeTypes";
 
 const RecipeCards = ({ recipeData }: RecipeCardProps) => {

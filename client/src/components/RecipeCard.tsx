@@ -8,7 +8,7 @@ function RecipeItem({
   tags,
 }: RecipeItemProps) {
   return (
-    <div className="card">
+    <div className="recipeCard">
       <img src={sampleImageUrl} alt={name} />
       <h2>{name}</h2>
       <p>{`${filmSimulation} - ${tags[0]}`}</p>
