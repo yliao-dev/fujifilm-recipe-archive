@@ -1,44 +1,212 @@
 [
   {
-    "_id": { "$oid": "6617fcf41f1e5c0fbd51a001" },
-    "name": "Kodachrome 64",
-    "cameraModels": ["X-T3", "X-T30"],
-    "filmSimulation": "Classic Chrome",
+    "_id": { "$oid": "6617fcf41f1e5c0fbd51a003" },
+    "name": "CineSoft",
+    "cameraModels": ["X-T4", "X100V"],
+    "filmSimulation": "Pro Neg Hi",
     "settings": {
       "highlight": -1,
-      "shadow": -2,
+      "shadow": 1,
       "color": -1,
-      "grainEffect": "Strong",
-      "wbShift": "R: +3, B: -2",
+      "grainEffect": "Weak",
+      "wbShift": "R: +1, B: -1",
       "dr": "DR200",
       "iso": "Auto",
-      "noiseReduction": -4
+      "noiseReduction": -3
     },
-    "tags": ["warm", "vintage", "sunlight"],
-    "sampleImageUrl": "/images/recipes/kodachrome64.jpg",
-    "creator": "Fuji X Weekly",
-    "notes": "Simulates Kodachrome film. Best for daylight and high contrast scenes.",
-    "createdAt": { "$date": "2024-10-15T08:00:00Z" }
+    "tags": ["cinematic", "soft", "portrait"],
+    "sampleImageUrl": "/images/recipes/cinesoft.jpg",
+    "creator": "VisionLab",
+    "notes": "Low contrast tones for a cinematic mood.",
+    "createdAt": { "$date": "2024-09-10T07:20:00Z" }
   },
   {
-    "_id": { "$oid": "6617fcf41f1e5c0fbd51a002" },
-    "name": "Urban Chrome",
-    "cameraModels": ["X100V", "X-S10", "X-T4"],
-    "filmSimulation": "Classic Chrome",
+    "_id": { "$oid": "6617fcf41f1e5c0fbd51a004" },
+    "name": "Evergreen",
+    "cameraModels": ["X-T3", "X-Pro3"],
+    "filmSimulation": "Provia",
     "settings": {
       "highlight": 0,
-      "shadow": 2,
-      "color": 0,
-      "grainEffect": "Weak",
-      "wbShift": "R: +2, B: -3",
+      "shadow": 0,
+      "color": 2,
+      "grainEffect": "Strong",
+      "wbShift": "R: 0, B: 0",
+      "dr": "DR100",
+      "iso": 800,
+      "noiseReduction": 0
+    },
+    "tags": ["nature", "green", "daylight"],
+    "sampleImageUrl": "/images/recipes/evergreen.jpg",
+    "creator": "FieldShooter",
+    "notes": "Excellent color for trees and greenery.",
+    "createdAt": { "$date": "2024-06-18T11:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "6617fcf41f1e5c0fbd51a005" },
+    "name": "Desert Gold",
+    "cameraModels": ["X-S10", "X100V"],
+    "filmSimulation": "Velvia",
+    "settings": {
+      "highlight": 2,
+      "shadow": -1,
+      "color": 3,
+      "grainEffect": "Off",
+      "wbShift": "R: +2, B: +1",
       "dr": "DR100",
       "iso": "Auto",
       "noiseReduction": -2
     },
-    "tags": ["street", "contrast", "modern"],
-    "sampleImageUrl": "/images/recipes/urban-chrome.jpg",
-    "creator": "FujifilmShooter92",
-    "notes": "Great for gritty urban environments. Preserves shadows while enhancing structure.",
-    "createdAt": { "$date": "2024-11-02T10:30:00Z" }
+    "tags": ["golden", "warm", "landscape"],
+    "sampleImageUrl": "/images/recipes/desert-gold.jpg",
+    "creator": "DesertDrifter",
+    "notes": "Golden tones ideal for sunsets and open desert.",
+    "createdAt": { "$date": "2024-08-04T16:45:00Z" }
+  },
+  {
+    "_id": { "$oid": "6617fcf41f1e5c0fbd51a006" },
+    "name": "Street Mono",
+    "cameraModels": ["X-E4", "X100V"],
+    "filmSimulation": "Acros",
+    "settings": {
+      "highlight": 1,
+      "shadow": 2,
+      "color": 0,
+      "grainEffect": "Strong",
+      "wbShift": "R: 0, B: 0",
+      "dr": "DR200",
+      "iso": 1600,
+      "noiseReduction": -3
+    },
+    "tags": ["monochrome", "street", "gritty"],
+    "sampleImageUrl": "/images/recipes/street-mono.jpg",
+    "creator": "MonoHunter",
+    "notes": "Black-and-white recipe perfect for urban shadows.",
+    "createdAt": { "$date": "2024-10-01T20:15:00Z" }
+  },
+  {
+    "_id": { "$oid": "6617fcf41f1e5c0fbd51a007" },
+    "name": "Cobalt Dream",
+    "cameraModels": ["X-T30", "X-S10"],
+    "filmSimulation": "Classic Chrome",
+    "settings": {
+      "highlight": -2,
+      "shadow": 0,
+      "color": -2,
+      "grainEffect": "Weak",
+      "wbShift": "R: +4, B: -4",
+      "dr": "DR400",
+      "iso": "Auto",
+      "noiseReduction": -4
+    },
+    "tags": ["cool", "low contrast", "night"],
+    "sampleImageUrl": "/images/recipes/cobalt-dream.jpg",
+    "creator": "SoftEdge",
+    "notes": "Cool tones for dusk or overcast scenes.",
+    "createdAt": { "$date": "2024-09-25T08:55:00Z" }
+  },
+  {
+    "_id": { "$oid": "6617fcf41f1e5c0fbd51a008" },
+    "name": "Retro Color",
+    "cameraModels": ["X100F", "X-T20"],
+    "filmSimulation": "Astia",
+    "settings": {
+      "highlight": 1,
+      "shadow": 1,
+      "color": 2,
+      "grainEffect": "Strong",
+      "wbShift": "R: +1, B: -2",
+      "dr": "DR200",
+      "iso": 400,
+      "noiseReduction": -2
+    },
+    "tags": ["retro", "colorful", "fun"],
+    "sampleImageUrl": "/images/recipes/retro-color.jpg",
+    "creator": "ColorBox",
+    "notes": "Punchy color look with strong 80s vibes.",
+    "createdAt": { "$date": "2024-07-11T13:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "6617fcf41f1e5c0fbd51a009" },
+    "name": "Soft Sepia",
+    "cameraModels": ["X100V", "X-T4"],
+    "filmSimulation": "Monochrome",
+    "settings": {
+      "highlight": 0,
+      "shadow": -1,
+      "color": 0,
+      "grainEffect": "Off",
+      "wbShift": "R: +1, B: +2",
+      "dr": "DR100",
+      "iso": 200,
+      "noiseReduction": -1
+    },
+    "tags": ["sepia", "timeless", "minimal"],
+    "sampleImageUrl": "/images/recipes/soft-sepia.jpg",
+    "creator": "QuietFrame",
+    "notes": "Minimalist tone with a soft vintage feel.",
+    "createdAt": { "$date": "2024-08-23T09:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "6617fcf41f1e5c0fbd51a00a" },
+    "name": "Faded Film",
+    "cameraModels": ["X-Pro3", "X-T3"],
+    "filmSimulation": "Classic Negative",
+    "settings": {
+      "highlight": -1,
+      "shadow": -1,
+      "color": -2,
+      "grainEffect": "Strong",
+      "wbShift": "R: 0, B: -3",
+      "dr": "DR200",
+      "iso": "Auto",
+      "noiseReduction": -4
+    },
+    "tags": ["washed", "film", "nostalgic"],
+    "sampleImageUrl": "/images/recipes/faded-film.jpg",
+    "creator": "FilmCurator",
+    "notes": "Washed-out look reminiscent of old prints.",
+    "createdAt": { "$date": "2024-09-12T12:10:00Z" }
+  },
+  {
+    "_id": { "$oid": "6617fcf41f1e5c0fbd51a00b" },
+    "name": "Crisp Color",
+    "cameraModels": ["X-T5", "X-H2"],
+    "filmSimulation": "Provia",
+    "settings": {
+      "highlight": 1,
+      "shadow": 1,
+      "color": 1,
+      "grainEffect": "Off",
+      "wbShift": "R: 0, B: 0",
+      "dr": "DR100",
+      "iso": 1600,
+      "noiseReduction": 0
+    },
+    "tags": ["clean", "daylight", "modern"],
+    "sampleImageUrl": "/images/recipes/crisp-color.jpg",
+    "creator": "SharpShooter",
+    "notes": "Great base look with true-to-life tones.",
+    "createdAt": { "$date": "2024-07-30T14:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "6617fcf41f1e5c0fbd51a00c" },
+    "name": "Autumn Mood",
+    "cameraModels": ["X-S10", "X-T30"],
+    "filmSimulation": "Eterna",
+    "settings": {
+      "highlight": -2,
+      "shadow": 0,
+      "color": -1,
+      "grainEffect": "Weak",
+      "wbShift": "R: +2, B: -1",
+      "dr": "DR200",
+      "iso": "Auto",
+      "noiseReduction": -2
+    },
+    "tags": ["autumn", "warm", "cinematic"],
+    "sampleImageUrl": "/images/recipes/autumn-mood.jpg",
+    "creator": "LeafCatcher",
+    "notes": "Muted and warm tones — great for fall streets.",
+    "createdAt": { "$date": "2024-10-08T18:20:00Z" }
   }
 ]
