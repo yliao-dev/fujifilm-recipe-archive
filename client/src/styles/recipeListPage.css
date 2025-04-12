@@ -11,18 +11,27 @@
 .recipeList__card-grid {
   display: grid;
   margin-top: auto;
-  width: 65%;
+  width: 80%;
   gap: 2rem;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 
 /* Tablet and above */
 @media (min-width: 768px) {
   .recipeList__card-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 /* Desktop and above */
 @media (min-width: 1024px) {
+  .recipeList__card-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1440) {
+  .recipeList__card-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

@@ -54,6 +54,9 @@
 
 /* Tablet and above */
 @media (min-width: 768px) {
+  .home__card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 /* Desktop and above */

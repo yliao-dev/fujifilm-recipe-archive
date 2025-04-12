@@ -10,9 +10,11 @@ function RecipeItem({
   return (
     <div className="recipeCard">
       <img src={sampleImageUrl} alt={name} />
-      <h2>{name}</h2>
-      <p>{`${filmSimulation} - ${tags[0]}`}</p>
-      <p>{cameraModels.join(" . ")}</p>{" "}
+      <div className="recipeCard-text">
+        <h2>{name}</h2>
+        <p>{`${filmSimulation} - ${tags[0]}`}</p>
+        <p>{cameraModels.join(" . ")}</p>
+      </div>
     </div>
   );
 }
