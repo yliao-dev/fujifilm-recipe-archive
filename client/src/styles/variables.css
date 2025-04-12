@@ -1,7 +1,12 @@
 :root {
-  /* === Theme Colors === */
-  --primary: rgba(59, 68, 75, 1);
-  --white: rgba(255, 255, 255, 1);
-  --black: rgba(0, 0, 0, 1);
-  --light-blue: rgba(137, 194, 217, 1);
+  --bg: #faebcf;
+  --surface: #fff6e6;
+  --accent: #d16b27;
+  --accent-hover: #a14f1a;
+  --text: #2e2a26;
+  --subtext: #88827c;
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-bold: 500;
 }

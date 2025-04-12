@@ -1,10 +1,14 @@
 @import "./variables.css";
-
+@import "./homePage.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body,
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Merriweather", serif;
+}
 html {
   margin: 0;
   padding: 0;
@@ -16,4 +20,47 @@ html {
 section {
   padding: 1.2rem;
   align-items: center;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.2rem;
+}
+
+h2 {
+  font-size: 0.9rem;
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0.1rem;
+}
+
+p {
+  font-size: 0.8rem;
+  font-weight: var(--font-weight-regular);
+  color: var(--text-secondary);
+  letter-spacing: 0.07rem;
+  line-height: 2;
+}
+
+@media (min-width: 1024px) {
+  section {
+    width: 90%;
+    max-width: 75rem;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  ul {
+    font-size: 1rem;
+  }
 }
