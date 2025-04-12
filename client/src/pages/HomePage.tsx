@@ -16,7 +16,7 @@ const HomePage = () => {
         <input
           type="text"
           className="home-search"
-          placeholder="Search recipes..."
+          placeholder="Search film simulation recipes..."
         />
       </section>
 

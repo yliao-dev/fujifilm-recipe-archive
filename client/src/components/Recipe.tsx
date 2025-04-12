@@ -12,7 +12,7 @@ function RecipeItem({
       <img src={sampleImageUrl} alt={name} />
       <h2>{name}</h2>
       <p>{`${filmSimulation} - ${tags[0]}`}</p>
-      <p>{cameraModels.join(" , ")}</p>{" "}
+      <p>{cameraModels.join(" . ")}</p>{" "}
     </div>
   );
 }
