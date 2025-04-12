@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import RecipeCard from "../components/RecipeCard";
+import RecipeCards from "../components/RecipeCards";
+import { RecipeData } from "../data/data";
 
 const HomePage = () => {
   return (
@@ -20,21 +21,7 @@ const HomePage = () => {
       </section>
 
       <section className="card-grid">
-        <RecipeCard
-          title="Kodachrome 64"
-          image="./placeholder.webp"
-          description="Classic Chrome · Moody · X-T30"
-        />
-        <RecipeCard
-          title="Urban Chrome"
-          image="./placeholder.webp"
-          description="Classic Chrome · Street · X100V"
-        />
-        <RecipeCard
-          title="CineSoft"
-          image="./placeholder.webp"
-          description="Pro Neg Hi · Soft · X-T4"
-        />
+        <RecipeCards recipeData={RecipeData} />
       </section>
 
       <Link to="/recipes" className="home-link">
