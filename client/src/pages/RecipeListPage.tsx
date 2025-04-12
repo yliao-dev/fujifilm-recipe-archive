@@ -24,6 +24,15 @@ const RecipeListPage = () => {
 
   return (
     <div className="recipeList">
+      <div className="recipeList__intro">
+        <h1>Browse All Film Simulation Recipes</h1>
+        <p>
+          Explore custom Fujifilm film simulations curated for every look, feel,
+          and camera.
+        </p>
+      </div>
+      <hr className="recipeList__divider" />
+
       <section className="recipeList__card-grid">
         <RecipeCards recipeData={currentRecipes} />
       </section>
