@@ -1,10 +1,10 @@
 :root {
-  --bg: #faebcf;
-  --surface: #fff6e6;
-  --accent: #d16b27;
-  --accent-hover: #a14f1a;
-  --text: #2e2a26;
-  --subtext: #88827c;
+  --bg: rgba(250, 235, 207, 1);
+  --surface: rgba(255, 246, 230, 1);
+  --accent: rgba(209, 107, 39, 1);
+  --accent-hover: rgba(161, 79, 26, 1);
+  --text: rgba(46, 42, 38, 1);
+  --subtext: rgba(136, 130, 124, 1);
 
   --font-weight-light: 300;
   --font-weight-regular: 400;
