@@ -11,20 +11,50 @@
 .recipeList__card-grid {
   display: grid;
   margin-top: auto;
-  width: 80%;
   gap: 2rem;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  width: 80%;
+}
+
+.pagination button {
+  background: var(--accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  justify-self: start;
+}
+
+.hidden-button {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pagination button:hover {
+  background-color: var(--accent-hover);
 }
 
 /* Tablet and above */
 @media (min-width: 768px) {
   .recipeList__card-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* Desktop and above */
 @media (min-width: 1024px) {
+  .recipeList__card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1440) {
   .recipeList__card-grid {
     grid-template-columns: repeat(4, 1fr);
   }
