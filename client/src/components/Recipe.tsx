@@ -1,11 +1,18 @@
 import { RecipeItemProps } from "../types/recipeTypes";
 
-function RecipeItem({ name, sampleImageUrl, filmSimulation }: RecipeItemProps) {
+function RecipeItem({
+  name,
+  sampleImageUrl,
+  filmSimulation,
+  cameraModels,
+  tags,
+}: RecipeItemProps) {
   return (
     <div className="card">
       <img src={sampleImageUrl} alt={name} />
       <h2>{name}</h2>
-      <p>{filmSimulation}</p>
+      <p>{`${filmSimulation} - ${tags[0]}`}</p>
+      <p>{cameraModels.join(" , ")}</p>{" "}
     </div>
   );
 }

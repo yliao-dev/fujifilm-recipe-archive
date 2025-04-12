@@ -1,5 +1,6 @@
 @import "./variables.css";
 @import "./homePage.css";
+@import "./recipe.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -29,12 +30,13 @@ h1 {
 }
 
 h2 {
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   font-weight: var(--font-weight-regular);
   letter-spacing: 0.1rem;
 }
 
 p {
+  font-family: "Inter", sans-serif;
   font-size: 0.8rem;
   font-weight: var(--font-weight-regular);
   color: var(--text-secondary);
@@ -46,21 +48,5 @@ p {
   section {
     width: 90%;
     max-width: 75rem;
-  }
-
-  h1 {
-    font-size: 2.2rem;
-  }
-
-  h2 {
-    font-size: 1.1rem;
-  }
-
-  p {
-    font-size: 1rem;
-  }
-
-  ul {
-    font-size: 1rem;
   }
 }
