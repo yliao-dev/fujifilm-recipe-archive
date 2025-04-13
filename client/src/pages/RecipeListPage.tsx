@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import RecipeCards from "../components/RecipeCards";
 import { RecipeData } from "../data/data";
+import FilmStripNav from "../components/FilmStripNav";
 
 const RecipeListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -63,9 +63,7 @@ const RecipeListPage = () => {
         </div>
       </section>
 
-      <Link to="/" className="nav_button">
-        Home Page
-      </Link>
+      <FilmStripNav />
     </div>
   );
 };

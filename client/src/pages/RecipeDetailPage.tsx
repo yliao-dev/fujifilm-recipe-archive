@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { RecipeData } from "../data/data";
 import NotFoundPage from "./NotFoundPage";
+import FilmStripNav from "../components/FilmStripNav";
 
 const RecipeDetailPage = () => {
   const { id } = useParams();
@@ -14,9 +15,6 @@ const RecipeDetailPage = () => {
     <div className="recipeDetail__page">
       <section className="recipeDetail__intro">
         <h1>{name}</h1>
-        <Link to="/recipes" className="nav_button">
-          Back
-        </Link>
       </section>
 
       <section className="recipeDetail__body">
@@ -36,6 +34,7 @@ const RecipeDetailPage = () => {
           ))}
         </ul>
       </section>
+      <FilmStripNav />
     </div>
   );
 };

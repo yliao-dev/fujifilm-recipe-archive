@@ -4,8 +4,8 @@ const FilmStripNav = () => {
   const { pathname } = useLocation();
 
   const navItems = [
-    { label: "Explore", to: "/", icon: CameraRoll },
-    { label: "Recipes", to: "/recipes", icon: CameraAlt },
+    { label: "Search", to: "/", icon: CameraRoll },
+    { label: "All Recipes", to: "/recipes", icon: CameraAlt },
     { label: "Add", to: "/add-recipe", icon: Add },
   ];
 
