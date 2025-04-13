@@ -4,9 +4,9 @@ import { RecipeItemProps } from "../types/recipeTypes";
 function RecipeItem({
   _id,
   name,
-  sampleImageUrl,
-  filmSimulation,
-  cameraModels,
+  sample_image_url,
+  settings,
+  camera_models,
   tags,
 }: RecipeItemProps) {
   const navigate = useNavigate();
@@ -14,11 +14,11 @@ function RecipeItem({
 
   return (
     <div className="recipeCard" onClick={() => navigate(`/recipes/${id}`)}>
-      <img src={sampleImageUrl} alt={name} />
+      <img src={sample_image_url} alt={name} />
       <div className="recipeCard-text">
         <h2>{name}</h2>
-        <p>{`${filmSimulation} - ${tags[0]}`}</p>
-        <p>{cameraModels.join(" . ")}</p>
+        <p>{`${settings.film_simulation} - ${tags[0]}`}</p>
+        <p>{camera_models.join(" . ")}</p>
       </div>
     </div>
   );

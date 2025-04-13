@@ -9,14 +9,13 @@ const RecipeCards = ({ recipeData }: RecipeCardProps) => {
           key={recipe._id.$oid}
           _id={recipe._id}
           name={recipe.name}
-          cameraModels={recipe.cameraModels}
-          filmSimulation={recipe.filmSimulation}
+          camera_models={recipe.camera_models}
           settings={recipe.settings}
           tags={recipe.tags}
-          sampleImageUrl={recipe.sampleImageUrl}
+          sample_image_url={recipe.sample_image_url}
           creator={recipe.creator}
           notes={recipe.notes}
-          createdAt={recipe.createdAt}
+          created_at={recipe.created_at}
         />
       ))}
     </>

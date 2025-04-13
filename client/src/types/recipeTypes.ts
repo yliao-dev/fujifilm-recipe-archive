@@ -3,25 +3,33 @@ export type RecipeItemProps = {
     $oid: string;
   };
   name: string;
-  cameraModels: string[];
-  filmSimulation: string;
-  settings: {
-    highlight: number;
-    shadow: number;
-    color: number;
-    grainEffect: string;
-    wbShift: string;
-    dr: string;
-    iso: string | number;
-    noiseReduction: number;
-  };
+  camera_models: string[];
   tags: string[];
-  sampleImageUrl: string;
+  sample_image_url: string;
   creator: string;
   notes: string;
-  createdAt: {
+  created_at: {
     $date: string;
   };
+  settings: RecipeSettings;
+};
+
+export type RecipeSettings = {
+  film_simulation: string;
+  grain_effect: string;
+  color_chrome_effect: string;
+  color_chrome_fx_blue: string;
+  white_balance: string;
+  dynamic_range: string;
+  highlight: number;
+  shadow: number;
+  color: number;
+  sharpness: number;
+  high_iso_nr: number;
+  clarity: number;
+  iso: string | number;
+  exposure_compensation: string;
+  noise_reduction?: number;
 };
 
 export type RecipeCardProps = {

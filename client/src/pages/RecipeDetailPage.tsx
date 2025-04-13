@@ -8,7 +8,7 @@ const RecipeDetailPage = () => {
 
   if (!recipe) return <NotFoundPage />;
 
-  const { name, cameraModels, filmSimulation, settings, creator } = recipe;
+  const { name, camera_models, settings, creator } = recipe;
 
   return (
     <div className="recipeDetail__page">
@@ -21,14 +21,13 @@ const RecipeDetailPage = () => {
 
       <section className="recipeDetail__body">
         <h2>
-          <strong>Film Simulation:</strong> {filmSimulation}
+          Film Simulation:{settings.film_simulation}
+          Camera Models: {camera_models.join(" . ")}
+          Creator:{creator}
         </h2>
-        <h2>
-          <strong>Camera Models:</strong> {cameraModels.join(" | ")}
-        </h2>
-        <h2>
-          <strong>Settings:</strong>
-        </h2>
+
+        <h2>Settings:</h2>
+
         <ul>
           {Object.entries(settings).map(([key, value]) => (
             <li key={key}>
@@ -36,10 +35,6 @@ const RecipeDetailPage = () => {
             </li>
           ))}
         </ul>
-
-        <h2>
-          <strong>Creator:</strong> {creator}
-        </h2>
       </section>
     </div>
   );
