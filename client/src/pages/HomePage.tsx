@@ -28,8 +28,6 @@ const HomePage = () => {
       <Link to="/recipes" className="nav_button">
         View All Recipes →
       </Link>
-
-      <SideTabNav />
     </div>
   );
 };

@@ -62,8 +62,6 @@ const RecipeListPage = () => {
           </button>
         </div>
       </section>
-
-      <FilmStripNav />
     </div>
   );
 };

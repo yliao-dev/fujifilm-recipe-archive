@@ -1,7 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { RecipeData } from "../data/data";
 import NotFoundPage from "./NotFoundPage";
-import FilmStripNav from "../components/SideTabNav";
 
 const RecipeDetailPage = () => {
   const { id } = useParams();
@@ -34,7 +33,6 @@ const RecipeDetailPage = () => {
           ))}
         </ul>
       </section>
-      <FilmStripNav />
     </div>
   );
 };
