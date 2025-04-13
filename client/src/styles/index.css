@@ -2,6 +2,7 @@
 @import "./homePage.css";
 @import "./recipeListPage.css";
 @import "./recipeCard.css";
+@import "./recipeDetail.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -43,6 +44,18 @@ p {
   color: var(--subtext);
   letter-spacing: 0.07rem;
   line-height: 2;
+}
+
+.nav_button {
+  margin-top: 3rem;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--accent);
+  color: white;
+  text-decoration: none;
+}
+
+.nav_button:hover {
+  background-color: var(--accent-hover);
 }
 
 @media (min-width: 1024px) {

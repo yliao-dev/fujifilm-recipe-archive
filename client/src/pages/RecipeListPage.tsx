@@ -23,7 +23,7 @@ const RecipeListPage = () => {
   };
 
   return (
-    <div className="recipeList">
+    <div className="recipeList__page">
       <div className="recipeList__intro">
         <h1>Browse All Film Simulation Recipes</h1>
         <p>
@@ -63,7 +63,7 @@ const RecipeListPage = () => {
         </div>
       </section>
 
-      <Link to="/" className="home__link">
+      <Link to="/" className="nav_button">
         Home Page
       </Link>
     </div>

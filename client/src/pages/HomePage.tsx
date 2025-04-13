@@ -4,7 +4,7 @@ import { RecipeData } from "../data/data";
 
 const HomePage = () => {
   return (
-    <div className="home">
+    <div className="home__page">
       <section className="home__intro">
         <h1>
           Explore Custom{" "}
@@ -24,7 +24,7 @@ const HomePage = () => {
         <RecipeCards recipeData={RecipeData.slice(0, 3)} />
       </section>
 
-      <Link to="/recipes" className="home__link">
+      <Link to="/recipes" className="nav_button">
         View All Recipes →
       </Link>
     </div>
