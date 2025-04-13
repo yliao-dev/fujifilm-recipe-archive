@@ -1,6 +1,6 @@
 import RecipeCards from "../components/RecipeCards";
 import { RecipeData } from "../data/data";
-import FilmStripNav from "../components/FilmStripNav";
+import SideTabNav from "../components/SideTabNav";
 
 const HomePage = () => {
   return (
@@ -23,8 +23,7 @@ const HomePage = () => {
       <section className="home__card-grid">
         <RecipeCards recipeData={RecipeData.slice(0, 3)} />
       </section>
-
-      <FilmStripNav />
+      <SideTabNav />
     </div>
   );
 };

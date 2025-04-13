@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCreateItem from "../hooks/useCreateItem";
 import { toast } from "react-toastify";
-import FilmStripNav from "../components/FilmStripNav";
+import FilmStripNav from "../components/SideTabNav";
 
 const RecipeCreatePage = () => {
   const [title, setTitle] = useState("");

@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { RecipeData } from "../data/data";
 import NotFoundPage from "./NotFoundPage";
-import FilmStripNav from "../components/FilmStripNav";
+import FilmStripNav from "../components/SideTabNav";
 
 const RecipeDetailPage = () => {
   const { id } = useParams();
