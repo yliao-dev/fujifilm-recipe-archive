@@ -1,15 +1,20 @@
-.filmstrip-nav {
-  width: 80%;
+.filmstrip__nav-border {
+  background: #4b4a4a;
+  width: 100%;
+  padding: 1rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.filmstrip__nav {
   background: #4b4a4a;
   display: flex;
   justify-content: space-around;
-  padding: 0.5rem 0.75rem;
+  padding: 1.5rem 0.75rem;
   border-top: 1rem dashed #f5f1ea;
   border-bottom: 1rem dashed #f5f1ea;
-  border-radius: 0.25rem;
 }
 
-.filmstrip-frame {
+.filmstrip__frame {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,8 +26,8 @@
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.filmstrip-frame:hover,
-.filmstrip-frame.active {
+.filmstrip__frame:hover,
+.filmstrip__frame.active {
   color: rgba(209, 107, 39, 1); /* Fujifilm red-orange */
   transform: translateY(-1px);
 }

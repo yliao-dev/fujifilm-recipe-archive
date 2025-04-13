@@ -10,18 +10,20 @@ const FilmStripNav = () => {
   ];
 
   return (
-    <nav className="filmstrip-nav">
-      {navItems.map(({ label, to, icon: Icon }) => (
-        <Link
-          key={label}
-          to={to}
-          className={`filmstrip-frame ${pathname === to ? "active" : ""}`}
-        >
-          <Icon />
-          <span>{label}</span>
-        </Link>
-      ))}
-    </nav>
+    <div className="filmstrip__nav-border">
+      <nav className="filmstrip__nav">
+        {navItems.map(({ label, to, icon: Icon }) => (
+          <Link
+            key={label}
+            to={to}
+            className={`filmstrip__frame ${pathname === to ? "active" : ""}`}
+          >
+            <Icon />
+            <span>{label}</span>
+          </Link>
+        ))}
+      </nav>
+    </div>
   );
 };
 
