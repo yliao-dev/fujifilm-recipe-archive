@@ -1,6 +1,5 @@
 import RecipeCards from "../components/RecipeCards";
 import { RecipeData } from "../data/data";
-import SideTabNav from "../components/SideTabNav";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {

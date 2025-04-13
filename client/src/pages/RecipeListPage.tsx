@@ -1,7 +1,6 @@
 import { useState } from "react";
 import RecipeCards from "../components/RecipeCards";
 import { RecipeData } from "../data/data";
-import FilmStripNav from "../components/SideTabNav";
 
 const RecipeListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
