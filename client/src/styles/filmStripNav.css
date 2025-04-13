@@ -1,0 +1,35 @@
+.filmstrip-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(255, 246, 230, 1); /* soft paper tone */
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0.75rem;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+  border-top: 4px dashed rgba(40, 40, 40, 0.25); /* film edge feel */
+  z-index: 100;
+}
+
+.filmstrip-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: rgba(46, 42, 38, 1); /* dark chocolate text */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.filmstrip-frame:hover,
+.filmstrip-frame.active {
+  color: rgba(209, 107, 39, 1); /* Fujifilm red-orange */
+  transform: translateY(-1px);
+}
+
+.filmstrip-frame span {
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+}

@@ -4,6 +4,7 @@
 @import "./homePage.css";
 @import "./recipeListPage.css";
 @import "./recipeDetailPage.css";
+@import "./filmStripNav.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

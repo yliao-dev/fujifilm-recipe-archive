@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import RecipeCards from "../components/RecipeCards";
 import { RecipeData } from "../data/data";
+import FilmStripNav from "../components/FilmStripNav";
 
 const HomePage = () => {
   return (
@@ -27,6 +28,7 @@ const HomePage = () => {
       <Link to="/recipes" className="nav_button">
         View All Recipes →
       </Link>
+      <FilmStripNav />
     </div>
   );
 };
