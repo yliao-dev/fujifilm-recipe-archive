@@ -1,41 +1,36 @@
 .side-tab-nav {
   position: fixed;
   top: 50%;
-  left: 0;
+  right: 0;
   transform: translateY(-50%);
   z-index: 1000;
 }
 
 .tab {
-  background: #4b4a4a;
-  border-radius: 0 0.5rem 0.5rem 0;
-  overflow: hidden;
+  background: var(--dark);
   display: flex;
   flex-direction: column;
-  align-items: stretch;
   gap: 0.25rem;
-  padding: 0.5rem 0;
+  padding: 0.25rem 0;
   transition: width 0.2s ease;
   width: 3rem;
 }
 
 .tab:hover {
-  width: 10rem;
+  width: 8rem;
 }
 
 .tab-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: #f5f1ea;
+  gap: 0.25rem;
+  color: var(--surface);
   padding: 0.5rem 1rem;
-  text-decoration: none;
 }
 
 .tab-item:hover,
 .tab-item.active {
-  background: #ed1941;
-  color: #ffffff;
+  background: var(--fuji-red);
 }
 
 .tab-label {

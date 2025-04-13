@@ -24,7 +24,7 @@
   width: 90%;
   height: 2px;
   border: none;
-  background-color: var(--accent);
+  background-color: var(--fuji-red);
   opacity: 0.7;
   transition: background-color 0.3s ease;
 }
@@ -45,7 +45,7 @@
 }
 
 .pagination button {
-  background: var(--accent);
+  background: var(--fuji-red);
   color: white;
   padding: 0.5rem 1rem;
   cursor: pointer;
@@ -58,7 +58,7 @@
 }
 
 .pagination button:hover {
-  background-color: var(--accent-hover);
+  background-color: var(--fuji-red);
 }
 
 /* Tablet and above */

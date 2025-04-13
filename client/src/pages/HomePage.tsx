@@ -1,6 +1,7 @@
 import RecipeCards from "../components/RecipeCards";
 import { RecipeData } from "../data/data";
 import SideTabNav from "../components/SideTabNav";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -23,6 +24,11 @@ const HomePage = () => {
       <section className="home__card-grid">
         <RecipeCards recipeData={RecipeData.slice(0, 3)} />
       </section>
+
+      <Link to="/recipes" className="nav_button">
+        View All Recipes →
+      </Link>
+
       <SideTabNav />
     </div>
   );
