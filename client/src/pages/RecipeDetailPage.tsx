@@ -1,6 +1,17 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { RecipeData } from "../data/data";
 import NotFoundPage from "./NotFoundPage";
+
+const formatKey = (key: string) => {
+  return key
+    .replace(/_/g, " ")
+    .replace(/iso/gi, "ISO")
+    .replace(/fx/gi, "FX")
+    .replace(/dr/gi, "DR")
+    .replace(/wb/gi, "WB")
+    .replace(/nr/gi, "NR")
+    .replace(/\b\w/g, (m) => m.toUpperCase());
+};
 
 const RecipeDetailPage = () => {
   const { id } = useParams();
@@ -8,30 +19,30 @@ const RecipeDetailPage = () => {
 
   if (!recipe) return <NotFoundPage />;
 
-  const { name, camera_models, settings, creator } = recipe;
+  const { name, camera_models, settings, creator, sample_image_url } = recipe;
 
   return (
     <div className="recipeDetail__page">
       <section className="recipeDetail__intro">
+        <img
+          src={sample_image_url}
+          alt={name}
+          className="recipeDetail__image"
+        />
         <h1>{name}</h1>
+        <p>
+          <strong>Film Simulation:</strong> {settings.film_simulation} <br />
+          <strong>Camera Models:</strong> {camera_models.join(" · ")} <br />
+          <strong>Creator:</strong> {creator}
+        </p>
       </section>
 
       <section className="recipeDetail__body">
-        <h2>
-          Film Simulation:{settings.film_simulation}
-          Camera Models: {camera_models.join(" . ")}
-          Creator:{creator}
-        </h2>
-
-        <h2>Settings:</h2>
-
-        <ul>
-          {Object.entries(settings).map(([key, value]) => (
-            <li key={key}>
-              <strong>{key}:</strong> {value}
-            </li>
-          ))}
-        </ul>
+        {Object.entries(settings).map(([key, value]) => (
+          <p key={key}>
+            <strong>{formatKey(key)}:</strong> {value}
+          </p>
+        ))}
       </section>
     </div>
   );
