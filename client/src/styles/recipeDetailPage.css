@@ -12,7 +12,6 @@
   margin-bottom: 2rem;
   align-items: flex-start;
   gap: 1rem;
-  max-width: 50rem;
 }
 
 .recipeDetail__intro img {
@@ -24,10 +23,17 @@
   border: 0.01rem solid var(--border);
 }
 
+.recipeDetail__intro,
 .recipeDetail__body {
   max-width: 50rem;
 }
 
 .recipeDetail__body p {
-  margin-bottom: 1rem;
+  margin: 0;
+  padding: 0.75rem 0;
+  border-bottom: 0.1rem solid var(--border);
+}
+
+.recipeDetail__body p:first-child {
+  border-top: 0.1rem solid var(--border);
 }
