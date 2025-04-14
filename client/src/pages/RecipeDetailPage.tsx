@@ -24,11 +24,7 @@ const RecipeDetailPage = () => {
   return (
     <div className="recipeDetail__page">
       <section className="recipeDetail__intro">
-        <img
-          src={sample_image_url}
-          alt={name}
-          className="recipeDetail__image"
-        />
+        <img src={sample_image_url} alt={name} />
         <h1>{name}</h1>
         <p>
           <strong>Film Simulation:</strong> {settings.film_simulation} <br />
