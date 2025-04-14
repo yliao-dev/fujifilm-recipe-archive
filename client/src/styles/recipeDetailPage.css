@@ -37,3 +37,8 @@
 .recipeDetail__body p:first-child {
   border-top: 0.1rem solid var(--border);
 }
+
+.recipeDetail__body p strong {
+  display: inline-block;
+  min-width: 30rem;
+}

@@ -36,7 +36,7 @@ const RecipeDetailPage = () => {
       <section className="recipeDetail__body">
         {Object.entries(settings).map(([key, value]) => (
           <p key={key}>
-            <strong>{formatKey(key)}:</strong> {value}
+            <strong>{formatKey(key)}</strong> {value}
           </p>
         ))}
       </section>
