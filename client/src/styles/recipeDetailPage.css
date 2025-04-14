@@ -14,6 +14,10 @@
   gap: 1rem;
 }
 
+.recipeDetail__intro p {
+  font-size: large;
+}
+
 .recipeDetail__intro img {
   width: 100%;
   height: auto;
