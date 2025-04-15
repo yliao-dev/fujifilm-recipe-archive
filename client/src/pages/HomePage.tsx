@@ -1,4 +1,5 @@
 import RecipeCards from "../components/RecipeCards";
+import SearchBar from "../components/SearchBar";
 import { RecipeData } from "../data/data";
 import { Link } from "react-router-dom";
 
@@ -13,11 +14,7 @@ const HomePage = () => {
           </span>{" "}
           Film Simulation Recipes
         </h1>
-        <input
-          type="text"
-          className="home__search"
-          placeholder="Search film simulation recipes..."
-        />
+        <SearchBar />
       </section>
 
       <section className="home__card-grid">
