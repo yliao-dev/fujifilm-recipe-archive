@@ -44,7 +44,6 @@ const RecipeCreatePage = () => {
   const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    sessionStorage.setItem("recipeSuccess", "1");
     navigate("/recipes");
   };
 
