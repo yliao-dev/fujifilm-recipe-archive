@@ -89,7 +89,7 @@ const RecipeCreatePage = () => {
             <label>
               <span className="required">Camera Models</span>
               <input
-                name="camera_models"
+                name="cameraModels"
                 value={form.cameraModels}
                 onChange={handleChange}
                 placeholder={example.camera_models.join(", ")}
@@ -99,7 +99,7 @@ const RecipeCreatePage = () => {
             <label>
               <span className="required">Film Simulation</span>
               <input
-                name="film_simulation"
+                name="filmSimulation"
                 value={form.filmSimulation}
                 onChange={handleChange}
                 placeholder={example.film_simulation}
@@ -140,7 +140,15 @@ const RecipeCreatePage = () => {
               Sample Image
               <input type="file" accept="image/*" />
             </label>
-            <button className="nav_button" type="submit">
+            <button
+              className="nav_button"
+              type="submit"
+              disabled={
+                !form.name.trim() ||
+                !form.cameraModels.trim() ||
+                !form.filmSimulation.trim()
+              }
+            >
               Submit
             </button>
           </div>

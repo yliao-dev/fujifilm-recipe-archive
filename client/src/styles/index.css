@@ -63,6 +63,11 @@ p {
   background-color: var(--fuji-red);
 }
 
+.nav_button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media (min-width: 1024px) {
   section {
     width: 90%;
