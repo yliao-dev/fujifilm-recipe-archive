@@ -1,24 +1,7 @@
 import { useState } from "react";
-import { ExampleData } from "../data/exampleData";
+import { ExampleData, settingFields } from "../data/formData";
 import { formatKey } from "../utils/formatKey";
 import { useNavigate } from "react-router-dom";
-
-const settingFields = [
-  "grain_effect",
-  "color_chrome_effect",
-  "color_chrome_fx_blue",
-  "white_balance",
-  "dynamic_range",
-  "highlight",
-  "shadow",
-  "color",
-  "sharpness",
-  "high_iso_nr",
-  "clarity",
-  "iso",
-  "exposure_compensation",
-  "noise_reduction",
-];
 
 const example = ExampleData[0]; // single example
 

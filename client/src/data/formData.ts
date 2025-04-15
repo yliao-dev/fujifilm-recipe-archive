@@ -1,0 +1,63 @@
+export const ExampleData = [
+  {
+    _id: { $oid: "6617fcf41f1e5c0fbd51a001" },
+    name: "Nostalgic Warmth",
+    camera_models: ["X-T4", "X100V"],
+    film_simulation: "Nostalgic Neg",
+    creator: "VisionLab",
+    tags: ["cinematic", "soft", "portrait"],
+    notes: "Low contrast tones for a cinematic mood.",
+    sample_image_url: "/images/placeholder.webp",
+    created_at: { $date: "2024-09-10T07:20:00Z" },
+    settings: {
+      grain_effect: "Weak, Small",
+      color_chrome_effect: "Strong",
+      color_chrome_fx_blue: "Strong",
+      white_balance: "3000K, +8 Red & -9 Blue",
+      dynamic_range: "DR100",
+      highlight: "-2",
+      shadow: "-1",
+      color: "2",
+      sharpness: "-2",
+      clarity: "-2",
+      iso: "Auto, up to ISO 6400",
+      exposure_compensation: "0 to +2/3 (typically)",
+      noise_reduction: "-3",
+    },
+  },
+];
+
+export const settingFields = [
+  "grain_effect",
+  "color_chrome_effect",
+  "color_chrome_fx_blue",
+  "white_balance",
+  "dynamic_range",
+  "highlight",
+  "shadow",
+  "color",
+  "sharpness",
+  "clarity",
+  "iso",
+  "exposure_compensation",
+  "noise_reduction",
+];
+
+export const dropdownFields: Record<string, string[]> = {
+  grain_effect: [
+    "Off",
+    "Weak, Small",
+    "Weak, Large",
+    "Strong, Small",
+    "Strong, Large",
+  ],
+  color_chrome_effect: ["Off", "Weak", "Strong"],
+  color_chrome_fx_blue: ["Off", "Weak", "Strong"],
+  dynamic_range: ["Auto", "DR100", "DR200", "DR400"],
+  highlight: ["-2", "-1", "0", "+1", "+2", "+3", "+4"],
+  shadow: ["-2", "-1", "0", "+1", "+2", "+3", "+4"],
+  color: ["-4", "-3", "-2", "-1", "0", "+1", "+2", "+3", "+4"],
+  sharpness: ["-4", "-3", "-2", "-1", "0", "+1", "+2", "+3", "+4"],
+  noise_reduction: ["-4", "-3", "-2", "-1", "0", "+1", "+2", "+3", "+4"],
+  clarity: ["-5", "-4", "-3", "-2", "-1", "0", "+1", "+2", "+3", "+4", "+5"],
+};

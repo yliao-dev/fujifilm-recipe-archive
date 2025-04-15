@@ -39,9 +39,8 @@ export type RecipeSettings = {
   shadow: string;
   color: string;
   sharpness: string;
-  high_iso_nr: string;
   clarity: string;
+  noise_reduction: string;
   iso: string;
   exposure_compensation: string;
-  noise_reduction: string;
 };
