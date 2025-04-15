@@ -1,19 +1,5 @@
-export type RecipeSettings = {
-  film_simulation: string;
-  grain_effect: string;
-  color_chrome_effect: string;
-  color_chrome_fx_blue: string;
-  white_balance: string;
-  dynamic_range: string;
-  highlight: number;
-  shadow: number;
-  color: number;
-  sharpness: number;
-  high_iso_nr: number;
-  clarity: number;
-  iso: string;
-  exposure_compensation: string;
-  noise_reduction: number;
+export type RecipeCardProps = {
+  recipeData: RecipeItemProps[];
 };
 
 export type RecipeItemProps = {
@@ -32,10 +18,6 @@ export type RecipeItemProps = {
   settings: RecipeSettings;
 };
 
-export type RecipeCardProps = {
-  recipeData: RecipeItemProps[];
-};
-
 export type RecipeFormData = {
   name: string;
   creator: string;
@@ -43,4 +25,22 @@ export type RecipeFormData = {
   tags: string[];
   notes: string;
   settings: RecipeSettings;
+};
+
+export type RecipeSettings = {
+  film_simulation: string;
+  grain_effect: string;
+  color_chrome_effect: string;
+  color_chrome_fx_blue: string;
+  white_balance: string;
+  dynamic_range: string;
+  highlight: number;
+  shadow: number;
+  color: number;
+  sharpness: number;
+  high_iso_nr: number;
+  clarity: number;
+  iso: string;
+  exposure_compensation: string;
+  noise_reduction: number;
 };
