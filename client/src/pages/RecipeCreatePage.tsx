@@ -58,7 +58,22 @@ const RecipeCreatePage = () => {
         <hr className="recipeList__divider" />
 
         <form className="recipeCreate__form__container" onSubmit={handleSubmit}>
-          {/* Left: Basic Info */}
+          <div className="recipeCreate__form">
+            {settingFields.map((key) => (
+              <label key={key}>
+                {formatKey(key)}
+                <input
+                  name={key}
+                  value={form.settings[key]}
+                  onChange={handleChange}
+                  placeholder={
+                    example.settings[key as keyof typeof example.settings]
+                  }
+                />
+              </label>
+            ))}
+          </div>
+
           <div className="recipeCreate__form">
             <label>
               Name
@@ -114,23 +129,6 @@ const RecipeCreatePage = () => {
             <button className="nav_button" type="submit">
               Submit
             </button>
-          </div>
-
-          {/* Right: Settings */}
-          <div className="recipeCreate__form">
-            {settingFields.map((key) => (
-              <label key={key}>
-                {formatKey(key)}
-                <input
-                  name={key}
-                  value={form.settings[key]}
-                  onChange={handleChange}
-                  placeholder={
-                    example.settings[key as keyof typeof example.settings]
-                  }
-                />
-              </label>
-            ))}
           </div>
         </form>
       </div>
