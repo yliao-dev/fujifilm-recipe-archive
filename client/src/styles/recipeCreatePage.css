@@ -65,3 +65,10 @@
 .recipeCreate__form button:hover {
   opacity: 0.7;
 }
+
+.required::after {
+  content: "*";
+  color: var(--fuji-red);
+  margin-left: 0.25rem;
+  font-weight: bold;
+}

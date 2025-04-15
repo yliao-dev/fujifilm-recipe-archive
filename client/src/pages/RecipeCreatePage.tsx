@@ -76,7 +76,7 @@ const RecipeCreatePage = () => {
 
           <div className="recipeCreate__form">
             <label>
-              Name
+              <span className="required">Name</span>
               <input
                 name="name"
                 value={form.name}
@@ -95,7 +95,7 @@ const RecipeCreatePage = () => {
               />
             </label>
             <label>
-              Camera Models
+              <span className="required">Camera Models</span>
               <input
                 name="cameraModels"
                 value={form.cameraModels}
