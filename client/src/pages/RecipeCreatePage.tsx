@@ -52,81 +52,89 @@ const RecipeCreatePage = () => {
   };
 
   return (
-    <div className="recipeCreate__page">
-      <form className="recipeCreate__form" onSubmit={handleSubmit}>
-        <h1>Add Recipe</h1>
+    <>
+      <div className="recipeCreate__page">
+        <h1>Add Your Custom Film Recipe</h1>
+        <hr className="recipeList__divider" />
 
-        <label>
-          Name
-          <input
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            placeholder={example.name}
-            required
-          />
-        </label>
+        <form className="recipeCreate__form__container" onSubmit={handleSubmit}>
+          {/* Left: Basic Info */}
+          <div className="recipeCreate__form">
+            <label>
+              Name
+              <input
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder={example.name}
+                required
+              />
+            </label>
+            <label>
+              Creator
+              <input
+                name="creator"
+                value={form.creator}
+                onChange={handleChange}
+                placeholder={example.creator}
+              />
+            </label>
+            <label>
+              Camera Models
+              <input
+                name="cameraModels"
+                value={form.cameraModels}
+                onChange={handleChange}
+                placeholder={example.camera_models.join(", ")}
+              />
+            </label>
+            <label>
+              Tags
+              <input
+                name="tags"
+                value={form.tags}
+                onChange={handleChange}
+                placeholder={example.tags.join(", ")}
+              />
+            </label>
+            <label>
+              Notes
+              <textarea
+                name="notes"
+                value={form.notes}
+                onChange={handleChange}
+                placeholder={example.notes}
+                rows={3}
+              />
+            </label>
+            <label>
+              Sample Image
+              <input type="file" accept="image/*" />
+            </label>
+            <button className="nav_button" type="submit">
+              Submit
+            </button>
+          </div>
 
-        <label>
-          Creator
-          <input
-            name="creator"
-            value={form.creator}
-            onChange={handleChange}
-            placeholder={example.creator}
-          />
-        </label>
-
-        <label>
-          Camera Models
-          <input
-            name="cameraModels"
-            value={form.cameraModels}
-            onChange={handleChange}
-            placeholder={example.camera_models.join(", ")}
-          />
-        </label>
-
-        <label>
-          Tags
-          <input
-            name="tags"
-            value={form.tags}
-            onChange={handleChange}
-            placeholder={example.tags.join(", ")}
-          />
-        </label>
-
-        <label>
-          Notes
-          <textarea
-            name="notes"
-            value={form.notes}
-            onChange={handleChange}
-            placeholder={example.notes}
-            rows={3}
-          />
-        </label>
-
-        {settingFields.map((key) => (
-          <label key={key}>
-            {formatKey(key)}
-            <input
-              name={key}
-              value={form.settings[key]}
-              onChange={handleChange}
-              placeholder={
-                example.settings[key as keyof typeof example.settings]
-              }
-            />
-          </label>
-        ))}
-
-        <button className="nav_button" type="submit">
-          Submit
-        </button>
-      </form>
-    </div>
+          {/* Right: Settings */}
+          <div className="recipeCreate__form">
+            {settingFields.map((key) => (
+              <label key={key}>
+                {formatKey(key)}
+                <input
+                  name={key}
+                  value={form.settings[key]}
+                  onChange={handleChange}
+                  placeholder={
+                    example.settings[key as keyof typeof example.settings]
+                  }
+                />
+              </label>
+            ))}
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 
