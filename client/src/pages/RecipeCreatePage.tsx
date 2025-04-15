@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ExampleData } from "../data/exampleData";
 import { formatKey } from "../utils/formatKey";
 
 const settingFields = [
@@ -19,6 +20,8 @@ const settingFields = [
   "noise_reduction",
 ];
 
+const example = ExampleData[0]; // single example
+
 const RecipeCreatePage = () => {
   const [form, setForm] = useState({
     name: "",
@@ -33,7 +36,6 @@ const RecipeCreatePage = () => {
     target: HTMLInputElement | HTMLTextAreaElement;
   }) => {
     const { name, value } = e.target;
-
     if (settingFields.includes(name)) {
       setForm((prev) => ({
         ...prev,
@@ -60,7 +62,7 @@ const RecipeCreatePage = () => {
             name="name"
             value={form.name}
             onChange={handleChange}
-            placeholder="Recipe Name"
+            placeholder={example.name}
             required
           />
         </label>
@@ -71,7 +73,7 @@ const RecipeCreatePage = () => {
             name="creator"
             value={form.creator}
             onChange={handleChange}
-            placeholder="Creator"
+            placeholder={example.creator}
           />
         </label>
 
@@ -81,7 +83,7 @@ const RecipeCreatePage = () => {
             name="cameraModels"
             value={form.cameraModels}
             onChange={handleChange}
-            placeholder="Camera Models"
+            placeholder={example.camera_models.join(", ")}
           />
         </label>
 
@@ -91,7 +93,7 @@ const RecipeCreatePage = () => {
             name="tags"
             value={form.tags}
             onChange={handleChange}
-            placeholder="Tags"
+            placeholder={example.tags.join(", ")}
           />
         </label>
 
@@ -101,7 +103,7 @@ const RecipeCreatePage = () => {
             name="notes"
             value={form.notes}
             onChange={handleChange}
-            placeholder="Notes"
+            placeholder={example.notes}
             rows={3}
           />
         </label>
@@ -113,7 +115,7 @@ const RecipeCreatePage = () => {
               name={key}
               value={form.settings[key]}
               onChange={handleChange}
-              placeholder={formatKey(key)}
+              placeholder={key}
             />
           </label>
         ))}

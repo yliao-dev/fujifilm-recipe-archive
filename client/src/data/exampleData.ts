@@ -1,0 +1,28 @@
+export const ExampleData = [
+  {
+    _id: { $oid: "6617fcf41f1e5c0fbd51a001" },
+    name: "Nostalgic Warmth",
+    camera_models: ["X-T4", "X100V"],
+    tags: ["cinematic", "soft", "portrait"],
+    sample_image_url: "/images/placeholder.webp",
+    creator: "VisionLab",
+    notes: "Low contrast tones for a cinematic mood.",
+    created_at: { $date: "2024-09-10T07:20:00Z" },
+    settings: {
+      film_simulation: "Nostalgic Neg.",
+      grain_effect: "Weak, Small",
+      color_chrome_effect: "Strong",
+      color_chrome_fx_blue: "Strong",
+      white_balance: "3000K, +8 Red & -9 Blue",
+      dynamic_range: "DR100",
+      highlight: -2,
+      shadow: -1,
+      color: 2,
+      sharpness: -2,
+      high_iso_nr: -4,
+      clarity: -2,
+      iso: "Auto, up to ISO 6400",
+      exposure_compensation: "0 to +2/3 (typically)",
+    },
+  },
+];
