@@ -19,10 +19,10 @@ export const ExampleData = [
       shadow: "-1",
       color: "2",
       sharpness: "-2",
+      noise_reduction: "-3",
       clarity: "-2",
       iso: "Auto, up to ISO 6400",
       exposure_compensation: "0 to +2/3 (typically)",
-      noise_reduction: "-3",
     },
   },
 ];
@@ -37,10 +37,10 @@ export const settingFields = [
   "shadow",
   "color",
   "sharpness",
+  "noise_reduction",
   "clarity",
   "iso",
   "exposure_compensation",
-  "noise_reduction",
 ];
 
 export const dropdownFields: Record<string, string[]> = {
