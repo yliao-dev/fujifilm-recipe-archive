@@ -64,7 +64,7 @@ const RecipeCreatePage = () => {
                     value={form.settings[key]}
                     onChange={handleChange}
                   >
-                    <option value="">— Select —</option>
+                    <option value=""> &#9662; </option>
                     {selectFields[key].map((option) => (
                       <option key={option} value={option}>
                         {option}

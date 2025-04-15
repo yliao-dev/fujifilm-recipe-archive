@@ -40,16 +40,22 @@
 }
 
 .recipeCreate__form input,
-.recipeCreate__form textarea {
+.recipeCreate__form textarea,
+.recipeCreate__form select {
   width: 100%;
   padding: 0.5rem;
   border: 0.01rem solid var(--border);
   border-radius: 0.25rem;
+  background: white;
+  color: var(--text);
+  font-size: 0.9rem;
   outline: none;
+  appearance: none; /* removes default arrow styling for better control */
 }
 
 .recipeCreate__form input:focus,
-.recipeCreate__form textarea:focus {
+.recipeCreate__form textarea:focus,
+.recipeCreate__form select:focus {
   border-color: var(--dark);
   box-shadow: 0 0 0 0.07rem var(--dark);
 }
