@@ -3,6 +3,7 @@
 @import "./sideTabNav.css";
 
 @import "./homePage.css";
+@import "./searchBar.css";
 @import "./recipeListPage.css";
 @import "./recipeDetailPage.css";
 @import "./recipeCreatePage.css";
