@@ -5,17 +5,12 @@
 }
 
 .recipeDetail__intro {
+  width: 90%;
   display: flex;
-  text-align: left;
   flex-direction: column;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  align-items: flex-start;
   gap: 1rem;
-}
-
-.recipeDetail__intro p {
-  font-size: large;
 }
 
 .recipeDetail__intro img {
@@ -27,11 +22,22 @@
   border: 0.01rem solid var(--border);
 }
 
+.recipeDetail__intro p {
+  font-size: large;
+}
+
+.recipeDetail__intro__content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .recipeDetail__modify {
   display: flex;
   flex-direction: column;
-  align-self: flex-end;
-  gap: 1rem;
+  align-self: center;
+  gap: 2rem;
 }
 
 .recipeDetail__modify svg {

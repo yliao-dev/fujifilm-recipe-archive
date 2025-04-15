@@ -23,15 +23,20 @@ const RecipeDetailPage = () => {
     <div className="recipeDetail__page">
       <section className="recipeDetail__intro">
         <img src={sample_image_url} alt={name} />
-        <h1>{name}</h1>
-        <p>
-          <strong>Film Simulation:</strong> {film_simulation} <br />
-          <strong>Camera Models:</strong> {camera_models.join(" · ")} <br />
-          <strong>Creator:</strong> {creator}
-        </p>
-        <div className="recipeDetail__modify">
-          <Edit />
-          <DeleteForever />
+
+        <div className="recipeDetail__intro__content">
+          <div>
+            <h1>{name}</h1>
+            <p>
+              <strong>Film Simulation:</strong> {film_simulation} <br />
+              <strong>Camera Models:</strong> {camera_models.join(" · ")} <br />
+              <strong>Creator:</strong> {creator}
+            </p>
+          </div>
+          <div className="recipeDetail__modify">
+            <Edit />
+            <DeleteForever />
+          </div>
         </div>
       </section>
 
