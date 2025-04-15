@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { RecipeData } from "../data/data";
 import NotFoundPage from "./NotFoundPage";
 import { formatKey } from "../utils/formatKey";
+import { Edit, DeleteForever } from "@mui/icons-material";
 
 const RecipeDetailPage = () => {
   const { id } = useParams();
@@ -28,6 +29,10 @@ const RecipeDetailPage = () => {
           <strong>Camera Models:</strong> {camera_models.join(" · ")} <br />
           <strong>Creator:</strong> {creator}
         </p>
+        <div className="recipeDetail__modify">
+          <Edit />
+          <DeleteForever />
+        </div>
       </section>
 
       <section className="recipeDetail__body">
