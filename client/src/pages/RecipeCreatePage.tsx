@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ExampleData } from "../data/exampleData";
 import { formatKey } from "../utils/formatKey";
+import { useNavigate } from "react-router-dom";
 
 const settingFields = [
   "grain_effect",
@@ -46,9 +47,11 @@ const RecipeCreatePage = () => {
     }
   };
 
+  const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(form);
+    sessionStorage.setItem("recipeSuccess", "1");
+    navigate("/recipes");
   };
 
   return (
@@ -148,6 +151,9 @@ const RecipeCreatePage = () => {
                 !form.cameraModels.trim() ||
                 !form.filmSimulation.trim()
               }
+              onClick={() => {
+                handleSubmit;
+              }}
             >
               Submit
             </button>

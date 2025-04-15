@@ -13,6 +13,7 @@ import RecipeDetailPage from "./pages/RecipeDetailPage";
 import RecipeCreatePage from "./pages/RecipeCreatePage";
 import RecipeEditPage from "./pages/RecipeEditPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -28,7 +29,21 @@ const App = () => {
       </Route>
     )
   );
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <ToastContainer
+        position="top-left"
+        autoClose={2000}
+        hideProgressBar
+        closeOnClick
+        pauseOnFocusLoss={false}
+        pauseOnHover={false}
+        draggable={false}
+        toastClassName="toast-success"
+      />
+    </>
+  );
 };
 
 export default App;

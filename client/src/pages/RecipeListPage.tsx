@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RecipeCards from "../components/RecipeCards";
 import { RecipeData } from "../data/data";
+import { toast } from "react-toastify";
 
 const RecipeListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,6 +21,13 @@ const RecipeListPage = () => {
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
   };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("recipeSuccess")) {
+      // toast.success("Recipe added successfully!");
+      // sessionStorage.removeItem("recipeSuccess");
+    }
+  }, []);
 
   return (
     <div className="recipeList__page">
