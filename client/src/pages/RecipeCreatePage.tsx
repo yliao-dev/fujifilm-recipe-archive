@@ -118,7 +118,9 @@ const RecipeCreatePage = () => {
           </label>
         ))}
 
-        <button type="submit">Submit</button>
+        <button className="nav_button" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );
