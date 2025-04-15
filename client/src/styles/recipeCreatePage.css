@@ -50,7 +50,8 @@
   color: var(--text);
   font-size: 0.9rem;
   outline: none;
-  appearance: none; /* removes default arrow styling for better control */
+  appearance: none;
+  text-align: center;
 }
 
 .recipeCreate__form input:focus,
