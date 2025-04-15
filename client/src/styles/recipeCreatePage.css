@@ -72,3 +72,29 @@
   margin-left: 0.25rem;
   font-weight: bold;
 }
+
+.image-upload {
+  width: 100%;
+  cursor: pointer;
+  border: 0.1rem dashed var(--border);
+  border-radius: 0.25rem;
+  text-align: center;
+  transition: border-color 0.2s ease;
+  margin-top: 2rem;
+}
+
+.image-upload:hover {
+  border-color: var(--dark);
+}
+
+.image-upload__placeholder {
+  color: var(--subtext);
+  padding: 2rem 0;
+}
+
+.image-upload__preview {
+  width: 100%;
+  height: auto;
+  border-radius: 0.25rem;
+  object-fit: cover;
+}

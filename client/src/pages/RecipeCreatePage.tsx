@@ -47,6 +47,16 @@ const RecipeCreatePage = () => {
     }
   };
 
+  const [preview, setPreview] = useState<string | null>(null);
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setPreview(reader.result as string);
+      reader.readAsDataURL(file);
+    }
+  };
+
   const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -139,9 +149,24 @@ const RecipeCreatePage = () => {
                 rows={3}
               />
             </label>
-            <label>
-              Sample Image
-              <input type="file" accept="image/*" />
+            <label className="image-upload">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                hidden
+              />
+              {preview ? (
+                <img
+                  src={preview}
+                  alt="Preview"
+                  className="image-upload__preview"
+                />
+              ) : (
+                <div className="image-upload__placeholder">
+                  Upload a sample image
+                </div>
+              )}
             </label>
             <button
               className="nav_button"
