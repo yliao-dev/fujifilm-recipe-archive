@@ -45,12 +45,13 @@
   padding: 0.5rem;
   border: 0.01rem solid var(--border);
   border-radius: 0.25rem;
+  outline: none;
 }
 
 .recipeCreate__form input:focus,
 .recipeCreate__form textarea:focus {
   border-color: var(--dark);
-  box-shadow: 0 0 0 0.01rem var(--dark);
+  box-shadow: 0 0 0 0.07rem var(--dark);
 }
 
 .recipeCreate__form button {
