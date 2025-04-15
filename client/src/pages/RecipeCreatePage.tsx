@@ -115,7 +115,9 @@ const RecipeCreatePage = () => {
               name={key}
               value={form.settings[key]}
               onChange={handleChange}
-              placeholder={key}
+              placeholder={
+                example.settings[key as keyof typeof example.settings]
+              }
             />
           </label>
         ))}

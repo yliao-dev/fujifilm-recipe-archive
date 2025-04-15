@@ -9,7 +9,7 @@ export const RecipeData = [
     notes: "Low contrast tones for a cinematic mood.",
     created_at: { $date: "2024-09-10T07:20:00Z" },
     settings: {
-      film_simulation: "Nostalgic Neg.",
+      film_simulation: "Nostalgic Neg",
       grain_effect: "Weak, Small",
       color_chrome_effect: "Strong",
       color_chrome_fx_blue: "Strong",
@@ -23,6 +23,7 @@ export const RecipeData = [
       clarity: "-2",
       iso: "Auto, up to ISO 6400",
       exposure_compensation: "0 to +2/3 (typically)",
+      noise_reduction: "-3",
     },
   },
 
