@@ -3,54 +3,42 @@
   justify-content: center;
   align-items: center;
   padding: 4rem 1rem;
-  background: var(--bg);
-  min-height: 100dvh;
 }
 
 .recipeCreate__form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
   background: var(--surface);
   padding: 2rem;
-  width: 100%;
-  max-width: 30rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border);
-  color: var(--text);
+  width: 70%;
+  max-width: 35rem;
+  border: 0.01rem solid var(--border);
+  border-radius: 0.25rem;
 }
 
 .recipeCreate__form h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
   text-align: center;
 }
 
 .recipeCreate__form label {
   display: flex;
   flex-direction: column;
-  font-size: 0.9rem;
-  font-weight: 500;
   gap: 0.5rem;
 }
 
 .recipeCreate__form input,
 .recipeCreate__form textarea {
   width: 100%;
-  padding: 0.75rem;
-  font-size: 0.9rem;
-  border: 1px solid var(--border);
-  border-radius: 0.375rem;
-  background-color: white;
-  color: var(--text);
-  outline: none;
+  padding: 0.5rem;
+  border: 0.01rem solid var(--border);
+  border-radius: 0.25rem;
 }
 
 .recipeCreate__form input:focus,
 .recipeCreate__form textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent);
+  border-color: var(--dark);
+  box-shadow: 0 0 0 0.01rem var(--dark);
 }
 
 .recipeCreate__form button {
