@@ -87,6 +87,16 @@ const RecipeCreatePage = () => {
             </label>
 
             <label>
+              <span className="required">Camera Models</span>
+              <input
+                name="camera_models"
+                value={form.cameraModels}
+                onChange={handleChange}
+                placeholder={example.camera_models.join(", ")}
+              />
+            </label>
+
+            <label>
               <span className="required">Film Simulation</span>
               <input
                 name="film_simulation"
@@ -96,6 +106,7 @@ const RecipeCreatePage = () => {
                 required
               />
             </label>
+
             <label>
               Creator
               <input
@@ -105,15 +116,7 @@ const RecipeCreatePage = () => {
                 placeholder={example.creator}
               />
             </label>
-            <label>
-              <span className="required">Camera Models</span>
-              <input
-                name="camera_models"
-                value={form.cameraModels}
-                onChange={handleChange}
-                placeholder={example.camera_models.join(", ")}
-              />
-            </label>
+
             <label>
               Tags
               <input
