@@ -1,10 +1,12 @@
 @import "./variables.css";
 @import "./recipeCard.css";
+@import "./sideTabNav.css";
 
 @import "./homePage.css";
 @import "./recipeListPage.css";
 @import "./recipeDetailPage.css";
-@import "./sideTabNav.css";
+@import "./recipeCreatePage.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
