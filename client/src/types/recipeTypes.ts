@@ -8,10 +8,11 @@ export type RecipeItemProps = {
   };
   name: string;
   camera_models: string[];
-  tags: string[];
-  sample_image_url: string;
+  film_simulation: string;
   creator: string;
+  tags: string[];
   notes: string;
+  sample_image_url: string;
   created_at: {
     $date: string;
   };
@@ -20,15 +21,15 @@ export type RecipeItemProps = {
 
 export type RecipeFormData = {
   name: string;
-  creator: string;
   camera_models: string[];
+  film_simulation: string;
+  creator: string;
   tags: string[];
   notes: string;
   settings: RecipeSettings;
 };
 
 export type RecipeSettings = {
-  film_simulation: string;
   grain_effect: string;
   color_chrome_effect: string;
   color_chrome_fx_blue: string;

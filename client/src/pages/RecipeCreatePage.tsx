@@ -3,7 +3,6 @@ import { ExampleData } from "../data/exampleData";
 import { formatKey } from "../utils/formatKey";
 
 const settingFields = [
-  "film_simulation",
   "grain_effect",
   "color_chrome_effect",
   "color_chrome_fx_blue",
@@ -25,8 +24,9 @@ const example = ExampleData[0]; // single example
 const RecipeCreatePage = () => {
   const [form, setForm] = useState({
     name: "",
-    creator: "",
     cameraModels: "",
+    filmSimulation: "",
+    creator: "",
     tags: "",
     notes: "",
     settings: Object.fromEntries(settingFields.map((key) => [key, ""])),
@@ -85,6 +85,17 @@ const RecipeCreatePage = () => {
                 required
               />
             </label>
+
+            <label>
+              <span className="required">Film Simulation</span>
+              <input
+                name="film_simulation"
+                value={form.filmSimulation}
+                onChange={handleChange}
+                placeholder={example.film_simulation}
+                required
+              />
+            </label>
             <label>
               Creator
               <input
@@ -97,7 +108,7 @@ const RecipeCreatePage = () => {
             <label>
               <span className="required">Camera Models</span>
               <input
-                name="cameraModels"
+                name="camera_models"
                 value={form.cameraModels}
                 onChange={handleChange}
                 placeholder={example.camera_models.join(", ")}
