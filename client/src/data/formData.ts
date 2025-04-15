@@ -43,7 +43,7 @@ export const settingFields = [
   "exposure_compensation",
 ];
 
-export const dropdownFields: Record<string, string[]> = {
+export const selectFields: Record<string, string[]> = {
   grain_effect: [
     "Off",
     "Weak, Small",
