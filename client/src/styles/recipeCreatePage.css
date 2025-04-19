@@ -32,20 +32,8 @@
   text-align: center;
 }
 
-.recipeCreate__form label {
-  display: flex;
-  flex-direction: column;
-}
-
 .recipeCreate__form > div {
   margin-bottom: 1rem;
-}
-
-.recipeCreate__form input,
-.recipeCreate__form textarea {
-  width: 100%;
-  border-radius: 0.25rem;
-  background: white;
 }
 
 .recipeCreate__form button {

@@ -1,0 +1,19 @@
+.customSelectField {
+  width: 100%;
+}
+
+.MuiInputBase-root {
+  background: white;
+  border-radius: 0.25rem;
+}
+
+.MuiInputLabel-root {
+  font-weight: var(--font-weight-light);
+}
+
+.MuiInputBase-input {
+  font-weight: var(--font-weight-light);
+}
+
+.MuiInputBase-textarea {
+}
