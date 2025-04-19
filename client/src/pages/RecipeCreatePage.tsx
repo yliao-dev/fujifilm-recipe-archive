@@ -16,8 +16,8 @@ const example = ExampleData[0]; // single example
 const RecipeCreatePage = () => {
   const [form, setForm] = useState({
     name: "",
-    cameraModels: "",
-    filmSimulation: "",
+    camera_models: "",
+    film_simulation: "",
     creator: "",
     tags: "",
     notes: "",
@@ -112,8 +112,8 @@ const RecipeCreatePage = () => {
               type="submit"
               disabled={
                 !form.name.trim() ||
-                !form.cameraModels.trim() ||
-                !form.filmSimulation.trim()
+                !form.camera_models.trim() ||
+                !form.film_simulation.trim()
               }
               onClick={() => {
                 handleSubmit;
