@@ -12,9 +12,7 @@ export interface SelectFieldProps {
   value: string;
   options: string[];
   onChange: (event: SelectChangeEvent) => void;
-  helperText?: string;
   required?: boolean;
-  displayEmpty?: boolean;
 }
 
 const SelectField = ({
@@ -23,30 +21,39 @@ const SelectField = ({
   value,
   options,
   onChange,
-  required,
-  displayEmpty = true,
-}: SelectFieldProps) => (
-  <FormControl required={required} className="custom__selectField">
-    <InputLabel>{label}</InputLabel>
-    <Select
-      name={name}
-      value={value}
-      label={label}
-      onChange={onChange}
-      displayEmpty={displayEmpty}
-      MenuProps={{
-        PaperProps: {
-          className: "custom__dropdown",
-        },
-      }}
+  required = false,
+}: SelectFieldProps) => {
+  const labelId = `${name}-label`;
+
+  return (
+    <FormControl
+      fullWidth
+      required={required}
+      variant="outlined"
+      className="custom__selectField"
     >
-      {options.map((opt) => (
-        <MenuItem key={opt} value={opt}>
-          {opt}
-        </MenuItem>
-      ))}
-    </Select>
-  </FormControl>
-);
+      <InputLabel id={labelId}>{label}</InputLabel>
+      <Select
+        labelId={labelId}
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        label={label}
+        MenuProps={{
+          PaperProps: {
+            className: "custom__dropdown",
+          },
+        }}
+      >
+        {options.map((opt) => (
+          <MenuItem key={opt} value={opt}>
+            {opt}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  );
+};
 
 export default SelectField;

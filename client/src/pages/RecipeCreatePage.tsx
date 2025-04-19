@@ -64,21 +64,29 @@ const RecipeCreatePage = () => {
 
         <form className="recipeCreate__form__container" onSubmit={handleSubmit}>
           <div className="recipeCreate__form">
-            {basicFields.map(({ name, label, required, multiline, rows }) => (
-              <TextField
-                key={name}
-                label={label}
-                name={name}
-                value={(form as any)[name]}
-                onChange={handleChange}
-                placeholder={(example as any)?.[name] || ""}
-                required={required}
-                multiline={multiline}
-                rows={rows}
-                variant="outlined"
-                className="custom__textfield"
-              />
-            ))}
+            {basicFields.map(({ name, label, required, multiline, rows }) => {
+              const value = (form as any)[name];
+              const placeholder = (example as any)?.[name];
+              const placeholderText = Array.isArray(placeholder)
+                ? placeholder.join(", ")
+                : placeholder || "";
+
+              return (
+                <TextField
+                  key={name}
+                  label={label}
+                  name={name}
+                  value={value}
+                  onChange={handleChange}
+                  placeholder={placeholderText}
+                  required={required}
+                  multiline={multiline}
+                  rows={rows}
+                  variant="outlined"
+                  className="custom__textfield"
+                />
+              );
+            })}
             <label className="image-upload">
               <input
                 type="file"

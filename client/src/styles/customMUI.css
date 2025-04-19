@@ -21,6 +21,7 @@
 .custom__selectField .MuiInputBase-root {
   background: white;
   border-radius: 0.25rem;
+  font-weight: var(--font-weight-light);
 }
 
 /* Dropdown menu items */
