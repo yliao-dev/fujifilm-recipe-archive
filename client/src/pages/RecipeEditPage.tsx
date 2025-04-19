@@ -11,7 +11,7 @@ const RecipeEditPage = () => {
 
   const handleSubmit = (updatedData: any) => {
     // Update logic here
-    navigate("/recipes");
+    navigate(`/recipes/${updatedData._id.$oid}`);
   };
 
   if (!recipe) return <NotFoundPage />;
