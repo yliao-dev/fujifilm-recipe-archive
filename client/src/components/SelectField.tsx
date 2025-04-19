@@ -26,7 +26,7 @@ const SelectField = ({
   required,
   displayEmpty = true,
 }: SelectFieldProps) => (
-  <FormControl required={required} className="customSelectField">
+  <FormControl required={required} className="custom__selectField">
     <InputLabel>{label}</InputLabel>
     <Select
       name={name}
@@ -34,6 +34,11 @@ const SelectField = ({
       label={label}
       onChange={onChange}
       displayEmpty={displayEmpty}
+      MenuProps={{
+        PaperProps: {
+          className: "custom__dropdown",
+        },
+      }}
     >
       {options.map((opt) => (
         <MenuItem key={opt} value={opt}>

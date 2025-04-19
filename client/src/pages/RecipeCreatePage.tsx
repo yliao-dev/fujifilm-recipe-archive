@@ -72,10 +72,10 @@ const RecipeCreatePage = () => {
                 onChange={handleChange}
                 placeholder={(example as any)?.[name] || ""}
                 required={required}
-                fullWidth
                 multiline={multiline}
                 rows={rows}
-                margin="dense"
+                variant="outlined"
+                className="custom__textfield"
               />
             ))}
             <label className="image-upload">
@@ -133,6 +133,8 @@ const RecipeCreatePage = () => {
                     placeholder={
                       example.settings[key as keyof typeof example.settings]
                     }
+                    variant="outlined"
+                    className="custom__textfield"
                   />
                 )}
               </div>

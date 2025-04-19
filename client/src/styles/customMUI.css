@@ -1,16 +1,30 @@
-.customSelectField {
+/* === TextField === */
+.custom__textfield {
   width: 100%;
 }
 
-.MuiInputBase-root {
+.custom__textfield .MuiInputBase-root {
   background: white;
   border-radius: 0.25rem;
 }
 
-.MuiInputLabel-root {
+.custom__textfield .MuiInputBase-input {
   font-weight: var(--font-weight-light);
+  text-align: left;
 }
 
-.MuiInputBase-input {
+/* === SelectField === */
+.custom__selectField {
+  width: 100%;
+}
+
+.custom__selectField .MuiInputBase-root {
+  background: white;
+  border-radius: 0.25rem;
+}
+
+/* Dropdown menu items */
+.custom__dropdown .MuiMenuItem-root {
   font-weight: var(--font-weight-light);
+  font-size: 0.85rem;
 }
