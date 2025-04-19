@@ -39,6 +39,10 @@
   padding: 0.5rem;
 }
 
+.recipeCreate__form > div {
+  margin-bottom: 1rem;
+}
+
 .recipeCreate__form input,
 .recipeCreate__form textarea {
   width: 100%;
