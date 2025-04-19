@@ -4,7 +4,6 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  FormHelperText,
 } from "@mui/material";
 
 export interface SelectFieldProps {

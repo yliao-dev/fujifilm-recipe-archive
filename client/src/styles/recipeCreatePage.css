@@ -15,8 +15,8 @@
   flex-direction: row;
   gap: 2rem;
   padding: 2rem;
-  width: 70%;
-  max-width: 35rem;
+  width: 80%;
+  max-width: 40rem;
   background: var(--surface);
   border: 0.01rem solid var(--border);
   border-radius: 0.25rem;
