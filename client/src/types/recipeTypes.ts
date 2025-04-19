@@ -7,7 +7,7 @@ export type RecipeItemProps = {
     $oid: string;
   };
   name: string;
-  camera_models: string[];
+  camera_models: string;
   film_simulation: string;
   creator: string;
   tags: string[];
@@ -21,7 +21,7 @@ export type RecipeItemProps = {
 
 export type RecipeFormData = {
   name: string;
-  camera_models: string[];
+  camera_models: string;
   film_simulation: string;
   creator: string;
   tags: string[];
