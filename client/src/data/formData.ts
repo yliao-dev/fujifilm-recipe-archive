@@ -27,22 +27,21 @@ export const ExampleData = [
   },
 ];
 
-export const settingFields = [
-  "grain_effect",
-  "color_chrome_effect",
-  "color_chrome_fx_blue",
-  "white_balance",
-  "dynamic_range",
-  "highlight",
-  "shadow",
-  "color",
-  "sharpness",
-  "noise_reduction",
-  "clarity",
-  "iso",
-  "exposure_compensation",
+export const settingFieldConfigs = [
+  { name: "grain_effect", type: "select" },
+  { name: "color_chrome_effect", type: "select" },
+  { name: "color_chrome_fx_blue", type: "select" },
+  { name: "white_balance", type: "text" },
+  { name: "dynamic_range", type: "select" },
+  { name: "highlight", type: "select" },
+  { name: "shadow", type: "select" },
+  { name: "color", type: "select" },
+  { name: "sharpness", type: "select" },
+  { name: "noise_reduction", type: "select" },
+  { name: "clarity", type: "select" },
+  { name: "iso", type: "text" },
+  { name: "exposure_compensation", type: "text" },
 ];
-
 export const basicFields = [
   {
     name: "name",
