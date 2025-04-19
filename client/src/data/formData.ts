@@ -43,6 +43,41 @@ export const settingFields = [
   "exposure_compensation",
 ];
 
+export const basicFields = [
+  {
+    name: "name",
+    label: "Name",
+    required: true,
+  },
+  {
+    name: "cameraModels",
+    label: "Camera Models",
+    required: true,
+  },
+  {
+    name: "filmSimulation",
+    label: "Film Simulation",
+    required: true,
+  },
+  {
+    name: "creator",
+    label: "Creator",
+    required: false,
+  },
+  {
+    name: "tags",
+    label: "Tags",
+    required: false,
+  },
+  {
+    name: "notes",
+    label: "Notes",
+    multiline: true,
+    rows: 3,
+    required: false,
+  },
+];
+
 export const selectFields: Record<string, string[]> = {
   grain_effect: [
     "Off",

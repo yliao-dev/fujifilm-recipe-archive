@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { ExampleData, selectFields, settingFields } from "../data/formData";
+import {
+  basicFields,
+  ExampleData,
+  selectFields,
+  settingFields,
+} from "../data/formData";
 import { formatKey } from "../utils/formatKey";
 import { useNavigate } from "react-router-dom";
 import SelectField from "../components/SelectField";
@@ -58,64 +63,21 @@ const RecipeCreatePage = () => {
 
         <form className="recipeCreate__form__container" onSubmit={handleSubmit}>
           <div className="recipeCreate__form">
-            <TextField
-              label="Name"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder={example?.name}
-              required
-              fullWidth
-              margin="dense"
-            />
-            <TextField
-              label="Camera Models"
-              name="cameraModels"
-              value={form.cameraModels}
-              onChange={handleChange}
-              placeholder={example?.camera_models?.join(", ")}
-              fullWidth
-              margin="dense"
-            />
-            <TextField
-              label="Film Simulation"
-              name="filmSimulation"
-              value={form.filmSimulation}
-              onChange={handleChange}
-              placeholder={example?.film_simulation}
-              required
-              fullWidth
-              margin="dense"
-            />
-            <TextField
-              label="Creator"
-              name="creator"
-              value={form.creator}
-              onChange={handleChange}
-              placeholder={example?.creator}
-              fullWidth
-              margin="dense"
-            />
-            <TextField
-              label="Tags"
-              name="tags"
-              value={form.tags}
-              onChange={handleChange}
-              placeholder={example?.tags?.join(", ")}
-              fullWidth
-              margin="dense"
-            />
-            <TextField
-              label="Notes"
-              name="notes"
-              value={form.notes}
-              onChange={handleChange}
-              placeholder={example?.notes}
-              multiline
-              rows={3}
-              fullWidth
-              margin="dense"
-            />
+            {basicFields.map(({ name, label, required, multiline, rows }) => (
+              <TextField
+                key={name}
+                label={label}
+                name={name}
+                value={(form as any)[name]}
+                onChange={handleChange}
+                placeholder={(example as any)?.[name] || ""}
+                required={required}
+                fullWidth
+                multiline={multiline}
+                rows={rows}
+                margin="dense"
+              />
+            ))}
             <label className="image-upload">
               <input
                 type="file"
@@ -164,17 +126,14 @@ const RecipeCreatePage = () => {
                     required={false}
                   />
                 ) : (
-                  <label>
-                    {formatKey(key)}
-                    <input
-                      name={key}
-                      value={form.settings[key]}
-                      onChange={handleChange}
-                      placeholder={
-                        example.settings[key as keyof typeof example.settings]
-                      }
-                    />
-                  </label>
+                  <TextField
+                    name={key}
+                    value={form.settings[key]}
+                    onChange={handleChange}
+                    placeholder={
+                      example.settings[key as keyof typeof example.settings]
+                    }
+                  />
                 )}
               </div>
             ))}
