@@ -1,4 +1,5 @@
 import { useState } from "react";
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import {
   basicFields,
   ExampleData,
@@ -93,6 +94,7 @@ const RecipeCreatePage = () => {
                 />
               ) : (
                 <div className="image-upload__placeholder">
+                  <InsertPhotoIcon style={{ fontSize: "3rem" }} />
                   Upload a sample image
                 </div>
               )}
