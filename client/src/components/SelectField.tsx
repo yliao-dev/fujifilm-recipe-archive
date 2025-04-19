@@ -24,11 +24,10 @@ const SelectField = ({
   value,
   options,
   onChange,
-  helperText = "",
-  required = false,
+  required,
   displayEmpty = true,
 }: SelectFieldProps) => (
-  <FormControl required={required}>
+  <FormControl required={required} className="customSelectField">
     <InputLabel>{label}</InputLabel>
     <Select
       name={name}
@@ -43,7 +42,6 @@ const SelectField = ({
         </MenuItem>
       ))}
     </Select>
-    {helperText && <FormHelperText>{helperText}</FormHelperText>}
   </FormControl>
 );
 

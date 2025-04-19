@@ -1,50 +1,13 @@
-/* Match select font and spacing with your design */
-.MuiFormControl-root {
-  margin: 0.5rem 0;
-  font-family: inherit;
-  font-size: 0.9rem;
+.customSelectField {
   width: 100%;
 }
 
-/* Select input box style */
-.MuiInputBase-root {
+.customSelectField .MuiInputBase-root {
   background: white;
   border-radius: 0.25rem;
   padding: 0.25rem 0.5rem;
-  border: 1px solid var(--border);
-  color: var(--text);
 }
 
-/* When focused */
-.MuiInputBase-root.Mui-focused {
-  border-color: var(--dark);
-  box-shadow: 0 0 0 0.07rem var(--dark);
-}
-
-/* Dropdown menu items */
-.MuiMenu-paper {
-  font-size: 0.9rem;
-}
-
-/* Label style */
-.MuiInputLabel-root {
-  color: var(--subtext);
-  font-weight: 500;
-}
-
-/* Focused label */
-.Mui-focused.MuiInputLabel-root {
-  color: var(--dark);
-}
-
-/* Helper text */
-.MuiFormHelperText-root {
-  color: var(--subtext);
-  font-size: 0.75rem;
-  margin-top: 0.2rem;
-}
-
-/* Asterisk (required) color */
-.MuiFormLabel-asterisk {
-  color: var(--fuji-red);
+.customSelectField .MuiInputLabel-root {
+  font-weight: var(--font-weight-light);
 }
