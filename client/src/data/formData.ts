@@ -17,7 +17,7 @@ export const ExampleData = [
       dynamic_range: "DR100",
       highlight: "-2",
       shadow: "-1",
-      color: "2",
+      color: "+2",
       sharpness: "-2",
       noise_reduction: "-3",
       clarity: "-2",
