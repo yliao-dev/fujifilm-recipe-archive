@@ -2,6 +2,8 @@ import { useState } from "react";
 import { ExampleData, selectFields, settingFields } from "../data/formData";
 import { formatKey } from "../utils/formatKey";
 import { useNavigate } from "react-router-dom";
+import SelectField from "../components/SelectField";
+import { SelectChangeEvent } from "@mui/material";
 
 const example = ExampleData[0]; // single example
 
@@ -17,18 +19,19 @@ const RecipeCreatePage = () => {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent
   ) => {
     const { name, value } = e.target;
-    const isSettingField = settingFields.includes(name);
-    setForm((prev) => ({
-      ...prev,
-      [isSettingField ? "settings" : name]: isSettingField
-        ? { ...prev.settings, [name]: value }
-        : value,
-    }));
+    if (settingFields.includes(name)) {
+      setForm((prev) => ({
+        ...prev,
+        settings: { ...prev.settings, [name]: value },
+      }));
+    } else {
+      setForm((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const [preview, setPreview] = useState<string | null>(null);
@@ -56,32 +59,30 @@ const RecipeCreatePage = () => {
         <form className="recipeCreate__form__container" onSubmit={handleSubmit}>
           <div className="recipeCreate__form">
             {settingFields.map((key) => (
-              <label key={key}>
-                {formatKey(key)}
+              <div key={key}>
                 {selectFields[key] ? (
-                  <select
+                  <SelectField
+                    label={formatKey(key)}
                     name={key}
                     value={form.settings[key]}
+                    options={selectFields[key]}
                     onChange={handleChange}
-                  >
-                    <option value=""> &#9662; </option>
-                    {selectFields[key].map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <input
-                    name={key}
-                    value={form.settings[key]}
-                    onChange={handleChange}
-                    placeholder={
-                      example.settings[key as keyof typeof example.settings]
-                    }
+                    required={false}
                   />
+                ) : (
+                  <label>
+                    {formatKey(key)}
+                    <input
+                      name={key}
+                      value={form.settings[key]}
+                      onChange={handleChange}
+                      placeholder={
+                        example.settings[key as keyof typeof example.settings]
+                      }
+                    />
+                  </label>
                 )}
-              </label>
+              </div>
             ))}
           </div>
 
