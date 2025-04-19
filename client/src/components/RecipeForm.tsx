@@ -109,7 +109,7 @@ const RecipeForm = ({
           type="submit"
           disabled={
             !form.name.trim() ||
-            !form.camera_models.trim() ||
+            !String(form.camera_models) ||
             !form.film_simulation.trim()
           }
         >

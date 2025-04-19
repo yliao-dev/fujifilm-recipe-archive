@@ -1,13 +1,13 @@
 import { useParams, useNavigate } from "react-router-dom";
 import RecipeForm from "../components/RecipeForm";
-import { ExampleData } from "../data/formData";
+import { RecipeData } from "../data/data";
 import NotFoundPage from "./NotFoundPage";
 
 const RecipeEditPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const recipe = ExampleData.find((item) => item._id.$oid === id);
+  const recipe = RecipeData.find((item) => item._id.$oid === id);
 
   const handleSubmit = (updatedData: any) => {
     // Update logic here
