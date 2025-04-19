@@ -3,7 +3,12 @@ import { useState } from "react";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import { SelectChangeEvent, TextField } from "@mui/material";
 import SelectField from "./SelectField";
-import { basicFields, selectFields, settingFields } from "../data/formData";
+import {
+  basicFields,
+  ExampleData,
+  selectFields,
+  settingFieldConfigs,
+} from "../data/formData";
 import { formatKey } from "../utils/formatKey";
 
 interface RecipeFormProps {
@@ -25,7 +30,9 @@ const RecipeForm = ({
       creator: "",
       tags: "",
       notes: "",
-      settings: Object.fromEntries(settingFields.map((key) => [key, ""])),
+      settings: Object.fromEntries(
+        settingFieldConfigs.map(({ name }) => [name, ""])
+      ),
     }
   );
 
@@ -39,7 +46,7 @@ const RecipeForm = ({
       | SelectChangeEvent
   ) => {
     const { name, value } = e.target;
-    if (settingFields.includes(name)) {
+    if (settingFieldConfigs.some((field) => field.name === name)) {
       setForm((prev: any) => ({
         ...prev,
         settings: { ...prev.settings, [name]: value },
@@ -57,6 +64,7 @@ const RecipeForm = ({
       reader.readAsDataURL(file);
     }
   };
+  const example = ExampleData[0];
 
   return (
     <form
@@ -74,7 +82,7 @@ const RecipeForm = ({
             name={name}
             value={form[name]}
             onChange={handleChange}
-            placeholder={initialData?.[name] || ""}
+            placeholder={initialData?.[name] || (example as any)?.[name] || ""}
             required={required}
             multiline={multiline}
             rows={rows}
@@ -118,22 +126,27 @@ const RecipeForm = ({
       </div>
 
       <div className="recipeCreate__form">
-        {settingFields.map((key) => (
-          <div key={key}>
-            {selectFields[key] ? (
+        {settingFieldConfigs.map(({ name, type }) => (
+          <div key={name}>
+            {type === "select" && selectFields[name] ? (
               <SelectField
-                label={formatKey(key)}
-                name={key}
-                value={form.settings[key]}
-                options={selectFields[key]}
+                label={formatKey(name)}
+                name={name}
+                value={form.settings[name]}
+                options={selectFields[name]}
                 onChange={handleChange}
               />
             ) : (
               <TextField
-                name={key}
-                value={form.settings[key]}
+                name={name}
+                label={formatKey(name)}
+                value={form.settings[name]}
                 onChange={handleChange}
-                placeholder={initialData?.settings?.[key] || ""}
+                placeholder={
+                  initialData?.settings?.[name] ||
+                  example.settings[name as keyof typeof example.settings] ||
+                  ""
+                }
                 variant="outlined"
                 className="custom__textfield"
               />
