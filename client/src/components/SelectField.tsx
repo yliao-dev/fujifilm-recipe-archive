@@ -16,7 +16,6 @@ export interface SelectFieldProps {
   helperText?: string;
   required?: boolean;
   displayEmpty?: boolean;
-  minWidth?: number;
 }
 
 const SelectField = ({
@@ -28,9 +27,8 @@ const SelectField = ({
   helperText = "",
   required = false,
   displayEmpty = true,
-  minWidth = 160,
 }: SelectFieldProps) => (
-  <FormControl required={required} sx={{ minWidth }} size="small">
+  <FormControl required={required}>
     <InputLabel>{label}</InputLabel>
     <Select
       name={name}
@@ -39,11 +37,6 @@ const SelectField = ({
       onChange={onChange}
       displayEmpty={displayEmpty}
     >
-      {displayEmpty && (
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-      )}
       {options.map((opt) => (
         <MenuItem key={opt} value={opt}>
           {opt}
