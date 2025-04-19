@@ -18,7 +18,7 @@ const RecipeEditPage = () => {
 
   return (
     <div className="recipeCreate__page">
-      <h1>Edit Your Film Recipe</h1>
+      <h1>Edit Film Recipe</h1>
       <hr className="recipeList__divider" />
       <RecipeForm mode="edit" initialData={recipe} onSubmit={handleSubmit} />
     </div>
