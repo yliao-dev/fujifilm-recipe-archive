@@ -58,35 +58,6 @@ const RecipeCreatePage = () => {
 
         <form className="recipeCreate__form__container" onSubmit={handleSubmit}>
           <div className="recipeCreate__form">
-            {settingFields.map((key) => (
-              <div key={key}>
-                {selectFields[key] ? (
-                  <SelectField
-                    label={formatKey(key)}
-                    name={key}
-                    value={form.settings[key]}
-                    options={selectFields[key]}
-                    onChange={handleChange}
-                    required={false}
-                  />
-                ) : (
-                  <label>
-                    {formatKey(key)}
-                    <input
-                      name={key}
-                      value={form.settings[key]}
-                      onChange={handleChange}
-                      placeholder={
-                        example.settings[key as keyof typeof example.settings]
-                      }
-                    />
-                  </label>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="recipeCreate__form">
             <label>
               <span className="required">Name</span>
               <input
@@ -181,6 +152,35 @@ const RecipeCreatePage = () => {
             >
               Submit
             </button>
+          </div>
+
+          <div className="recipeCreate__form">
+            {settingFields.map((key) => (
+              <div key={key}>
+                {selectFields[key] ? (
+                  <SelectField
+                    label={formatKey(key)}
+                    name={key}
+                    value={form.settings[key]}
+                    options={selectFields[key]}
+                    onChange={handleChange}
+                    required={false}
+                  />
+                ) : (
+                  <label>
+                    {formatKey(key)}
+                    <input
+                      name={key}
+                      value={form.settings[key]}
+                      onChange={handleChange}
+                      placeholder={
+                        example.settings[key as keyof typeof example.settings]
+                      }
+                    />
+                  </label>
+                )}
+              </div>
+            ))}
           </div>
         </form>
       </div>
