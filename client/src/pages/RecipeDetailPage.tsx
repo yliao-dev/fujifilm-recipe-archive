@@ -1,11 +1,14 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { RecipeData } from "../data/data";
 import NotFoundPage from "./NotFoundPage";
 import { formatKey } from "../utils/formatKey";
 import { Edit, DeleteForever } from "@mui/icons-material";
 
 const RecipeDetailPage = () => {
+  const navigate = useNavigate();
+
   const { id } = useParams();
+
   const recipe = RecipeData.find((p) => p._id.$oid === id);
 
   if (!recipe) return <NotFoundPage />;
@@ -34,8 +37,11 @@ const RecipeDetailPage = () => {
             </p>
           </div>
           <div className="recipeDetail__modify">
-            <Edit />
-            <DeleteForever />
+            <Edit
+              onClick={() => navigate(`/edit-recipe/${recipe._id.$oid}`)}
+              style={{ cursor: "pointer" }}
+            />
+            <DeleteForever style={{ cursor: "pointer" }} />
           </div>
         </div>
       </section>
