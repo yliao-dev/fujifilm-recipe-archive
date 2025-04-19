@@ -35,8 +35,6 @@
 .recipeCreate__form label {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.5rem;
 }
 
 .recipeCreate__form > div {
@@ -46,21 +44,8 @@
 .recipeCreate__form input,
 .recipeCreate__form textarea {
   width: 100%;
-  padding: 0.5rem;
-  border: 0.01rem solid var(--border);
   border-radius: 0.25rem;
   background: white;
-  color: var(--text);
-  font-size: 0.9rem;
-  outline: none;
-  appearance: none;
-  text-align: center;
-}
-
-.recipeCreate__form input:focus,
-.recipeCreate__form textarea:focus {
-  border-color: var(--dark);
-  box-shadow: 0 0 0 0.07rem var(--dark);
 }
 
 .recipeCreate__form button {
