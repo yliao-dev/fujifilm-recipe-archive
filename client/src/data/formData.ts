@@ -50,12 +50,12 @@ export const basicFields = [
     required: true,
   },
   {
-    name: "cameraModels",
+    name: "camera_models",
     label: "Camera Models",
     required: true,
   },
   {
-    name: "filmSimulation",
+    name: "film_simulation",
     label: "Film Simulation",
     required: true,
   },
