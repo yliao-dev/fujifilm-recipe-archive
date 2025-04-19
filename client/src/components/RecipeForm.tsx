@@ -17,6 +17,9 @@ interface RecipeFormProps {
   onSubmit: (formData: any) => void;
 }
 
+const getPlaceholder = (value: any) =>
+  Array.isArray(value) ? value.join(", ") : value || "";
+
 const RecipeForm = ({
   mode = "create",
   initialData,
@@ -82,7 +85,10 @@ const RecipeForm = ({
             name={name}
             value={form[name]}
             onChange={handleChange}
-            placeholder={initialData?.[name] || (example as any)?.[name] || ""}
+            placeholder={
+              getPlaceholder(initialData?.[name]) ||
+              getPlaceholder((example as any)?.[name])
+            }
             required={required}
             multiline={multiline}
             rows={rows}
@@ -143,9 +149,10 @@ const RecipeForm = ({
                 value={form.settings[name]}
                 onChange={handleChange}
                 placeholder={
-                  initialData?.settings?.[name] ||
-                  example.settings[name as keyof typeof example.settings] ||
-                  ""
+                  getPlaceholder(initialData?.settings?.[name]) ||
+                  getPlaceholder(
+                    example.settings[name as keyof typeof example.settings]
+                  )
                 }
                 variant="outlined"
                 className="custom__textfield"
