@@ -3,7 +3,7 @@ import { ExampleData, selectFields, settingFields } from "../data/formData";
 import { formatKey } from "../utils/formatKey";
 import { useNavigate } from "react-router-dom";
 import SelectField from "../components/SelectField";
-import { SelectChangeEvent } from "@mui/material";
+import { SelectChangeEvent, TextField } from "@mui/material";
 
 const example = ExampleData[0]; // single example
 
@@ -58,67 +58,64 @@ const RecipeCreatePage = () => {
 
         <form className="recipeCreate__form__container" onSubmit={handleSubmit}>
           <div className="recipeCreate__form">
-            <label>
-              <span className="required">Name</span>
-              <input
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                placeholder={example.name}
-                required
-              />
-            </label>
-
-            <label>
-              <span className="required">Camera Models</span>
-              <input
-                name="cameraModels"
-                value={form.cameraModels}
-                onChange={handleChange}
-                placeholder={example.camera_models.join(", ")}
-              />
-            </label>
-
-            <label>
-              <span className="required">Film Simulation</span>
-              <input
-                name="filmSimulation"
-                value={form.filmSimulation}
-                onChange={handleChange}
-                placeholder={example.film_simulation}
-                required
-              />
-            </label>
-
-            <label>
-              Creator
-              <input
-                name="creator"
-                value={form.creator}
-                onChange={handleChange}
-                placeholder={example.creator}
-              />
-            </label>
-
-            <label>
-              Tags
-              <input
-                name="tags"
-                value={form.tags}
-                onChange={handleChange}
-                placeholder={example.tags.join(", ")}
-              />
-            </label>
-            <label>
-              Notes
-              <textarea
-                name="notes"
-                value={form.notes}
-                onChange={handleChange}
-                placeholder={example.notes}
-                rows={3}
-              />
-            </label>
+            <TextField
+              label="Name"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              placeholder={example?.name}
+              required
+              fullWidth
+              margin="dense"
+            />
+            <TextField
+              label="Camera Models"
+              name="cameraModels"
+              value={form.cameraModels}
+              onChange={handleChange}
+              placeholder={example?.camera_models?.join(", ")}
+              fullWidth
+              margin="dense"
+            />
+            <TextField
+              label="Film Simulation"
+              name="filmSimulation"
+              value={form.filmSimulation}
+              onChange={handleChange}
+              placeholder={example?.film_simulation}
+              required
+              fullWidth
+              margin="dense"
+            />
+            <TextField
+              label="Creator"
+              name="creator"
+              value={form.creator}
+              onChange={handleChange}
+              placeholder={example?.creator}
+              fullWidth
+              margin="dense"
+            />
+            <TextField
+              label="Tags"
+              name="tags"
+              value={form.tags}
+              onChange={handleChange}
+              placeholder={example?.tags?.join(", ")}
+              fullWidth
+              margin="dense"
+            />
+            <TextField
+              label="Notes"
+              name="notes"
+              value={form.notes}
+              onChange={handleChange}
+              placeholder={example?.notes}
+              multiline
+              rows={3}
+              fullWidth
+              margin="dense"
+            />
             <label className="image-upload">
               <input
                 type="file"
