@@ -33,6 +33,7 @@ const RecipeForm = ({
       creator: "",
       tags: "",
       notes: "",
+      sample_image_url: "",
       settings: Object.fromEntries(
         settingFieldConfigs.map(({ name }) => [name, ""])
       ),
@@ -63,7 +64,14 @@ const RecipeForm = ({
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => setPreview(reader.result as string);
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        setPreview(result); // for UI
+        setForm((prev: any) => ({
+          ...prev,
+          sample_image_url: result, // 👈 save to form
+        }));
+      };
       reader.readAsDataURL(file);
     }
   };
