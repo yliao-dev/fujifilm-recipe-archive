@@ -79,8 +79,20 @@ func GetItems(c *fiber.Ctx) error {
 }
 
 func CreateItems(c *fiber.Ctx) error {
-	fmt.Println("CreateItems")
-	return nil
+		fmt.Println("CreateItems")
+
+	var recipe types.Recipe
+	if err := c.BodyParser(&recipe); err != nil {
+		fmt.Println("Error parsing body:", err)
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid request body"})
+	}
+
+	fmt.Printf("Received recipe: %+v\n", recipe)
+
+	return c.Status(201).JSON(fiber.Map{
+		"message": "Recipe received (mocked)",
+		"item":    recipe,
+	})
 	// var collection = c.Locals("db").(*mongo.Collection)
 	// var insertResult *mongo.InsertOneResult
 	// var err error
