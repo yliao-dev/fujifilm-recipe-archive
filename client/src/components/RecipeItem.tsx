@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Recipe } from "../types/recipeTypes";
+import { BASE_URL } from "../config";
 
 function RecipeItem({
   _id,
@@ -10,10 +11,9 @@ function RecipeItem({
   tags,
 }: Recipe) {
   const navigate = useNavigate();
-
   return (
     <div className="recipeCard" onClick={() => navigate(`/recipes/${_id}`)}>
-      <img src={sample_image_url} alt={name} />
+      <img src={`${BASE_URL}${sample_image_url}`} alt={name} />{" "}
       <div className="recipeCard-text">
         <h2>{name}</h2>
         <p>{`${film_simulation} - ${tags[0]}`}</p>
