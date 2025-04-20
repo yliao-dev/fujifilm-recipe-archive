@@ -5,9 +5,17 @@ import useCreateItem from "../hooks/useCreateItem";
 const RecipeCreatePage = () => {
   const navigate = useNavigate();
   const createItemMutation = useCreateItem();
-
   const handleSubmit = (formData: any) => {
-    createItemMutation.mutate(formData, {
+    const formattedData = {
+      ...formData,
+      camera_models: formData.camera_models
+        .split(",")
+        .map((s: string) => s.trim()),
+      tags: formData.tags.split(",").map((s: string) => s.trim()), // Same for tags
+    };
+
+    // Now call the mutation function with the formatted data
+    createItemMutation.mutate(formattedData, {
       onSuccess: () => {
         navigate("/recipes");
       },
