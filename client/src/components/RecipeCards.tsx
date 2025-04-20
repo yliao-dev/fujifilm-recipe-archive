@@ -1,7 +1,7 @@
 import RecipeItem from "./RecipeCard";
-import { RecipeCardProps } from "../types/recipeTypes";
+import { RecipeListProps } from "../types/recipeTypes";
 
-const RecipeCards = ({ recipeData }: RecipeCardProps) => {
+const RecipeCards = ({ recipeData }: RecipeListProps) => {
   return (
     <>
       {recipeData.map((recipe) => (

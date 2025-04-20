@@ -1,5 +1,5 @@
-export type RecipeCardProps = {
-  recipeData: RecipeItemProps[];
+export type RecipeListProps = {
+  recipeData: Recipe[];
 };
 
 export type RecipeItemProps = {
@@ -19,7 +19,19 @@ export type RecipeItemProps = {
   settings: RecipeSettings;
 };
 
-export type RecipeFormData = {
+export type NewRecipe = RecipeCore;
+
+export type Recipe = RecipeCore & {
+  _id: {
+    $oid: string;
+  };
+  sample_image_url: string;
+  created_at: {
+    $date: string;
+  };
+};
+
+export type RecipeCore = {
   name: string;
   camera_models: string;
   film_simulation: string;
