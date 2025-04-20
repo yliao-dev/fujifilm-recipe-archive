@@ -10,15 +10,14 @@ function RecipeItem({
   tags,
 }: Recipe) {
   const navigate = useNavigate();
-  const id = _id.$oid;
 
   return (
-    <div className="recipeCard" onClick={() => navigate(`/recipes/${id}`)}>
+    <div className="recipeCard" onClick={() => navigate(`/recipes/${_id}`)}>
       <img src={sample_image_url} alt={name} />
       <div className="recipeCard-text">
         <h2>{name}</h2>
         <p>{`${film_simulation} - ${tags[0]}`}</p>
-        <p>{camera_models}</p>{" "}
+        <p>{camera_models}</p>
       </div>
     </div>
   );

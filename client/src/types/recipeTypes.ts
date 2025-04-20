@@ -5,13 +5,9 @@ export type RecipeListProps = {
 export type NewRecipe = RecipeCore;
 
 export type Recipe = RecipeCore & {
-  _id: {
-    $oid: string;
-  };
+  _id: string;
   sample_image_url: string;
-  created_at: {
-    $date: string;
-  };
+  created_at: string;
 };
 
 export type RecipeCore = {

@@ -83,7 +83,7 @@ func GetItems(c *fiber.Ctx) error {
 	// }
 
 	// return c.JSON(items)
-		return c.JSON(mock.Recipes)
+	return c.JSON(mock.Recipes)
 
 }
 

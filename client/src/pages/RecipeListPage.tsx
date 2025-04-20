@@ -1,6 +1,5 @@
 import { useState } from "react";
 import RecipeItems from "../components/RecipeItems";
-// import { RecipeData } from "../data/data";
 import useItems from "../hooks/useItems";
 
 const RecipeListPage = () => {

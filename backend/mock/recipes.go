@@ -4,6 +4,18 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+type Recipe struct {
+	ID             string   		  `json:"_id"`
+	Name           string             `json:"name"`
+	CameraModels   []string           `json:"camera_models"`
+	FilmSimulation string             `json:"film_simulation"`
+	Creator        string             `json:"creator"`
+	Tags           []string           `json:"tags"`
+	Notes          string             `json:"notes"`
+	SampleImageURL string             `json:"sample_image_url"`
+	Settings       Settings           `json:"settings"`
+}
+
 type Settings struct {
 	Color             string `json:"color"`
 	Contrast          string `json:"contrast"`
@@ -15,21 +27,10 @@ type Settings struct {
 	ColorChromeEffect string `json:"color_chrome_effect"`
 }
 
-type Recipe struct {
-	ID             primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
-	Name           string             `json:"name"`
-	CameraModels   []string           `json:"camera_models"`
-	FilmSimulation string             `json:"film_simulation"`
-	Creator        string             `json:"creator"`
-	Tags           []string           `json:"tags"`
-	Notes          string             `json:"notes"`
-	SampleImageURL string             `json:"sample_image_url"`
-	Settings       Settings           `json:"settings"`
-}
 
 var Recipes = []Recipe{
 	{
-		ID:             primitive.NewObjectID(),
+		ID:             primitive.NewObjectID().Hex(), // Convert ObjectID to string using Hex()
 		Name:           "Classic Chrome Street",
 		CameraModels:   []string{"X-T3", "X100V"},
 		FilmSimulation: "Classic Chrome",
@@ -49,7 +50,7 @@ var Recipes = []Recipe{
 		},
 	},
 	{
-		ID:             primitive.NewObjectID(),
+		ID:             primitive.NewObjectID().Hex(), // Convert ObjectID to string using Hex()
 		Name:           "Vintage Kodachrome",
 		CameraModels:   []string{"X-Pro3"},
 		FilmSimulation: "Kodachrome",
