@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { RecipeItemProps } from "../types/recipeTypes";
+import { Recipe } from "../types/recipeTypes";
 
 function RecipeItem({
   _id,
@@ -8,7 +8,7 @@ function RecipeItem({
   sample_image_url,
   camera_models,
   tags,
-}: RecipeItemProps) {
+}: Recipe) {
   const navigate = useNavigate();
   const id = _id.$oid;
 

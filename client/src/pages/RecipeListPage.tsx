@@ -1,9 +1,20 @@
 import { useState } from "react";
-import RecipeCards from "../components/RecipeCards";
-import { RecipeData } from "../data/data";
+import RecipeItems from "../components/RecipeItems";
+// import { RecipeData } from "../data/data";
+import useItems from "../hooks/useItems";
 
 const RecipeListPage = () => {
+  const { data: RecipeData, error } = useItems();
+
   const [currentPage, setCurrentPage] = useState(1);
+
+  console.log(RecipeData);
+  if (!RecipeData || RecipeData.length === 0) {
+    return <p>No recipes found.</p>;
+  }
+
+  if (error) return <p>Error: {error.message}</p>;
+
   const cardsPerPage = 12;
   const totalPages = Math.ceil(RecipeData.length / cardsPerPage);
 
@@ -33,7 +44,7 @@ const RecipeListPage = () => {
       <hr className="recipeList__divider" />
 
       <section className="recipeList__card-grid">
-        <RecipeCards recipeData={currentRecipes} />
+        <RecipeItems recipeData={currentRecipes} />
       </section>
 
       <section className="pagination">

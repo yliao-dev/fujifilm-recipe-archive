@@ -2,23 +2,6 @@ export type RecipeListProps = {
   recipeData: Recipe[];
 };
 
-export type RecipeItemProps = {
-  _id: {
-    $oid: string;
-  };
-  name: string;
-  camera_models: string;
-  film_simulation: string;
-  creator: string;
-  tags: string[];
-  notes: string;
-  sample_image_url: string;
-  created_at: {
-    $date: string;
-  };
-  settings: RecipeSettings;
-};
-
 export type NewRecipe = RecipeCore;
 
 export type Recipe = RecipeCore & {
@@ -33,10 +16,10 @@ export type Recipe = RecipeCore & {
 
 export type RecipeCore = {
   name: string;
-  camera_models: string;
   film_simulation: string;
-  creator: string;
+  camera_models: string[];
   tags: string[];
+  creator: string;
   notes: string;
   settings: RecipeSettings;
 };

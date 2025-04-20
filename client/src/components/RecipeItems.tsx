@@ -1,7 +1,7 @@
-import RecipeItem from "./RecipeCard";
+import RecipeItem from "./RecipeItem";
 import { RecipeListProps } from "../types/recipeTypes";
 
-const RecipeCards = ({ recipeData }: RecipeListProps) => {
+const RecipeItems = ({ recipeData }: RecipeListProps) => {
   return (
     <>
       {recipeData.map((recipe) => (
@@ -23,4 +23,4 @@ const RecipeCards = ({ recipeData }: RecipeListProps) => {
   );
 };
 
-export default RecipeCards;
+export default RecipeItems;

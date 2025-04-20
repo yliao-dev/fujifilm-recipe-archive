@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "../config";
-import { Item } from "../types";
+import { Recipe } from "../types/recipeTypes";
 
 const useItem = (id: string) => {
-  return useQuery<Item, Error>({
+  return useQuery<Recipe, Error>({
     queryKey: ["item", id],
     queryFn: async () => {
       if (!id) {

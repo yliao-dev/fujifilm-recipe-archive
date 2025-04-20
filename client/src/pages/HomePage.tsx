@@ -1,4 +1,4 @@
-import RecipeCards from "../components/RecipeCards";
+import RecipeItems from "../components/RecipeItems";
 import SearchBar from "../components/SearchBar";
 import { RecipeData } from "../data/data";
 import { Link } from "react-router-dom";
@@ -18,7 +18,7 @@ const HomePage = () => {
       </section>
 
       <section className="home__card-grid">
-        <RecipeCards recipeData={RecipeData.slice(0, 3)} />
+        <RecipeItems recipeData={RecipeData.slice(0, 3)} />
       </section>
 
       <Link to="/recipes" className="nav_button">
