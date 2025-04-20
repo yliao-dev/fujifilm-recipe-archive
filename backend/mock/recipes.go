@@ -35,7 +35,8 @@ var Recipes = []types.Recipe{
 		},
 	},
 	{
-		ID:             primitive.NewObjectID().Hex(), // Convert ObjectID to string using Hex()
+		ID:             primitive.NewObjectID().Hex(),
+		Name: 			"Classic Chrome Street",
 		CameraModels:   []string{"X-T3", "X-Pro3"},
 		FilmSimulation: "Classic Chrome",
 		Creator:        "UrbanShooter",
