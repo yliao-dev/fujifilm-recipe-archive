@@ -1,15 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
-import { BASE_URL } from "../config"; // Replace with your actual config
-import { EditJobResponse, EditJobData, EditJobError } from "../types"; // Add these types to your type definitions
+import { BASE_URL } from "../config";
 
 // Mutation function for editing a recipe
-const editJob = async ({
+const editRecipe = async ({
   recipeId,
   recipeData,
 }: {
   recipeId: string;
-  recipeData: EditJobData;
-}): Promise<EditJobResponse> => {
+  recipeData: EditRecipeData;
+}): Promise<EditRecipeResponse> => {
   const res = await fetch(`${BASE_URL}/items/${recipeId}`, {
     method: "PATCH",
     headers: {
@@ -20,32 +19,32 @@ const editJob = async ({
 
   if (!res.ok) {
     try {
-      const errorData: EditJobError = await res.json();
+      const errorData: EditRecipeError = await res.json();
       throw new Error(errorData.message || "Failed to update the recipe.");
     } catch (err) {
       throw new Error("Unexpected error occurred while updating the recipe.");
     }
   }
 
-  const data: EditJobResponse = await res.json();
+  const data: EditRecipeResponse = await res.json();
   return data;
 };
 
-// Hook for using editJob mutation
-const useEditJob = () => {
+// Hook for using editRecipe mutation
+const useEditRecipe = () => {
   return useMutation<
-    EditJobResponse,
+    EditRecipeResponse,
     Error,
-    { recipeId: string; recipeData: EditJobData }
+    { recipeId: string; recipeData: EditRecipeData }
   >({
-    mutationFn: editJob, // Pass the mutation function
+    mutationFn: editRecipe, // Pass the mutation function
     onError: (error: Error) => {
       console.error("Error editing recipe:", error.message);
     },
-    onSuccess: (data: EditJobResponse) => {
-      console.log("Job updated successfully:", data);
+    onSuccess: (data: EditRecipeResponse) => {
+      console.log("Recipe updated successfully:", data);
     },
   });
 };
 
-export default useEditJob;
+export default useEditRecipe;
