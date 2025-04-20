@@ -3,20 +3,21 @@ import RecipeItems from "../components/RecipeItems";
 import useItems from "../hooks/useItems";
 
 const RecipeListPage = () => {
-  const { data: RecipeData, error } = useItems();
+  const { data: RecipesData, error } = useItems();
   const [currentPage, setCurrentPage] = useState(1);
 
-  if (!RecipeData || RecipeData.length === 0) {
+  console.log(RecipesData);
+  if (!RecipesData || RecipesData.length === 0) {
     return <p>No recipes found.</p>;
   }
 
   if (error) return <p>Error: {error.message}</p>;
 
   const cardsPerPage = 12;
-  const totalPages = Math.ceil(RecipeData.length / cardsPerPage);
+  const totalPages = Math.ceil(RecipesData.length / cardsPerPage);
 
   const startIndex = (currentPage - 1) * cardsPerPage;
-  const currentRecipes = RecipeData.slice(
+  const currentRecipes = RecipesData.slice(
     startIndex,
     startIndex + cardsPerPage
   );

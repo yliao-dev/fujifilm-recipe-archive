@@ -1,17 +1,21 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { RecipeData } from "../data/data";
 import NotFoundPage from "./NotFoundPage";
 import { formatKey } from "../utils/formatKey";
 import { Edit, DeleteForever } from "@mui/icons-material";
+import useItem from "../hooks/useItem";
+import { BASE_URL } from "../config";
 
 const RecipeDetailPage = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
+  if (!id) {
+    return <NotFoundPage />;
+  }
+  console.log(id);
+  const { data: RecipeData, error } = useItem(id);
 
-  const recipe = RecipeData.find((p) => p._id.$oid === id);
-
-  if (!recipe) return <NotFoundPage />;
+  if (!RecipeData) return <NotFoundPage />;
 
   const {
     name,
@@ -20,13 +24,12 @@ const RecipeDetailPage = () => {
     settings,
     creator,
     sample_image_url,
-  } = recipe;
+  } = RecipeData;
 
   return (
     <div className="recipeDetail__page">
       <section className="recipeDetail__intro">
-        <img src={sample_image_url} alt={name} />
-
+        <img src={`${BASE_URL}${sample_image_url}`} alt={name} />{" "}
         <div className="recipeDetail__intro__content">
           <div>
             <h1>{name}</h1>
@@ -38,7 +41,7 @@ const RecipeDetailPage = () => {
           </div>
           <div className="recipeDetail__modify">
             <Edit
-              onClick={() => navigate(`/edit-recipe/${recipe._id.$oid}`)}
+              onClick={() => navigate(`/edit-recipe/${RecipeData._id}`)}
               style={{ cursor: "pointer" }}
             />
             <DeleteForever style={{ cursor: "pointer" }} />

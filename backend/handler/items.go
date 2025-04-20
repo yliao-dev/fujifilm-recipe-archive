@@ -1,65 +1,56 @@
 package handler
 
 import (
-	"context"
+	"backend/mock"
+	"backend/types"
 	"fmt"
 	"log"
 
-	"golang-backend/mock"
-
 	"github.com/gofiber/fiber/v2"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo"
 )
-
-
-type Settings struct {
-	Color             string `json:"color" bson:"color"`
-	Contrast          string `json:"contrast" bson:"contrast"`
-	Highlight         string `json:"highlight" bson:"highlight"`
-	Shadow            string `json:"shadow" bson:"shadow"`
-	Sharpness         string `json:"sharpness" bson:"sharpness"`
-	Clarity           string `json:"clarity" bson:"clarity"`
-	GrainEffect       string `json:"grain_effect" bson:"grain_effect"`
-	ColorChromeEffect string `json:"color_chrome_effect" bson:"color_chrome_effect"`
-	// Add more fields as needed...
-}
-
-type Recipe struct {
-	ID             primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
-	Name           string             `json:"name" bson:"name"`
-	CameraModels   []string           `json:"camera_models" bson:"camera_models"`
-	FilmSimulation string             `json:"film_simulation" bson:"film_simulation"`
-	Creator        string             `json:"creator" bson:"creator"`
-	Tags           []string           `json:"tags" bson:"tags"`
-	Notes          string             `json:"notes" bson:"notes"`
-	SampleImageURL string             `json:"sample_image_url" bson:"sample_image_url"`
-	Settings       Settings           `json:"settings" bson:"settings"`
-}
 
 // store _id in frontend, use _id to fetch recipes
 func GetItem(c *fiber.Ctx) error {
-	var collection = c.Locals("db").(*mongo.Collection)
-	var err error
-	var objectID primitive.ObjectID
-	var item Recipe
-	id := c.Params("id")
+id := c.Params("id")
 
-	if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
-		log.Printf("Invalid ObjectID: %s", id) // Log invalid ObjectID
-		return c.Status(400).JSON(fiber.Map{"error": "invalid item ID for get"})
-	}
-	filter := bson.M{"_id": objectID}
-	if err = collection.FindOne(context.Background(), filter).Decode(&item); err != nil {
-	    log.Printf("Error fetching item: %v", err) // Log any errors	
-		if err == mongo.ErrNoDocuments {
-			return c.Status(404).JSON(fiber.Map{"error": "item not found"})
+	// Loop through the mock data to find the recipe by ID
+	var item types.Recipe
+	for _, recipe := range mock.Recipes {
+		if recipe.ID == id { // Match by ID (mock data has the string ID)
+			item = recipe
+			break
 		}
-		// If there is any other error, return a 500 internal error
-		return c.Status(500).JSON(fiber.Map{"error": "failed to fetch item"})
 	}
+
+	// If no item is found in mock data, return a 404 error
+	if item.ID == "" {
+		log.Printf("Recipe with ID %s not found", id)
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Recipe not found"})
+	}
+
+	// Return the found recipe as JSON
 	return c.JSON(item)
+
+	// var collection = c.Locals("db").(*mongo.Collection)
+	// var err error
+	// var objectID primitive.ObjectID
+	// var item Recipe
+	// id := c.Params("id")
+
+	// if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
+	// 	log.Printf("Invalid ObjectID: %s", id) // Log invalid ObjectID
+	// 	return c.Status(400).JSON(fiber.Map{"error": "invalid item ID for get"})
+	// }
+	// filter := bson.M{"_id": objectID}
+	// if err = collection.FindOne(context.Background(), filter).Decode(&item); err != nil {
+	//     log.Printf("Error fetching item: %v", err) // Log any errors	
+	// 	if err == mongo.ErrNoDocuments {
+	// 		return c.Status(404).JSON(fiber.Map{"error": "item not found"})
+	// 	}
+	// 	// If there is any other error, return a 500 internal error
+	// 	return c.Status(500).JSON(fiber.Map{"error": "failed to fetch item"})
+	// }
+	// return c.JSON(item)
 }
 
 func GetItems(c *fiber.Ctx) error {
