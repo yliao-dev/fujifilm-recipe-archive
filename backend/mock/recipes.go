@@ -37,7 +37,7 @@ var Recipes = []Recipe{
 		Creator:        "Alice",
 		Tags:           []string{"street", "contrast", "daylight"},
 		Notes:          "Great for high contrast scenes with shadows.",
-		SampleImageURL: "/images/classic_chrome.jpg",
+		SampleImageURL: "/images/placeholder.webp",
 		Settings: Settings{
 			Color:             "+1",
 			Contrast:          "0",
@@ -57,7 +57,7 @@ var Recipes = []Recipe{
 		Creator:        "Bob",
 		Tags:           []string{"vintage", "warm"},
 		Notes:          "Inspired by classic Kodachrome film.",
-		SampleImageURL: "/images/kodachrome_style.jpg",
+		SampleImageURL: "/images/placeholder.webp",
 		Settings: Settings{
 			Color:             "+2",
 			Contrast:          "+1",
