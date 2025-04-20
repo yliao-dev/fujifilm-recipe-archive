@@ -5,8 +5,6 @@ import useItems from "../hooks/useItems";
 const RecipeListPage = () => {
   const { data: RecipesData, error } = useItems();
   const [currentPage, setCurrentPage] = useState(1);
-
-  console.log(RecipesData);
   if (!RecipesData || RecipesData.length === 0) {
     return <p>No recipes found.</p>;
   }

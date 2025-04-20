@@ -17,7 +17,7 @@ function RecipeItem({
       <div className="recipeCard-text">
         <h2>{name}</h2>
         <p>{`${film_simulation} - ${tags[0]}`}</p>
-        <p>{camera_models}</p>
+        <p>{camera_models.join(" · ")}</p>
       </div>
     </div>
   );

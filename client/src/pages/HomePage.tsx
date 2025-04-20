@@ -1,9 +1,16 @@
 import RecipeItems from "../components/RecipeItems";
 import SearchBar from "../components/SearchBar";
-import { RecipeData } from "../data/data";
 import { Link } from "react-router-dom";
+import useItems from "../hooks/useItems";
 
 const HomePage = () => {
+  const { data: RecipesData, error } = useItems();
+  if (!RecipesData || RecipesData.length === 0) {
+    return <p>No recipes found.</p>;
+  }
+
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
     <div className="home__page">
       <section className="home__intro">
@@ -18,7 +25,7 @@ const HomePage = () => {
       </section>
 
       <section className="home__card-grid">
-        <RecipeItems recipeData={RecipeData.slice(0, 3)} />
+        <RecipeItems recipeData={RecipesData.slice(0, 3)} />
       </section>
 
       <Link to="/recipes" className="nav_button">
