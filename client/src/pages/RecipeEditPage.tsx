@@ -10,8 +10,18 @@ const RecipeEditPage = () => {
   const { id } = useParams();
   if (!id) return renderError(400, "Missing recipe ID in URL.");
 
-  const { data: recipeData, error } = useItem(id);
+  const {
+    data: recipeData,
+    error: fetchError,
+    isLoading: isFetching,
+  } = useItem(id);
   const { mutate: updateRecipe, error: updateError } = useUpdateItem();
+
+  if (isFetching) return null;
+
+  if (!recipeData) return renderError(404, "Recipe not found.");
+  if (fetchError) return renderError(500, fetchError.message);
+  if (updateError) return renderError(500, updateError.message);
 
   const handleSubmit = (formData: EditRecipeData) => {
     const normalizedData: EditRecipeData = {
@@ -36,14 +46,7 @@ const RecipeEditPage = () => {
         onError: (err) => renderError(500, err.message),
       }
     );
-    if (error) return renderError(500, error.message);
-    if (!recipeData) return renderError(404, "Recipe not found.");
-    if (updateError) return renderError(500, updateError.message);
-    navigate(`/recipes/${id}`);
   };
-
-  if (error) return renderError(500, error.message);
-  if (!recipeData) return renderError(404, "Recipe not found.");
 
   return (
     <div className="recipeCreate__page">

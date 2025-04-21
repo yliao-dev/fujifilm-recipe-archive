@@ -89,21 +89,37 @@ func CreateItem(c *fiber.Ctx) error {
 }
 
 func PatchItem(c *fiber.Ctx) error {
+	var collection = c.Locals("db").(*mongo.Collection)
+	var objectID primitive.ObjectID
+	var updateData bson.M
+	var err error
 
-	// var collection = c.Locals("db").(*mongo.Collection)
-	// var objectID primitive.ObjectID
-	// var err error
-	// id := c.Params("id")
-	// if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
-	// 	return c.Status(400).JSON(fiber.Map{"error": "invalid todo ID"})
-	// }
-	// filter := bson.M{"_id": objectID}
-	// update := bson.M{"$set": bson.M{"status": true}}
-	// if _, err = collection.UpdateOne(context.Background(), filter, update); err != nil {
-	// 	return err
-	// }
-	// return c.Status(200).JSON(fiber.Map{"success": true})
-	return nil
+
+	id := c.Params("id")
+	if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "invalid todo ID"})
+	}
+
+	if err := c.BodyParser(&updateData); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "invalid body"})
+	}
+
+	// Optional: log updateData for debugging
+	log.Printf("Update Data: %+v", updateData)
+
+
+	update := bson.M{"$set": updateData}
+	filter := bson.M{"_id": objectID}
+
+	if _, err = collection.UpdateOne(context.Background(), filter, update); err != nil {
+    	return c.Status(500).JSON(fiber.Map{"error": "failed to update item"}) // ✔ consistent JSON
+	}
+
+
+	return c.Status(200).JSON(fiber.Map{
+		"message": "Recipe updated successfully",
+		"item_id": objectID.Hex(),
+	})
 }
 
 func DeleteItem(c *fiber.Ctx) error {
