@@ -1,56 +1,30 @@
 package handler
 
 import (
-	"backend/data"
 	"backend/types"
-	"encoding/json"
+	"backend/utils"
 	"fmt"
 	"log"
-	"os"
-	"path/filepath"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-const storagePath = "./data/storage.json"
-
-func SaveRecipeToFile(newRecipe types.Recipe) error {
-	// Ensure the tmp directory exists
-	if err := os.MkdirAll(filepath.Dir(storagePath), os.ModePerm); err != nil {
-		return fmt.Errorf("failed to create directory: %w", err)
-	}
-
-	var recipes []types.Recipe
-
-	// Load existing recipes
-	if file, err := os.ReadFile(storagePath); err == nil {
-		if err := json.Unmarshal(file, &recipes); err != nil {
-			return fmt.Errorf("failed to parse existing recipes: %w", err)
-		}
-	}
-	recipes = append(recipes, newRecipe)
-	data, err := json.MarshalIndent(recipes, "", "  ")
-	if err != nil {
-		return fmt.Errorf("failed to marshal recipes: %w", err)
-	}
-
-	if err := os.WriteFile(storagePath, data, 0644); err != nil {
-		return fmt.Errorf("failed to write file: %w", err)
-	}
-	fmt.Println("SaveRecipeToFile")
-	return nil
-}
-
-
 // store _id in frontend, use _id to fetch recipes
 func GetItem(c *fiber.Ctx) error {
 	id := c.Params("id")
 
+
+	recipes, err := utils.LoadRecipesFromFile(utils.StoragePath)
+	if err != nil {
+		log.Println("Failed to load recipes:", err)
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to load recipes"})
+	}
+	
 	// Loop through the mock data to find the recipe by ID
 	var item types.Recipe
-	for _, recipe := range data.Recipes {
+	for _, recipe := range recipes {
 		if recipe.ID == id { // Match by ID (mock data has the string ID)
 			item = recipe
 			break
@@ -62,8 +36,6 @@ func GetItem(c *fiber.Ctx) error {
 		log.Printf("Recipe with ID %s not found", id)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Recipe not found"})
 	}
-
-	// Return the found recipe as JSON
 	return c.JSON(item)
 
 	// var collection = c.Locals("db").(*mongo.Collection)
@@ -109,7 +81,12 @@ func GetItems(c *fiber.Ctx) error {
 	// }
 
 	// return c.JSON(items)
-	return c.JSON(data.Recipes)
+	recipes, err := utils.LoadRecipesFromFile(utils.StoragePath)
+	if err != nil {
+		log.Println("Failed to load recipes:", err)
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to load recipes"})
+	}
+	return c.JSON(recipes)
 
 }
 
@@ -125,7 +102,7 @@ func CreateItems(c *fiber.Ctx) error {
 	fmt.Printf("Received recipe: %+v\n", recipe)
 	recipe.ID = primitive.NewObjectID().Hex()
 	recipe.CreatedAt = time.Now().Format(time.RFC3339)
-	if err := SaveRecipeToFile(recipe); err != nil {
+	if err := utils.SaveRecipeToFile(recipe); err != nil {
 		fmt.Println("Failed to save recipe:", err)
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to save recipe"})
 	}

@@ -2,15 +2,10 @@
   {
     "_id": "",
     "name": "Nostalgic Warmth",
-    "camera_models": [
-      "X-T4",
-      "X100V"
-    ],
+    "camera_models": ["X-T4", "X100V"],
     "film_simulation": "Nostalgic Neg",
     "creator": "",
-    "tags": [
-      ""
-    ],
+    "tags": [""],
     "notes": "",
     "sample_image_url": "",
     "created_at": "",
@@ -33,15 +28,10 @@
   {
     "_id": "",
     "name": "Nostalgic Warmth",
-    "camera_models": [
-      "X-T4",
-      "X100V"
-    ],
+    "camera_models": ["X-T4", "X100V"],
     "film_simulation": "Nostalgic Neg",
     "creator": "",
-    "tags": [
-      ""
-    ],
+    "tags": [""],
     "notes": "",
     "sample_image_url": "",
     "created_at": "",
@@ -64,16 +54,10 @@
   {
     "_id": "6617fcf41f1e5c0fbd51a003",
     "name": "test2",
-    "camera_models": [
-      "X-T4",
-      "X100V"
-    ],
+    "camera_models": ["X-T4", "X100V"],
     "film_simulation": "Classic Chrome",
     "creator": "John Doe",
-    "tags": [
-      "color",
-      "street"
-    ],
+    "tags": ["color", "street"],
     "notes": "Shot on a sunny day",
     "sample_image_url": "/images/placeholder.webp",
     "created_at": "2025-04-19T17:32:29.338Z",
@@ -96,16 +80,10 @@
   {
     "_id": "6805fd95f62b11aa6d224c73",
     "name": "test2",
-    "camera_models": [
-      "X-T4",
-      "X100V"
-    ],
+    "camera_models": ["X-T4", "X100V"],
     "film_simulation": "Classic Chrome",
     "creator": "John Doe",
-    "tags": [
-      "color",
-      "street"
-    ],
+    "tags": ["color", "street"],
     "notes": "Shot on a sunny day",
     "sample_image_url": "/images/placeholder.webp",
     "created_at": "2025-04-21T10:11:01+02:00",
