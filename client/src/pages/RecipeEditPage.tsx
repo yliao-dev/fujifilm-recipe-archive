@@ -15,7 +15,7 @@ const RecipeEditPage = () => {
     error: fetchError,
     isLoading: isFetching,
   } = useItem(id);
-  const { mutate: updateRecipe, error: updateError } = useUpdateItem();
+  const { mutate: updateRecipe, error: updateError } = useUpdateItem(id);
 
   if (isFetching) return null;
 
