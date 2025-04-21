@@ -3,6 +3,7 @@ export type RecipeListProps = {
 };
 
 export type NewRecipe = RecipeCore;
+export type EditRecipeData = Partial<RecipeCore>;
 
 export type Recipe = RecipeCore & {
   _id: string;

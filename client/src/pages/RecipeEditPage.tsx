@@ -10,8 +10,7 @@ const RecipeEditPage = () => {
   if (!id) {
     return <NotFoundPage />;
   }
-  console.log(id);
-  const { data: RecipeData, error } = useUpdateItem(id);
+  const { data: RecipeData, error } = useUpdateItem();
 
   if (!RecipeData) return <NotFoundPage />;
 

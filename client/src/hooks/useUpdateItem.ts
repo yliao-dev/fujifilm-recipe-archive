@@ -1,7 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 import { BASE_URL } from "../config";
+import { EditRecipeData, Recipe } from "../types/recipeTypes";
 
-// Mutation function for editing a recipe
+type EditRecipeResponse = {
+  message: string;
+  item: Recipe;
+};
+
+type EditRecipeError = {
+  message: string;
+};
 const editRecipe = async ({
   recipeId,
   recipeData,
