@@ -3,12 +3,14 @@ package handler
 import (
 	"backend/types"
 	"backend/utils"
+	"context"
 	"fmt"
 	"log"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // store _id in frontend, use _id to fetch recipes
@@ -89,43 +91,26 @@ func GetItems(c *fiber.Ctx) error {
 	return c.JSON(recipes)
 }
 
-func CreateItems(c *fiber.Ctx) error {
-	fmt.Println("CreateItems")
 
+func CreateItems(c *fiber.Ctx) error {
 	var recipe types.Recipe
 	if err := c.BodyParser(&recipe); err != nil {
-		fmt.Println("Error parsing body:", err)
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid request body"})
 	}
-
-	fmt.Printf("Received recipe: %+v\n", recipe)
 	recipe.ID = primitive.NewObjectID().Hex()
 	recipe.CreatedAt = time.Now().Format(time.RFC3339)
-	if err := utils.SaveRecipeToFile(recipe); err != nil {
-		fmt.Println("Failed to save recipe:", err)
-		return c.Status(500).JSON(fiber.Map{"error": "Failed to save recipe"})
+
+	collection := c.Locals("db").(*mongo.Collection)
+	insertResult, err := collection.InsertOne(context.Background(), recipe)
+	if err != nil {
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to insert into database"})
 	}
+
 	return c.Status(201).JSON(fiber.Map{
-		"message": "Recipe received (mocked)",
+		"message": "Recipe saved to MongoDB",
+		"id":      insertResult.InsertedID,
 		"item":    recipe,
 	})
-	// var collection = c.Locals("db").(*mongo.Collection)
-	// var insertResult *mongo.InsertOneResult
-	// var err error
-	// item := new(Item)
-	// c.BodyParser(item)
-	// if err := c.BodyParser(item); err != nil {
-	// 	fmt.Println(err)
-	// 	return err
-	// }
-	// if item.Body.ID == "" {
-	// 	return c.Status(400).JSON(fiber.Map{"error": "item body cannot be empty"})
-	// }
-	// if insertResult, err = collection.InsertOne(context.Background(), item); err != nil {
-	// 	return err
-	// }
-	// item.ID = insertResult.InsertedID.(primitive.ObjectID)
-	// return c.Status(201).JSON(item) 
 }
 
 func PatchItems(c *fiber.Ctx) error {

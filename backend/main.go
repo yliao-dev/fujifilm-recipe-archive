@@ -2,13 +2,13 @@ package main
 
 import (
 	"backend/handler"
+	"backend/middleware"
 	"context"
 	"fmt"
 	"log"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -51,16 +51,11 @@ func main() {
 
 	app := fiber.New()
 
-	app.Use(cors.New(cors.Config{
-    AllowOrigins: "http://localhost:5173", // or "*" for all (only in dev!)
-    AllowHeaders: "Origin, Content-Type, Accept",
-}))
-
-	// // Middleware
-	// app.Use(middleware.LoggingMiddleware)         // Log every request
-	// app.Use(middleware.CORSConfig())             // Handle CORS
-	// app.Use(middleware.AuthMiddleware)           // Handle authentication (only for certain routes)
-	// app.Use(middleware.AttachDBMiddleware(client)) // Attach MongoDB to request
+	// Middleware
+	app.Use(middleware.LoggingMiddleware)         // Log every request
+	app.Use(middleware.CORSConfig())             // Handle CORS
+	app.Use(middleware.AuthMiddleware)           // Handle authentication (only for certain routes)
+	app.Use(middleware.AttachDBMiddleware(client)) // Attach MongoDB to request
 
 
 	app.Static("/api/images", "./public/images")
