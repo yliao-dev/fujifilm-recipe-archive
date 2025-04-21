@@ -70,7 +70,7 @@ const RecipeForm = ({
         setPreview(result); // for UI
         setForm((prev: any) => ({
           ...prev,
-          sample_image_url: result, // 👈 save to form
+          sample_image_url: result,
         }));
       };
       reader.readAsDataURL(file);
