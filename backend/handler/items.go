@@ -8,11 +8,13 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-const storagePath = "./mock/storage.json"
+const storagePath = "./data/storage.json"
 
 func SaveRecipeToFile(newRecipe types.Recipe) error {
 	// Ensure the tmp directory exists
@@ -121,6 +123,8 @@ func CreateItems(c *fiber.Ctx) error {
 	}
 
 	fmt.Printf("Received recipe: %+v\n", recipe)
+	recipe.ID = primitive.NewObjectID().Hex()
+	recipe.CreatedAt = time.Now().Format(time.RFC3339)
 	if err := SaveRecipeToFile(recipe); err != nil {
 		fmt.Println("Failed to save recipe:", err)
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to save recipe"})
