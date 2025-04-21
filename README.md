@@ -8,6 +8,5 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 Fujifilm Recipe Archive
-MongoDB string: 5b137FHnqjeb8upj
 Fujifilm Recipes Collection
 Focus: Full-stack web app
