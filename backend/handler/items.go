@@ -2,7 +2,6 @@ package handler
 
 import (
 	"backend/types"
-	"backend/utils"
 	"context"
 	"fmt"
 	"log"
@@ -35,6 +34,8 @@ func GetItem(c *fiber.Ctx) error {
 		// If there is any other error, return a 500 internal error
 		return c.Status(500).JSON(fiber.Map{"error": "failed to fetch item"})
 	}
+	// Convert _id to string
+	item.ID = objectID.Hex()
 	return c.JSON(item)
 }
 
@@ -65,12 +66,12 @@ func GetItems(c *fiber.Ctx) error {
 }
 
 
-func CreateItems(c *fiber.Ctx) error {
+func CreateItem(c *fiber.Ctx) error {
 	var item types.Recipe
 	if err := c.BodyParser(&item); err != nil {
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid request body"})
 	}
-	item.ID = primitive.NewObjectID().Hex()
+
 	item.CreatedAt = time.Now().Format(time.RFC3339)
 
 	collection := c.Locals("db").(*mongo.Collection)
@@ -78,61 +79,16 @@ func CreateItems(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to insert into database"})
 	}
+	item.ID = insertResult.InsertedID.(primitive.ObjectID).Hex()
+
 
 	return c.Status(201).JSON(fiber.Map{
 		"message": "Recipe saved to MongoDB",
-		"id":      insertResult.InsertedID,
 		"item":    item,
 	})
 }
 
-func PatchItems(c *fiber.Ctx) error {
-	fmt.Println("PatchItems")
-		recipeId := c.Params("id")
-	if recipeId == "" {
-		return c.Status(400).JSON(fiber.Map{"error": "Missing recipe ID"})
-	}
-
-	// Parse incoming update data
-	var updatedData types.Recipe
-	if err := c.BodyParser(&updatedData); err != nil {
-		fmt.Println("Error parsing body:", err)
-		return c.Status(400).JSON(fiber.Map{"error": "Invalid request body"})
-	}
-
-	// Load all existing recipes
-	recipes, err := utils.LoadRecipesFromFile(utils.StoragePath)
-	if err != nil {
-		fmt.Println("Failed to load recipes:", err)
-		return c.Status(500).JSON(fiber.Map{"error": "Failed to load existing recipes"})
-	}
-
-	// Update the matching recipe
-	updated := false
-	for i, recipe := range recipes {
-		if recipe.ID == recipeId {
-			updatedData.ID = recipeId
-			updatedData.CreatedAt = recipe.CreatedAt // preserve original createdAt
-			recipes[i] = updatedData
-			updated = true
-			break
-		}
-	}
-
-	if !updated {
-		return c.Status(404).JSON(fiber.Map{"error": "Recipe not found"})
-	}
-
-	// Save the updated list back to file
-	if err := utils.SaveRecipesToFile(recipes); err != nil {
-		fmt.Println("Failed to save updated recipes:", err)
-		return c.Status(500).JSON(fiber.Map{"error": "Failed to save updated recipes"})
-	}
-
-	return c.JSON(fiber.Map{
-		"message": "Recipe updated successfully",
-		"item":    updatedData,
-	})
+func PatchItem(c *fiber.Ctx) error {
 
 	// var collection = c.Locals("db").(*mongo.Collection)
 	// var objectID primitive.ObjectID
@@ -147,9 +103,10 @@ func PatchItems(c *fiber.Ctx) error {
 	// 	return err
 	// }
 	// return c.Status(200).JSON(fiber.Map{"success": true})
+	return nil
 }
 
-func DeleteItems(c *fiber.Ctx) error {
+func DeleteItem(c *fiber.Ctx) error {
 
 	fmt.Println("DeleteItems")
 	return nil

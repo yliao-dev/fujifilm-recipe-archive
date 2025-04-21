@@ -3,7 +3,7 @@ package types
 
 
 type Recipe struct {
-	ID             string    `json:"_id"`
+	ID             string    `bson:"_id,omitempty" json:"_id"`
 	Name           string    `json:"name"`
 	CameraModels   []string  `json:"camera_models"`
 	FilmSimulation string    `json:"film_simulation"`

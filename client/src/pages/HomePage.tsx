@@ -2,12 +2,13 @@ import RecipeItems from "../components/RecipeItems";
 import SearchBar from "../components/SearchBar";
 import { Link } from "react-router-dom";
 import useItems from "../hooks/useItems";
+import { renderError } from "./ErrorPage";
 
 const HomePage = () => {
-  const { data: RecipesData, error } = useItems();
-  if (!RecipesData || RecipesData.length === 0) {
-    return <p>No recipes found.</p>;
-  }
+  const { data: recipesData, error, isLoading } = useItems();
+  if (isLoading) return null;
+
+  if (!recipesData) return renderError(404, "Recipe not found.");
 
   if (error) return <p>Error: {error.message}</p>;
 
@@ -25,7 +26,7 @@ const HomePage = () => {
       </section>
 
       <section className="home__card-grid">
-        <RecipeItems recipeData={RecipesData.slice(0, 3)} />
+        <RecipeItems recipeData={recipesData.slice(0, 3)} />
       </section>
 
       <Link to="/recipes" className="nav_button">

@@ -10,8 +10,8 @@ const RecipeDetailPage = () => {
 
   const { id } = useParams();
   if (!id) return renderError(400, "Missing recipe ID in URL.");
-  const { data: recipeData, error } = useItem(id);
-
+  const { data: recipeData, error, isLoading } = useItem(id);
+  if (isLoading) return null;
   if (error) return renderError(500, error.message);
   if (!recipeData) return renderError(404, "Recipe not found.");
 
