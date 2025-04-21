@@ -45,7 +45,7 @@ func SaveRecipesToFile(recipes []types.Recipe) error {
 	if err != nil {
 		return err
 	}
-	return os.WriteFile("data/recipes.json", data, 0644)
+	return os.WriteFile(StoragePath, data, 0644)
 }
 
 func LoadRecipesFromFile(path string) ([]types.Recipe, error) {
@@ -64,7 +64,6 @@ func LoadRecipesFromFile(path string) ([]types.Recipe, error) {
 	if err := json.Unmarshal(data, &recipes); err != nil {
 		return nil, err
 	}
-	fmt.Println(recipes)
 
 	return recipes, nil
 }

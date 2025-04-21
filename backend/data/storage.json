@@ -1,16 +1,14 @@
 [
   {
     "_id": "68060191038afd2be96548a9",
-    "name": "test1",
+    "name": "Patch123",
     "camera_models": [
-      "X-T4",
-      "X100V"
+      "X-T5,X100V"
     ],
     "film_simulation": "Classic Chrome",
     "creator": "y liao",
     "tags": [
-      "color",
-      "street"
+      "color,street, 123"
     ],
     "notes": "Shot on a sunny day",
     "sample_image_url": "/images/placeholder.webp",
@@ -20,12 +18,12 @@
       "color_chrome_effect": "Strong",
       "color_chrome_fx_blue": "Weak",
       "white_balance": "Auto, +1 Red, -2 Blue",
-      "dynamic_range": "DR400",
+      "dynamic_range": "DR100",
       "highlight": "0",
-      "shadow": "-2",
+      "shadow": "+1",
       "color": "+3",
       "sharpness": "0",
-      "noise_reduction": "-4",
+      "noise_reduction": "-2",
       "clarity": "+1",
       "iso": "Auto 6400",
       "exposure_compensation": "-1"
