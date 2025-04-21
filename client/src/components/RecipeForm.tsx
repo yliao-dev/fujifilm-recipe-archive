@@ -120,13 +120,6 @@ const RecipeForm = ({
               className="image-upload__preview"
             />
           ) : (
-            // <img
-            //   src={preview}
-            //   alt="Preview"
-            //   className="image-upload__preview"
-
-            // />
-
             <div className="image-upload__placeholder">
               <InsertPhotoIcon style={{ fontSize: "3rem" }} />
               Upload a sample image
