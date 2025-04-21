@@ -4,13 +4,30 @@ import { formatKey } from "../utils/formatKey";
 import { Edit, DeleteForever } from "@mui/icons-material";
 import useItem from "../hooks/useItem";
 import { BASE_URL } from "../config";
+import { useState } from "react";
+import { Dialog, DialogTitle, DialogActions, Button } from "@mui/material";
+import useDeleteItem from "../hooks/useDeleteItem";
 
 const RecipeDetailPage = () => {
   const navigate = useNavigate();
+  const [openConfirm, setOpenConfirm] = useState(false);
 
   const { id } = useParams();
   if (!id) return renderError(400, "Missing recipe ID in URL.");
   const { data: recipeData, error, isLoading } = useItem(id);
+
+  const deleteItemMutation = useDeleteItem();
+
+  const handleDelete = () => {
+    deleteItemMutation.mutate(id, {
+      onSuccess: () => {
+        navigate("/recipes");
+      },
+    });
+
+    setOpenConfirm(false);
+  };
+
   if (isLoading) return null;
   if (error) return renderError(500, error.message);
   if (!recipeData) return renderError(404, "Recipe not found.");
@@ -42,7 +59,10 @@ const RecipeDetailPage = () => {
               onClick={() => navigate(`/edit-recipe/${recipeData._id}`)}
               style={{ cursor: "pointer" }}
             />
-            <DeleteForever style={{ cursor: "pointer" }} />
+            <DeleteForever
+              onClick={() => setOpenConfirm(true)}
+              style={{ cursor: "pointer" }}
+            />
           </div>
         </div>
       </section>
@@ -54,6 +74,33 @@ const RecipeDetailPage = () => {
           </p>
         ))}
       </section>
+
+      {/* Confirm Delete Dialog */}
+      <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
+        <DialogTitle style={{ fontWeight: 300 }}>
+          Permanently Delete This Recipe
+        </DialogTitle>
+        <DialogActions>
+          <Button
+            style={{ fontWeight: 300 }}
+            onClick={() => setOpenConfirm(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{ fontWeight: 300 }}
+            color="error"
+            variant="contained"
+            onClick={() => {
+              {
+                handleDelete;
+              }
+            }}
+          >
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
