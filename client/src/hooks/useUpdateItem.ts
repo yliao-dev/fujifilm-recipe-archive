@@ -17,6 +17,7 @@ const editRecipe = async ({
   recipeId: string;
   recipeData: EditRecipeData;
 }): Promise<EditRecipeResponse> => {
+  console.log(recipeId);
   const res = await fetch(`${BASE_URL}/items/${recipeId}`, {
     method: "PATCH",
     headers: {
