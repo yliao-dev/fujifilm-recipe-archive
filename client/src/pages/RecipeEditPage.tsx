@@ -40,7 +40,7 @@ const RecipeEditPage = () => {
     };
 
     updateRecipe(
-      { recipeId: id, recipeData: normalizedData },
+      { recipeData: normalizedData },
       {
         onSuccess: () => navigate(`/recipes/${id}`),
         onError: (err) => renderError(500, err.message),

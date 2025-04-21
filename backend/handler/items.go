@@ -104,7 +104,7 @@ func PatchItem(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"error": "invalid body"})
 	}
 
-	// Optional: log updateData for debugging
+	delete(updateData, "_id")
 	log.Printf("Update Data: %+v", updateData)
 
 

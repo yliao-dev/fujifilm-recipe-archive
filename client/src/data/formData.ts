@@ -1,6 +1,5 @@
 export const ExampleData = [
   {
-    _id: { $oid: "6617fcf41f1e5c0fbd51a001" },
     name: "Nostalgic Warmth",
     camera_models: ["X-T4", "X100V"],
     film_simulation: "Nostalgic Neg",
