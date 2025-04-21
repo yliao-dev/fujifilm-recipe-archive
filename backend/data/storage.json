@@ -1,0 +1,64 @@
+[
+  {
+    "_id": "",
+    "name": "Nostalgic Warmth",
+    "camera_models": [
+      "X-T4",
+      "X100V"
+    ],
+    "film_simulation": "Nostalgic Neg",
+    "creator": "",
+    "tags": [
+      ""
+    ],
+    "notes": "",
+    "sample_image_url": "",
+    "created_at": "",
+    "settings": {
+      "grain_effect": "",
+      "color_chrome_effect": "",
+      "color_chrome_fx_blue": "",
+      "white_balance": "",
+      "dynamic_range": "",
+      "highlight": "",
+      "shadow": "",
+      "color": "",
+      "sharpness": "",
+      "noise_reduction": "",
+      "clarity": "",
+      "iso": "",
+      "exposure_compensation": ""
+    }
+  },
+  {
+    "_id": "",
+    "name": "Nostalgic Warmth",
+    "camera_models": [
+      "X-T4",
+      "X100V"
+    ],
+    "film_simulation": "Nostalgic Neg",
+    "creator": "",
+    "tags": [
+      ""
+    ],
+    "notes": "",
+    "sample_image_url": "",
+    "created_at": "",
+    "settings": {
+      "grain_effect": "",
+      "color_chrome_effect": "",
+      "color_chrome_fx_blue": "",
+      "white_balance": "",
+      "dynamic_range": "",
+      "highlight": "",
+      "shadow": "",
+      "color": "",
+      "sharpness": "",
+      "noise_reduction": "",
+      "clarity": "",
+      "iso": "",
+      "exposure_compensation": ""
+    }
+  }
+]

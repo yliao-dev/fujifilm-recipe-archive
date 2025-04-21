@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"backend/mock"
+	"backend/data"
 	"backend/types"
 	"encoding/json"
 	"fmt"
@@ -12,7 +12,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-const storagePath = "./tmp/recipesData.json"
+const storagePath = "./mock/storage.json"
 
 func SaveRecipeToFile(newRecipe types.Recipe) error {
 	// Ensure the tmp directory exists
@@ -37,17 +37,18 @@ func SaveRecipeToFile(newRecipe types.Recipe) error {
 	if err := os.WriteFile(storagePath, data, 0644); err != nil {
 		return fmt.Errorf("failed to write file: %w", err)
 	}
+	fmt.Println("SaveRecipeToFile")
 	return nil
 }
 
 
 // store _id in frontend, use _id to fetch recipes
 func GetItem(c *fiber.Ctx) error {
-id := c.Params("id")
+	id := c.Params("id")
 
 	// Loop through the mock data to find the recipe by ID
 	var item types.Recipe
-	for _, recipe := range mock.Recipes {
+	for _, recipe := range data.Recipes {
 		if recipe.ID == id { // Match by ID (mock data has the string ID)
 			item = recipe
 			break
@@ -106,7 +107,7 @@ func GetItems(c *fiber.Ctx) error {
 	// }
 
 	// return c.JSON(items)
-	return c.JSON(mock.Recipes)
+	return c.JSON(data.Recipes)
 
 }
 
@@ -120,7 +121,10 @@ func CreateItems(c *fiber.Ctx) error {
 	}
 
 	fmt.Printf("Received recipe: %+v\n", recipe)
-	SaveRecipeToFile(recipe)
+	if err := SaveRecipeToFile(recipe); err != nil {
+		fmt.Println("Failed to save recipe:", err)
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to save recipe"})
+	}
 	return c.Status(201).JSON(fiber.Map{
 		"message": "Recipe received (mocked)",
 		"item":    recipe,

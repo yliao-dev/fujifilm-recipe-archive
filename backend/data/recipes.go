@@ -1,4 +1,4 @@
-package mock
+package data
 
 import (
 	"backend/types"
