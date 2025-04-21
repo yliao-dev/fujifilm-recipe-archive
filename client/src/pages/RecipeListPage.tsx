@@ -4,9 +4,9 @@ import useItems from "../hooks/useItems";
 import { renderError } from "./ErrorPage";
 
 const RecipeListPage = () => {
-  const { data: recipesData, error } = useItems();
+  const { data: recipesData, error, isLoading } = useItems();
   const [currentPage, setCurrentPage] = useState(1);
-
+  if (isLoading) return null;
   if (error) return renderError(500, error.message);
   if (!recipesData) return renderError(404, "Recipe not found.");
 
