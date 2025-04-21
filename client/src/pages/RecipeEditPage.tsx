@@ -1,25 +1,23 @@
 import { useParams, useNavigate } from "react-router-dom";
 import RecipeForm from "../components/RecipeForm";
-import NotFoundPage from "./NotFoundPage";
+import { renderError } from "./ErrorPage";
 import useUpdateItem from "../hooks/useUpdateItem";
 
 const RecipeEditPage = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  if (!id) {
-    return <NotFoundPage />;
-  }
-  const { data: RecipeData, error } = useUpdateItem();
 
-  if (!RecipeData) return <NotFoundPage />;
+  if (!id) return renderError(400, "Missing recipe ID in URL.");
+  const { data: recipeData, error } = useUpdateItem();
+
+  if (error) return renderError(500, error.message);
+  if (!recipeData) return renderError(404, "Recipe not found.");
 
   const handleSubmit = (updatedData: any) => {
     // Update logic here
-    navigate(`/recipes/${updatedData._id.$oid}`);
+    navigate(`/recipes/${updatedData._id}`);
   };
-
-  if (!RecipeData) return <NotFoundPage />;
 
   return (
     <div className="recipeCreate__page">
@@ -27,7 +25,7 @@ const RecipeEditPage = () => {
       <hr className="recipeList__divider" />
       <RecipeForm
         mode="edit"
-        initialData={RecipeData}
+        initialData={recipeData}
         onSubmit={handleSubmit}
       />
     </div>

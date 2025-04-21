@@ -1,21 +1,20 @@
 import { useState } from "react";
 import RecipeItems from "../components/RecipeItems";
 import useItems from "../hooks/useItems";
+import { renderError } from "./ErrorPage";
 
 const RecipeListPage = () => {
-  const { data: RecipesData, error } = useItems();
+  const { data: recipesData, error } = useItems();
   const [currentPage, setCurrentPage] = useState(1);
-  if (!RecipesData || RecipesData.length === 0) {
-    return <p>No recipes found.</p>;
-  }
 
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return renderError(500, error.message);
+  if (!recipesData) return renderError(404, "Recipe not found.");
 
   const cardsPerPage = 12;
-  const totalPages = Math.ceil(RecipesData.length / cardsPerPage);
+  const totalPages = Math.ceil(recipesData.length / cardsPerPage);
 
   const startIndex = (currentPage - 1) * cardsPerPage;
-  const currentRecipes = RecipesData.slice(
+  const currentRecipes = recipesData.slice(
     startIndex,
     startIndex + cardsPerPage
   );

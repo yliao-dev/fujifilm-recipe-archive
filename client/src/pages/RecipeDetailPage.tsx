@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import NotFoundPage from "./NotFoundPage";
+import { renderError } from "./ErrorPage";
 import { formatKey } from "../utils/formatKey";
 import { Edit, DeleteForever } from "@mui/icons-material";
 import useItem from "../hooks/useItem";
@@ -9,13 +9,11 @@ const RecipeDetailPage = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  if (!id) {
-    return <NotFoundPage />;
-  }
-  console.log(id);
-  const { data: RecipeData, error } = useItem(id);
+  if (!id) return renderError(400, "Missing recipe ID in URL.");
+  const { data: recipeData, error } = useItem(id);
 
-  if (!RecipeData) return <NotFoundPage />;
+  if (error) return renderError(500, error.message);
+  if (!recipeData) return renderError(404, "Recipe not found.");
 
   const {
     name,
@@ -24,7 +22,7 @@ const RecipeDetailPage = () => {
     settings,
     creator,
     sample_image_url,
-  } = RecipeData;
+  } = recipeData;
 
   return (
     <div className="recipeDetail__page">
@@ -41,7 +39,7 @@ const RecipeDetailPage = () => {
           </div>
           <div className="recipeDetail__modify">
             <Edit
-              onClick={() => navigate(`/edit-recipe/${RecipeData._id}`)}
+              onClick={() => navigate(`/edit-recipe/${recipeData._id}`)}
               style={{ cursor: "pointer" }}
             />
             <DeleteForever style={{ cursor: "pointer" }} />

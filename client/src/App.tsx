@@ -12,7 +12,7 @@ import RecipeListPage from "./pages/RecipeListPage";
 import RecipeDetailPage from "./pages/RecipeDetailPage";
 import RecipeCreatePage from "./pages/RecipeCreatePage";
 import RecipeEditPage from "./pages/RecipeEditPage";
-import NotFoundPage from "./pages/NotFoundPage";
+import NotFoundPage from "./pages/ErrorPage";
 
 const App = () => {
   const router = createBrowserRouter(
