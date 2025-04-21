@@ -5,7 +5,10 @@ import { BASE_URL } from "../config";
 const createItem = async (body: NewRecipe) => {
   const res = await fetch(`${BASE_URL}/items`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+    },
     body: JSON.stringify(body),
   });
 

@@ -13,6 +13,7 @@ const useItem = (id: string) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
         },
       });
       const data = await res.json();

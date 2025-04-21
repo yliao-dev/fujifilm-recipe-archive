@@ -22,6 +22,7 @@ const editRecipe = async ({
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
     },
     body: JSON.stringify(recipeData),
   });

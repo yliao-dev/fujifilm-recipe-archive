@@ -16,51 +16,26 @@ import (
 
 // store _id in frontend, use _id to fetch recipes
 func GetItem(c *fiber.Ctx) error {
+	var collection = c.Locals("db").(*mongo.Collection)
+	var err error
+	var objectID primitive.ObjectID
+	var item types.Recipe
 	id := c.Params("id")
 
-
-	recipes, err := utils.LoadRecipesFromFile(utils.StoragePath)
-	if err != nil {
-		log.Println("Failed to load recipes:", err)
-		return c.Status(500).JSON(fiber.Map{"error": "Failed to load recipes"})
+	if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
+		log.Printf("Invalid ObjectID: %s", id) // Log invalid ObjectID
+		return c.Status(400).JSON(fiber.Map{"error": "invalid item ID for get"})
 	}
-
-	// Loop through the mock data to find the recipe by ID
-	var item types.Recipe
-	for _, recipe := range recipes {
-		if recipe.ID == id { // Match by ID (mock data has the string ID)
-			item = recipe
-			break
+	filter := bson.M{"_id": objectID}
+	if err = collection.FindOne(context.Background(), filter).Decode(&item); err != nil {
+	    log.Printf("Error fetching item: %v", err) // Log any errors	
+		if err == mongo.ErrNoDocuments {
+			return c.Status(404).JSON(fiber.Map{"error": "item not found"})
 		}
-	}
-
-	// If no item is found in mock data, return a 404 error
-	if item.ID == "" {
-		log.Printf("Recipe with ID %s not found", id)
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Recipe not found"})
+		// If there is any other error, return a 500 internal error
+		return c.Status(500).JSON(fiber.Map{"error": "failed to fetch item"})
 	}
 	return c.JSON(item)
-
-	// var collection = c.Locals("db").(*mongo.Collection)
-	// var err error
-	// var objectID primitive.ObjectID
-	// var item Recipe
-	// id := c.Params("id")
-
-	// if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
-	// 	log.Printf("Invalid ObjectID: %s", id) // Log invalid ObjectID
-	// 	return c.Status(400).JSON(fiber.Map{"error": "invalid item ID for get"})
-	// }
-	// filter := bson.M{"_id": objectID}
-	// if err = collection.FindOne(context.Background(), filter).Decode(&item); err != nil {
-	//     log.Printf("Error fetching item: %v", err) // Log any errors	
-	// 	if err == mongo.ErrNoDocuments {
-	// 		return c.Status(404).JSON(fiber.Map{"error": "item not found"})
-	// 	}
-	// 	// If there is any other error, return a 500 internal error
-	// 	return c.Status(500).JSON(fiber.Map{"error": "failed to fetch item"})
-	// }
-	// return c.JSON(item)
 }
 
 func GetItems(c *fiber.Ctx) error {
