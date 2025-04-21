@@ -21,7 +21,7 @@ func GetItem(c *fiber.Ctx) error {
 		log.Println("Failed to load recipes:", err)
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to load recipes"})
 	}
-	
+
 	// Loop through the mock data to find the recipe by ID
 	var item types.Recipe
 	for _, recipe := range recipes {
@@ -87,7 +87,6 @@ func GetItems(c *fiber.Ctx) error {
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to load recipes"})
 	}
 	return c.JSON(recipes)
-
 }
 
 func CreateItems(c *fiber.Ctx) error {
@@ -127,12 +126,55 @@ func CreateItems(c *fiber.Ctx) error {
 	// }
 	// item.ID = insertResult.InsertedID.(primitive.ObjectID)
 	// return c.Status(201).JSON(item) 
-
 }
 
 func PatchItems(c *fiber.Ctx) error {
 	fmt.Println("PatchItems")
-	return nil
+		recipeId := c.Params("id")
+	if recipeId == "" {
+		return c.Status(400).JSON(fiber.Map{"error": "Missing recipe ID"})
+	}
+
+	// Parse incoming update data
+	var updatedData types.Recipe
+	if err := c.BodyParser(&updatedData); err != nil {
+		fmt.Println("Error parsing body:", err)
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid request body"})
+	}
+
+	// Load all existing recipes
+	recipes, err := utils.LoadRecipesFromFile(utils.StoragePath)
+	if err != nil {
+		fmt.Println("Failed to load recipes:", err)
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to load existing recipes"})
+	}
+
+	// Update the matching recipe
+	updated := false
+	for i, recipe := range recipes {
+		if recipe.ID == recipeId {
+			updatedData.ID = recipeId
+			updatedData.CreatedAt = recipe.CreatedAt // preserve original createdAt
+			recipes[i] = updatedData
+			updated = true
+			break
+		}
+	}
+
+	if !updated {
+		return c.Status(404).JSON(fiber.Map{"error": "Recipe not found"})
+	}
+
+	// Save the updated list back to file
+	if err := utils.SaveRecipesToFile(recipes); err != nil {
+		fmt.Println("Failed to save updated recipes:", err)
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to save updated recipes"})
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Recipe updated successfully",
+		"item":    updatedData,
+	})
 
 	// var collection = c.Locals("db").(*mongo.Collection)
 	// var objectID primitive.ObjectID
@@ -147,8 +189,8 @@ func PatchItems(c *fiber.Ctx) error {
 	// 	return err
 	// }
 	// return c.Status(200).JSON(fiber.Map{"success": true})
-
 }
+
 func DeleteItems(c *fiber.Ctx) error {
 
 	fmt.Println("DeleteItems")

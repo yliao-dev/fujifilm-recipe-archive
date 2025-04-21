@@ -40,6 +40,14 @@ func SaveRecipeToFile(newRecipe types.Recipe) error {
 	return nil
 }
 
+func SaveRecipesToFile(recipes []types.Recipe) error {
+	data, err := json.MarshalIndent(recipes, "", "  ")
+	if err != nil {
+		return err
+	}
+	return os.WriteFile("data/recipes.json", data, 0644)
+}
+
 func LoadRecipesFromFile(path string) ([]types.Recipe, error) {
 	file, err := os.Open(path)
 	if err != nil {
