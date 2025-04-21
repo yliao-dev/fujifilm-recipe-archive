@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -63,45 +64,42 @@ func GetItem(c *fiber.Ctx) error {
 }
 
 func GetItems(c *fiber.Ctx) error {
-	// var collection = c.Locals("db").(*mongo.Collection)
-	// var items []Recipe
-	// var cursor *mongo.Cursor // represents an iterator for query results.
-	// var err error
+	var collection = c.Locals("db").(*mongo.Collection)
+	var items []types.Recipe
+	var cursor *mongo.Cursor // represents an iterator for query results.
+	var err error
 
-	// // bson.M{}: An empty BSON map used as the filter, meaning return all documents.
-	// if cursor, err = collection.Find(context.Background(), bson.M{}); err != nil {
-	// 	return err
-	// }
-	// defer cursor.Close(context.Background())
-
-	// for cursor.Next(context.Background()) {
-	// 	var item Recipe
-	// 	if err := cursor.Decode(&item); err != nil {
-	// 		return err
-	// 	}
-	// 	items = append(items, item)
-	// }
-
-	// return c.JSON(items)
-	recipes, err := utils.LoadRecipesFromFile(utils.StoragePath)
-	if err != nil {
-		log.Println("Failed to load recipes:", err)
-		return c.Status(500).JSON(fiber.Map{"error": "Failed to load recipes"})
+	// bson.M{}: An empty BSON map used as the filter, meaning return all documents.
+	if cursor, err = collection.Find(context.Background(), bson.M{}); err != nil {
+		return err
 	}
-	return c.JSON(recipes)
+	defer cursor.Close(context.Background())
+
+	for cursor.Next(context.Background()) {
+		var item types.Recipe
+		if err := cursor.Decode(&item); err != nil {
+			return err
+		}
+		items = append(items, item)
+	}
+		if err := cursor.Err(); err != nil {
+		return err
+	}
+
+	return c.JSON(items)
 }
 
 
 func CreateItems(c *fiber.Ctx) error {
-	var recipe types.Recipe
-	if err := c.BodyParser(&recipe); err != nil {
+	var item types.Recipe
+	if err := c.BodyParser(&item); err != nil {
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid request body"})
 	}
-	recipe.ID = primitive.NewObjectID().Hex()
-	recipe.CreatedAt = time.Now().Format(time.RFC3339)
+	item.ID = primitive.NewObjectID().Hex()
+	item.CreatedAt = time.Now().Format(time.RFC3339)
 
 	collection := c.Locals("db").(*mongo.Collection)
-	insertResult, err := collection.InsertOne(context.Background(), recipe)
+	insertResult, err := collection.InsertOne(context.Background(), item)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to insert into database"})
 	}
@@ -109,7 +107,7 @@ func CreateItems(c *fiber.Ctx) error {
 	return c.Status(201).JSON(fiber.Map{
 		"message": "Recipe saved to MongoDB",
 		"id":      insertResult.InsertedID,
-		"item":    recipe,
+		"item":    item,
 	})
 }
 
