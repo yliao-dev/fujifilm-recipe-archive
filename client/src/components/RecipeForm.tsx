@@ -10,6 +10,7 @@ import {
   settingFieldConfigs,
 } from "../data/formData";
 import { formatKey } from "../utils/formatKey";
+import { BASE_URL } from "../config";
 
 interface RecipeFormProps {
   mode?: "create" | "edit";
@@ -114,11 +115,18 @@ const RecipeForm = ({
           />
           {preview ? (
             <img
-              src={preview}
+              src={`${BASE_URL}${initialData?.sample_image_url}`}
               alt="Preview"
               className="image-upload__preview"
             />
           ) : (
+            // <img
+            //   src={preview}
+            //   alt="Preview"
+            //   className="image-upload__preview"
+
+            // />
+
             <div className="image-upload__placeholder">
               <InsertPhotoIcon style={{ fontSize: "3rem" }} />
               Upload a sample image
