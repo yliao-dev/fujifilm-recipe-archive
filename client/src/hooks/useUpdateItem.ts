@@ -10,6 +10,7 @@ type EditRecipeResponse = {
 type EditRecipeError = {
   message: string;
 };
+
 const editRecipe = async ({
   recipeId,
   recipeData,
@@ -17,7 +18,6 @@ const editRecipe = async ({
   recipeId: string;
   recipeData: EditRecipeData;
 }): Promise<EditRecipeResponse> => {
-  console.log(recipeId);
   const res = await fetch(`${BASE_URL}/items/${recipeId}`, {
     method: "PATCH",
     headers: {
@@ -40,21 +40,18 @@ const editRecipe = async ({
   return data;
 };
 
-// Hook for using editRecipe mutation
-const useEditRecipe = () => {
-  return useMutation<
-    EditRecipeResponse,
-    Error,
-    { recipeId: string; recipeData: EditRecipeData }
-  >({
-    mutationFn: editRecipe, // Pass the mutation function
-    onError: (error: Error) => {
-      console.error("Error editing recipe:", error.message);
-    },
-    onSuccess: (data: EditRecipeResponse) => {
-      console.log("Recipe updated successfully:", data);
-    },
-  });
+const useEditRecipe = (recipeId: string) => {
+  return useMutation<EditRecipeResponse, Error, { recipeData: EditRecipeData }>(
+    {
+      mutationFn: ({ recipeData }) => editRecipe({ recipeId, recipeData }),
+      onError: (error: Error) => {
+        console.error("Error editing recipe:", error.message);
+      },
+      onSuccess: (data: EditRecipeResponse) => {
+        console.log("Recipe updated successfully:", data);
+      },
+    }
+  );
 };
 
 export default useEditRecipe;
