@@ -3,7 +3,6 @@ package handler
 import (
 	"backend/types"
 	"context"
-	"fmt"
 	"log"
 	"time"
 
@@ -123,20 +122,16 @@ func PatchItem(c *fiber.Ctx) error {
 }
 
 func DeleteItem(c *fiber.Ctx) error {
-
-	fmt.Println("DeleteItems")
-	return nil
-
-	// var collection = c.Locals("db").(*mongo.Collection)
-	// var objectID primitive.ObjectID
-	// var err error
-	// id := c.Params("id")
-	// if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
-	// 	return c.Status(400).JSON(fiber.Map{"error": "invalid item ID for delete"})
-	// }
-	// filter := bson.M{"_id": objectID}
-	// if _, err = collection.DeleteOne(context.Background(), filter); err != nil {
-	// 	return err
-	// }
-	// return c.Status(200).JSON(fiber.Map{"success": true})
+	var collection = c.Locals("db").(*mongo.Collection)
+	var objectID primitive.ObjectID
+	var err error
+	id := c.Params("id")
+	if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "invalid item ID for delete"})
+	}
+	filter := bson.M{"_id": objectID}
+	if _, err = collection.DeleteOne(context.Background(), filter); err != nil {
+		return err
+	}
+	return c.Status(200).JSON(fiber.Map{"success": true})
 }
