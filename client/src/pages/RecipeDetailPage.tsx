@@ -91,11 +91,7 @@ const RecipeDetailPage = () => {
             style={{ fontWeight: 300 }}
             color="error"
             variant="contained"
-            onClick={() => {
-              {
-                handleDelete;
-              }
-            }}
+            onClick={handleDelete}
           >
             Confirm
           </Button>
