@@ -105,14 +105,14 @@ func PatchItem(c *fiber.Ctx) error {
 	}
 
 	delete(updateData, "_id")
-	log.Printf("Update Data: %+v", updateData)
+	log.Printf("\nUpdate Data: %+v", updateData)
 
 
 	update := bson.M{"$set": updateData}
 	filter := bson.M{"_id": objectID}
 
 	if _, err = collection.UpdateOne(context.Background(), filter, update); err != nil {
-    	return c.Status(500).JSON(fiber.Map{"error": "failed to update item"}) // ✔ consistent JSON
+    	return c.Status(500).JSON(fiber.Map{"error": "failed to update item"})
 	}
 
 
