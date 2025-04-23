@@ -44,7 +44,7 @@ const RecipeDetailPage = () => {
   return (
     <div className="recipeDetail__page">
       <section className="recipeDetail__intro">
-        <img src={`${BASE_URL}${sample_image_url}`} alt={name} />{" "}
+        <img src={`${BASE_URL}${sample_image_url}`} alt={name} />
         <div className="recipeDetail__intro__content">
           <div>
             <h1>{name}</h1>
