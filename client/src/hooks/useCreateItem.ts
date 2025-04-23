@@ -1,7 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { BASE_URL } from "../config";
+import { ApiError, RecipeResponse } from "../types/apiResponses";
 
-const createItem = async (formPayload: FormData) => {
+const createItem = async ({
+  formPayload,
+}: {
+  formPayload: FormData;
+}): Promise<RecipeResponse> => {
   const res = await fetch(`${BASE_URL}/items`, {
     method: "POST",
     headers: {
@@ -11,21 +16,26 @@ const createItem = async (formPayload: FormData) => {
   });
 
   if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData?.message || "Failed to create recipe");
+    try {
+      const errorData: ApiError = await res.json();
+      throw new Error(errorData.message || "Failed to update the recipe.");
+    } catch (err) {
+      throw new Error("Unexpected error occurred while updating the recipe.");
+    }
   }
 
-  return res.json();
+  const data: RecipeResponse = await res.json();
+  return data;
 };
 
 const useCreateItem = () =>
-  useMutation({
-    mutationFn: createItem,
-    onError: (err: Error) => {
-      console.error("Create recipe failed:", err.message);
-    },
-    onSuccess: (data) => {
+  useMutation<RecipeResponse, Error, FormData>({
+    mutationFn: (formPayload) => createItem({ formPayload }),
+    onSuccess: (data: RecipeResponse) => {
       console.log("Recipe created successfully:", data);
+    },
+    onError: (error: Error) => {
+      console.error("Error creating recipe:", error.message);
     },
   });
 
