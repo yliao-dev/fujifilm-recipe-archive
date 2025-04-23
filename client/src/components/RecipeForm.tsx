@@ -11,11 +11,12 @@ import {
 } from "../data/formData";
 import { formatKey } from "../utils/dataUtils";
 import { getPlaceholder } from "../utils/dataUtils";
+import { RecipePayload } from "../types/recipeTypes";
 
 interface RecipeFormProps {
   mode?: "create" | "edit";
   initialData?: any;
-  onSubmit: (formData: any) => void;
+  onSubmit: (formData: RecipePayload) => void;
 }
 
 const RecipeForm = ({

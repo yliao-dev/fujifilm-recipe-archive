@@ -3,8 +3,10 @@ import RecipeForm from "../components/RecipeForm";
 import { renderError } from "./ErrorPage";
 import useUpdateItem from "../hooks/useUpdateItem";
 import useItem from "../hooks/useItem";
-import { RecipeFormInput } from "../types/recipeTypes";
-import { buildFormData, normalizeArrayField } from "../utils/dataUtils";
+import { RecipePayload } from "../types/recipeTypes";
+import { normalizeArrayField } from "../utils/dataUtils";
+import useUploadImage from "../hooks/useUploadImage";
+import { getPlaceholderImage } from "../utils/imageUtils";
 
 const RecipeEditPage = () => {
   const navigate = useNavigate();
@@ -18,29 +20,43 @@ const RecipeEditPage = () => {
   } = useItem(id);
 
   const updateItemMutation = useUpdateItem(id);
+  const uploadImageMutation = useUploadImage();
 
   if (isFetching) return null;
 
   if (!recipeData) return renderError(404, "Recipe not found.");
   if (fetchError) return renderError(500, fetchError.message);
 
-  const handleSubmit = (formData: RecipeFormInput) => {
-    const normalizedData: RecipeFormInput = {
-      ...formData,
-      camera_models: normalizeArrayField(formData.camera_models),
-      tags: normalizeArrayField(formData.tags),
-    };
+  const handleSubmit = async (formData: RecipePayload) => {
+    console.log("🔥 handleSubmit in parent called:", formData);
 
-    const formPayload = buildFormData(normalizedData, {
-      sampleFile: "sample_image", // rename field here only
-    });
-
-    updateItemMutation.mutate(formPayload, {
-      onSuccess: () => navigate(`/recipes/${id}`),
-      onError: (err) => renderError(500, err.message),
-    });
+    try {
+      console.log("Handle submit started");
+      // 1. Prepare the text payload (excluding image)
+      const payload: RecipePayload = {
+        name: formData.name,
+        film_simulation: formData.film_simulation,
+        camera_models: normalizeArrayField(formData.camera_models),
+        tags: normalizeArrayField(formData.tags),
+        creator: formData.creator,
+        notes: formData.notes,
+        settings: formData.settings,
+      };
+      console.log("Submitting update with payload:", payload);
+      // 2. If sample image exists, upload it using returned recipe ID
+      const recipe = await updateItemMutation.mutateAsync(payload);
+      const fileToUpload = formData.sampleFile || (await getPlaceholderImage());
+      if (fileToUpload) {
+        await uploadImageMutation.mutateAsync({
+          recipeId: recipe.item._id,
+          file: fileToUpload,
+        });
+      }
+      navigate(`/recipes/${id}`);
+    } catch (err: any) {
+      renderError(500, err.message);
+    }
   };
-
   return (
     <div className="recipeCreate__page">
       <h1>Edit Film Recipe</h1>

@@ -24,37 +24,3 @@ export const normalizeArrayField = (
     .map((s) => s.trim())
     .filter(Boolean);
 };
-
-export const buildFormData = async (
-  data: Record<string, any>,
-  fileFieldMap: Record<string, string>
-): Promise<FormData> => {
-  const formData = new FormData();
-
-  if (!data.sampleFile) {
-    data.sampleFile = await getPlaceholderImage(); // return a File object (either placeholder or user file)
-  }
-  for (const key in data) {
-    const value = data[key];
-
-    if (fileFieldMap[key] && value instanceof File) {
-      // Rename key if needed
-      formData.append(fileFieldMap[key], value);
-    } else if (
-      typeof value === "object" &&
-      value !== null &&
-      !Array.isArray(value)
-    ) {
-      // Nest object like `settings`
-      formData.append(key, JSON.stringify(value));
-    } else {
-      // Append string or array as a joined string
-      formData.append(
-        key,
-        Array.isArray(value) ? value.join(",") : value ?? ""
-      );
-    }
-  }
-
-  return formData;
-};

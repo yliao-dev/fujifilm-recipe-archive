@@ -96,36 +96,36 @@ func CreateItem(c *fiber.Ctx) error {
 }
 
 func PatchItem(c *fiber.Ctx) error {
-	var collection = c.Locals("db").(*mongo.Collection)
-	var objectID primitive.ObjectID
-	var updateData bson.M
-	var err error
-
-
+	collection := c.Locals("db").(*mongo.Collection)
 	id := c.Params("id")
-	if objectID, err = primitive.ObjectIDFromHex(id); err != nil {
-		return c.Status(400).JSON(fiber.Map{"error": "invalid todo ID"})
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid recipe ID"})
 	}
-
-	if err := c.BodyParser(&updateData); err != nil {
-		return c.Status(400).JSON(fiber.Map{"error": "invalid body"})
+	var updatedRecipe types.Recipe
+	if err := c.BodyParser(&updatedRecipe); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid request body"})
 	}
-
-	delete(updateData, "_id")
-	log.Printf("\nUpdate Data: %+v", updateData)
-
-
-	update := bson.M{"$set": updateData}
+	updatedRecipe.ID = ""
+	updateData, err := bson.Marshal(updatedRecipe)
+	if err != nil {
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to serialize recipe data"})
+	}
+	var updateMap bson.M
+	if err := bson.Unmarshal(updateData, &updateMap); err != nil {
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to prepare update data"})
+	}
 	filter := bson.M{"_id": objectID}
-
-	if _, err = collection.UpdateOne(context.Background(), filter, update); err != nil {
-    	return c.Status(500).JSON(fiber.Map{"error": "failed to update item"})
+	update := bson.M{"$set": updateMap}
+	_, err = collection.UpdateOne(context.Background(), filter, update)
+	if err != nil {
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to update recipe"})
 	}
-
+	updatedRecipe.ID = id
 
 	return c.Status(200).JSON(fiber.Map{
 		"message": "Recipe updated successfully",
-		"item_id": objectID.Hex(),
+		"item":    updatedRecipe,
 	})
 }
 

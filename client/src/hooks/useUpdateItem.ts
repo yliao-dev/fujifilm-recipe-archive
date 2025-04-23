@@ -1,20 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
 import { BASE_URL } from "../config";
 import { RecipeResponse, ApiError } from "../types/apiResponses";
+import { RecipePayload } from "../types/recipeTypes";
 
 const updateItem = async ({
   recipeId,
   formPayload,
 }: {
   recipeId: string;
-  formPayload: FormData;
+  formPayload: RecipePayload;
 }): Promise<RecipeResponse> => {
   const res = await fetch(`${BASE_URL}/items/${recipeId}`, {
     method: "PATCH",
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
     },
-    body: formPayload,
+    body: JSON.stringify(formPayload),
   });
 
   if (!res.ok) {
@@ -31,7 +32,7 @@ const updateItem = async ({
 };
 
 const useUpdateItem = (recipeId: string) => {
-  return useMutation<RecipeResponse, Error, FormData>({
+  return useMutation<RecipeResponse, Error, RecipePayload>({
     mutationFn: (formPayload) => updateItem({ recipeId, formPayload }),
     onSuccess: (data: RecipeResponse) => {
       console.log("Recipe updated successfully:", data);
