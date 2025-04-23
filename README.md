@@ -10,3 +10,20 @@ Currently, two official plugins are available:
 Fujifilm Recipe Archive
 Fujifilm Recipes Collection
 Focus: Full-stack web app
+
+```
+[ User Browser ]
+     |
+     |--- fetch POST /api/recipes (formData) ----------┐
+     |                                                 |
+     |                                                 ↓
+[ Vercel Frontend ]                              [ Backend (Fiber, Go) ]
+     |                                                 |
+     |                                                 |--- Upload image to Cloudflare R2
+     |                                                 |--- Store image URL + metadata in MongoDB
+     |                                                 ↓
+     |                                          [ Cloudflare R2 (images) ]
+     |                                                 |
+     |                                          [ MongoDB (recipe + image URL) ]
+
+```
