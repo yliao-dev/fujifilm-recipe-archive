@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
@@ -51,6 +52,14 @@ func main() {
 
 	app := fiber.New()
 
+
+	absPath, err := filepath.Abs("public/images")
+	if err != nil {
+		log.Fatal("Failed to resolve image path:", err)
+	}
+	app.Static("/api/images", absPath)
+
+
 	// Middleware
 	app.Use(middleware.LoggingMiddleware)         // Log every request
 	app.Use(middleware.CORSConfig())             // Handle CORS
@@ -58,7 +67,6 @@ func main() {
 	app.Use(middleware.AttachDBMiddleware(client)) // Attach MongoDB to request
 
 
-	app.Static("/api/images", "./public/images")
 	app.Get("/api/items", handler.GetItems)
 	app.Get("/api/items/:id", handler.GetItem)
 	app.Post("/api/items", handler.CreateItem)
