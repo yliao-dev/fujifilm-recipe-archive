@@ -1,29 +1,44 @@
 import { useNavigate } from "react-router-dom";
 import RecipeForm from "../components/RecipeForm";
-import useCreateItem from "../hooks/useCreateItem";
-import { buildFormData, normalizeArrayField } from "../utils/dataUtils";
+import useCreateItemText from "../hooks/useCreateItem";
+import { normalizeArrayField } from "../utils/dataUtils";
 import { renderError } from "./ErrorPage";
-import { RecipeFormInput } from "../types/recipeTypes";
+import { RecipePayload } from "../types/recipeTypes";
+import useUploadImage from "../hooks/useUploadImage";
+import { getPlaceholderImage } from "../utils/imageUtils";
 
 const RecipeCreatePage = () => {
   const navigate = useNavigate();
-  const createItemMutation = useCreateItem();
-  const handleSubmit = async (formData: RecipeFormInput) => {
-    const normalizedData: RecipeFormInput = {
-      ...formData,
-      camera_models: normalizeArrayField(formData.camera_models),
-      tags: normalizeArrayField(formData.tags),
-    };
+  const createRecipeMutation = useCreateItemText();
+  const uploadImageMutation = useUploadImage();
+  const handleSubmit = async (formData: RecipePayload) => {
+    try {
+      // Prepare the text payload (excluding image)
+      const payload: RecipePayload = {
+        name: formData.name,
+        film_simulation: formData.film_simulation,
+        camera_models: normalizeArrayField(formData.camera_models),
+        tags: normalizeArrayField(formData.tags),
+        creator: formData.creator,
+        notes: formData.notes,
+        settings: formData.settings,
+      };
 
-    const formPayload = await buildFormData(normalizedData, {
-      sampleFile: "sample_image", // rename field here only
-    });
-
-    // Now call the mutation function with the formatted data
-    createItemMutation.mutate(formPayload, {
-      onSuccess: () => navigate("/recipes"),
-      onError: (err) => renderError(500, err.message),
-    });
+      // 1. Submit JSON data
+      const recipe = await createRecipeMutation.mutateAsync(payload);
+      // 2. If sample image exists, upload it using returned recipe ID
+      const fileToUpload = formData.sampleFile || (await getPlaceholderImage());
+      if (fileToUpload) {
+        await uploadImageMutation.mutateAsync({
+          recipeId: recipe.item._id,
+          file: fileToUpload,
+        });
+      }
+      // 3. Navigate to list
+      navigate("/recipes");
+    } catch (err: any) {
+      renderError(500, err.message);
+    }
   };
 
   return (

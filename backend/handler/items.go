@@ -4,6 +4,7 @@ import (
 	"backend/types"
 	"context"
 	"log"
+	"os"
 	"path/filepath"
 	"time"
 
@@ -65,47 +66,29 @@ func GetItems(c *fiber.Ctx) error {
 	return c.JSON(items)
 }
 
-
 func CreateItem(c *fiber.Ctx) error {
 	var item types.Recipe
+	// Parse the JSON body for the recipe text data
 	if err := c.BodyParser(&item); err != nil {
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid request body"})
 	}
+	
+	// Set the created time
 	item.CreatedAt = time.Now().Format(time.RFC3339)
+	
+	// Access the database collection
 	collection := c.Locals("db").(*mongo.Collection)
 	insertResult, err := collection.InsertOne(context.Background(), item)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to insert into database"})
 	}
 
+	// Extract the inserted ID
 	id := insertResult.InsertedID.(primitive.ObjectID)
 	item.ID = id.Hex()
 
-	// Handle image file (optional)
-	file, err := c.FormFile("sample_image")
-	if err == nil {
-		// Define new filename based on MongoDB ID
-		filename := id.Hex() + filepath.Ext(file.Filename)
-		filePath := filepath.Join("public/images", filename)
 
-		if err := c.SaveFile(file, filePath); err != nil {
-			return c.Status(500).JSON(fiber.Map{"error": "Failed to save image"})
-		}
-
-		imageURL := "/images/" + filename
-		item.SampleImageURL = imageURL
-
-		// Update the recipe document with the image path
-		_, err = collection.UpdateByID(context.Background(), id, bson.M{
-			"$set": bson.M{"sample_image_url": imageURL},
-		})
-		if err != nil {
-			return c.Status(500).JSON(fiber.Map{"error": "Failed to update image path in database"})
-		}
-	} else if err != fiber.ErrBadRequest {
-		return c.Status(400).JSON(fiber.Map{"error": "Failed to process file upload"})
-	}
-
+	// Respond with a success message and the created item
 	return c.Status(201).JSON(fiber.Map{
 		"message": "Recipe saved to MongoDB",
 		"item":    item,
@@ -159,4 +142,43 @@ func DeleteItem(c *fiber.Ctx) error {
 		return err
 	}
 	return c.Status(200).JSON(fiber.Map{"success": true})
+}
+
+
+func UploadImage(c *fiber.Ctx) error {
+    itemID := c.Params("id")
+	log.Println("Item ID:", itemID) 
+    if itemID == "" {
+        return c.Status(400).JSON(fiber.Map{"error": "Item ID is required"})
+    }
+    file, err := c.FormFile("sample_image")
+    if err != nil {
+        return c.Status(400).JSON(fiber.Map{"error": "No image file found"})
+    }
+
+    filename := itemID + filepath.Ext(file.Filename)
+    filePath := filepath.Join("public", "images", filename)
+
+    if err := createDirIfNotExist("public/images"); err != nil {
+        return c.Status(500).JSON(fiber.Map{"error": "Failed to create images directory"})
+    }
+
+    if err := c.SaveFile(file, filePath); err != nil {
+        return c.Status(500).JSON(fiber.Map{"error": "Failed to save image"})
+    }
+
+    imageURL := "/images/" + filename
+    return c.Status(200).JSON(fiber.Map{
+        "message": "Image uploaded successfully",
+        "image_url": imageURL,
+    })
+}
+func createDirIfNotExist(dirPath string) error {
+    if _, err := os.Stat(dirPath); os.IsNotExist(err) {
+        err := os.MkdirAll(dirPath, os.ModePerm)
+        if err != nil {
+            return err
+        }
+    }
+    return nil
 }

@@ -1,48 +1,43 @@
 import { useMutation } from "@tanstack/react-query";
 import { BASE_URL } from "../config";
+import { RecipePayload } from "../types/recipeTypes";
 import { ApiError, RecipeResponse } from "../types/apiResponses";
 
-const createItem = async ({
+const createItemText = async ({
   formPayload,
 }: {
-  formPayload: FormData;
+  formPayload: RecipePayload;
 }): Promise<RecipeResponse> => {
   const res = await fetch(`${BASE_URL}/items`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+      "Content-Type": "application/json",
     },
-    body: formPayload,
+    body: JSON.stringify(formPayload),
   });
-
-  formPayload.forEach((value, key) => {
-    console.log(`${key}:`, value);
-  });
-
-  const contentType = res.headers.get("content-type");
 
   if (!res.ok) {
-    if (contentType?.includes("application/json")) {
-      const errorData = await res.json();
-      throw new Error(errorData?.message || "Failed to create recipe.");
-    } else {
-      const text = await res.text(); // <--- new line to get raw text
-      throw new Error(`Raw error: ${text}`);
+    try {
+      const errorData: ApiError = await res.json();
+      throw new Error(errorData.message || "Failed to update the recipe.");
+    } catch (err) {
+      throw new Error("Unexpected error occurred while updating the recipe.");
     }
   }
 
   return res.json();
 };
 
-const useCreateItem = () =>
-  useMutation<RecipeResponse, Error, FormData>({
-    mutationFn: (formPayload) => createItem({ formPayload }),
-    onSuccess: (data: RecipeResponse) => {
+const useCreateItemText = () =>
+  useMutation<RecipeResponse, Error, RecipePayload>({
+    mutationFn: (formPayload) => createItemText({ formPayload }),
+    onSuccess: (data) => {
       console.log("Recipe created successfully:", data);
     },
-    onError: (error: Error) => {
+    onError: (error) => {
       console.error("Error creating recipe:", error.message);
     },
   });
 
-export default useCreateItem;
+export default useCreateItemText;

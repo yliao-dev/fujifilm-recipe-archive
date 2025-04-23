@@ -2,17 +2,13 @@ export type RecipeListProps = {
   recipeData: Recipe[];
 };
 
-export type RecipeFormInput = Partial<RecipeCore> & {
-  sampleFile?: File;
-};
-
-export type Recipe = RecipeCore & {
+export type Recipe = RecipePayload & {
   _id: string;
   sample_image_url: string;
   created_at: string;
 };
 
-export type RecipeCore = {
+export type RecipePayload = {
   name: string;
   film_simulation: string;
   camera_models: string[];
@@ -20,6 +16,7 @@ export type RecipeCore = {
   creator?: string;
   notes?: string;
   settings: RecipeSettings;
+  sampleFile?: File | null;
 };
 
 export type RecipeSettings = {

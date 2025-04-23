@@ -73,7 +73,9 @@ func main() {
 	app.Patch("/api/items/:id", handler.PatchItem)
 	app.Delete("/api/items/:id", handler.DeleteItem)
 
-
+	// New route for image upload
+	app.Post("/api/items/:id/image", handler.UploadImage)
+	
 	if os.Getenv("ENV") == "production" {
 		app.Static("/", ".client/dist")
 	}
