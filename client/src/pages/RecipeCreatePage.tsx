@@ -3,12 +3,13 @@ import RecipeForm from "../components/RecipeForm";
 import useCreateItem from "../hooks/useCreateItem";
 import { buildFormData, normalizeArrayField } from "../utils/dataUtils";
 import { renderError } from "./ErrorPage";
+import { RecipeFormInput } from "../types/recipeTypes";
 
 const RecipeCreatePage = () => {
   const navigate = useNavigate();
   const createItemMutation = useCreateItem();
-  const handleSubmit = (formData: any) => {
-    const normalizedData = {
+  const handleSubmit = (formData: RecipeFormInput) => {
+    const normalizedData: RecipeFormInput = {
       ...formData,
       camera_models: normalizeArrayField(formData.camera_models),
       tags: normalizeArrayField(formData.tags),

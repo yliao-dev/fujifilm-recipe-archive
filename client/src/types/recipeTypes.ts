@@ -2,8 +2,9 @@ export type RecipeListProps = {
   recipeData: Recipe[];
 };
 
-export type NewRecipe = RecipeCore;
-export type EditRecipeData = Partial<RecipeCore>;
+export type RecipeFormInput = Partial<RecipeCore> & {
+  sampleFile?: File;
+};
 
 export type Recipe = RecipeCore & {
   _id: string;
