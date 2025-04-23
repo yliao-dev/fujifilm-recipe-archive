@@ -28,8 +28,6 @@ const RecipeEditPage = () => {
   if (fetchError) return renderError(500, fetchError.message);
 
   const handleSubmit = async (formData: RecipePayload) => {
-    console.log("🔥 handleSubmit in parent called:", formData);
-
     try {
       // 1. Prepare the text payload (excluding image)
       const payload: RecipePayload = {
@@ -41,7 +39,6 @@ const RecipeEditPage = () => {
         notes: formData.notes,
         settings: formData.settings,
       };
-      console.log("Submitting update with payload:", payload);
       // 2. If sample image exists, upload it using returned recipe ID
       const recipe = await updateItemMutation.mutateAsync(payload);
       const fileToUpload = formData.sampleFile || (await getPlaceholderImage());

@@ -1,5 +1,3 @@
-import { getPlaceholderImage } from "./imageUtils";
-
 export const formatKey = (key: string) => {
   return key
     .replace(/_/g, " ")

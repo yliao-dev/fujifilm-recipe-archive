@@ -14,15 +14,20 @@ const updateItem = async ({
     method: "PATCH",
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(formPayload),
   });
 
   if (!res.ok) {
+    const text = await res.text();
+    console.error("❌ Bad response:", res.status, text);
+
     try {
-      const errorData: ApiError = await res.json();
+      const errorData: ApiError = JSON.parse(text);
       throw new Error(errorData.message || "Failed to update the recipe.");
     } catch (err) {
+      console.error("⚠️ Failed to parse error response:", text);
       throw new Error("Unexpected error occurred while updating the recipe.");
     }
   }
