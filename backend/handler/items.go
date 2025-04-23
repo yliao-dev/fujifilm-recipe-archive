@@ -4,6 +4,7 @@ import (
 	"backend/types"
 	"context"
 	"log"
+	"path/filepath"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -70,16 +71,40 @@ func CreateItem(c *fiber.Ctx) error {
 	if err := c.BodyParser(&item); err != nil {
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid request body"})
 	}
-
 	item.CreatedAt = time.Now().Format(time.RFC3339)
-
 	collection := c.Locals("db").(*mongo.Collection)
 	insertResult, err := collection.InsertOne(context.Background(), item)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to insert into database"})
 	}
-	item.ID = insertResult.InsertedID.(primitive.ObjectID).Hex()
 
+	id := insertResult.InsertedID.(primitive.ObjectID)
+	item.ID = id.Hex()
+
+	// Handle image file (optional)
+	file, err := c.FormFile("sample_image")
+	if err == nil {
+		// Define new filename based on MongoDB ID
+		filename := id.Hex() + filepath.Ext(file.Filename)
+		filePath := filepath.Join("public/images", filename)
+
+		if err := c.SaveFile(file, filePath); err != nil {
+			return c.Status(500).JSON(fiber.Map{"error": "Failed to save image"})
+		}
+
+		imageURL := "/images/" + filename
+		item.SampleImageURL = imageURL
+
+		// Update the recipe document with the image path
+		_, err = collection.UpdateByID(context.Background(), id, bson.M{
+			"$set": bson.M{"sample_image_url": imageURL},
+		})
+		if err != nil {
+			return c.Status(500).JSON(fiber.Map{"error": "Failed to update image path in database"})
+		}
+	} else if err != fiber.ErrBadRequest {
+		return c.Status(400).JSON(fiber.Map{"error": "Failed to process file upload"})
+	}
 
 	return c.Status(201).JSON(fiber.Map{
 		"message": "Recipe saved to MongoDB",
