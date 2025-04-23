@@ -15,17 +15,23 @@ const createItem = async ({
     body: formPayload,
   });
 
+  formPayload.forEach((value, key) => {
+    console.log(`${key}:`, value);
+  });
+
+  const contentType = res.headers.get("content-type");
+
   if (!res.ok) {
-    try {
-      const errorData: ApiError = await res.json();
-      throw new Error(errorData.message || "Failed to update the recipe.");
-    } catch (err) {
-      throw new Error("Unexpected error occurred while updating the recipe.");
+    if (contentType?.includes("application/json")) {
+      const errorData = await res.json();
+      throw new Error(errorData?.message || "Failed to create recipe.");
+    } else {
+      const text = await res.text(); // <--- new line to get raw text
+      throw new Error(`Raw error: ${text}`);
     }
   }
 
-  const data: RecipeResponse = await res.json();
-  return data;
+  return res.json();
 };
 
 const useCreateItem = () =>

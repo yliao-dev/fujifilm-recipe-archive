@@ -1,3 +1,5 @@
+import { getPlaceholderImage } from "./imageUtils";
+
 export const formatKey = (key: string) => {
   return key
     .replace(/_/g, " ")
@@ -29,6 +31,9 @@ export const buildFormData = (
 ) => {
   const formData = new FormData();
 
+  if (!data.sampleFile) {
+    data.sampleFile = getPlaceholderImage(); // return a File object (either placeholder or user file)
+  }
   for (const key in data) {
     const value = data[key];
 

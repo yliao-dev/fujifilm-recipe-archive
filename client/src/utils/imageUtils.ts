@@ -23,3 +23,13 @@ export const compressImage = async (file: File): Promise<File> => {
     throw new Error("Image compression failed");
   }
 };
+
+export const getPlaceholderImage = async (): Promise<File> => {
+  const placeholderImagePath = "/images/placeholder.webp";
+  const response = await fetch(placeholderImagePath);
+  if (!response.ok) {
+    throw new Error("Failed to load placeholder image");
+  }
+  const blob = await response.blob();
+  return new File([blob], "placeholder.webp", { type: "image/webp" });
+};
