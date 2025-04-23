@@ -11,6 +11,7 @@ import {
 } from "../data/formData";
 import { formatKey } from "../utils/formatKey";
 import { BASE_URL } from "../config";
+import { compressImage } from "../utils/imageUtils";
 
 interface RecipeFormProps {
   mode?: "create" | "edit";
@@ -44,6 +45,7 @@ const RecipeForm = ({
   const [preview, setPreview] = useState<string | null>(
     initialData?.sample_image_url || null
   );
+  const [sampleFile, setSampleFile] = useState<File | null>(null);
 
   const handleChange = (
     e:
@@ -61,21 +63,31 @@ const RecipeForm = ({
     }
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const result = reader.result as string;
-        setPreview(result); // for UI
-        setForm((prev: any) => ({
-          ...prev,
-          sample_image_url: result,
-        }));
+    if (!file) return;
+
+    try {
+      const compressed = await compressImage(file); // Your reusable util
+      const previewUrl = URL.createObjectURL(compressed);
+      setPreview(previewUrl);
+      setSampleFile(compressed);
+      // Log file info
+      console.log("Compressed Image Info:");
+      console.log("Size:", (compressed.size / 1024).toFixed(2), "KB");
+      console.log("Type:", compressed.type);
+      const img = new Image();
+      img.onload = () => {
+        console.log("Width:", img.width, "px");
+        console.log("Height:", img.height, "px");
       };
-      reader.readAsDataURL(file);
+      img.src = previewUrl;
+      //
+    } catch (err) {
+      console.error("Image compression error:", err);
     }
   };
+
   const example = ExampleData[0];
 
   return (
