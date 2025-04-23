@@ -31,7 +31,6 @@ const RecipeEditPage = () => {
     console.log("🔥 handleSubmit in parent called:", formData);
 
     try {
-      console.log("Handle submit started");
       // 1. Prepare the text payload (excluding image)
       const payload: RecipePayload = {
         name: formData.name,
