@@ -1,20 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import RecipeForm from "../components/RecipeForm";
 import useCreateItem from "../hooks/useCreateItem";
-import { normalizeArrayField } from "../utils/dataUtils";
+import { buildFormData, normalizeArrayField } from "../utils/dataUtils";
 
 const RecipeCreatePage = () => {
   const navigate = useNavigate();
   const createItemMutation = useCreateItem();
   const handleSubmit = (formData: any) => {
-    const formattedData = {
+    const normalizedData = {
       ...formData,
       camera_models: normalizeArrayField(formData.camera_models),
       tags: normalizeArrayField(formData.tags),
     };
 
+    const formPayload = buildFormData(normalizedData, {
+      sampleFile: "sample_image", // rename field here only
+    });
+
     // Now call the mutation function with the formatted data
-    createItemMutation.mutate(formattedData, {
+    createItemMutation.mutate(formPayload, {
       onSuccess: () => {
         navigate("/recipes");
       },

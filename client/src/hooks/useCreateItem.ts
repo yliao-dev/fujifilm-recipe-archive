@@ -1,15 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import { NewRecipe } from "../types/recipeTypes";
 import { BASE_URL } from "../config";
 
-const createItem = async (body: NewRecipe) => {
+const createItem = async (formPayload: FormData) => {
   const res = await fetch(`${BASE_URL}/items`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
     },
-    body: JSON.stringify(body),
+    body: formPayload,
   });
 
   if (!res.ok) {

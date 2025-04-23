@@ -68,7 +68,7 @@ const RecipeForm = ({
       className="recipeCreate__form__container"
       onSubmit={(e) => {
         e.preventDefault();
-        onSubmit(form);
+        onSubmit({ ...form, sampleFile });
       }}
     >
       <div className="recipeCreate__form">
