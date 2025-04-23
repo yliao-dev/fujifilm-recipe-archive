@@ -11,3 +11,14 @@ export const formatKey = (key: string) => {
 
 export const getPlaceholder = (value: any): string =>
   Array.isArray(value) ? value.join(", ") : value || "";
+
+export const normalizeArrayField = (
+  input: string | string[] | null | undefined
+): string[] => {
+  if (!input) return [];
+  if (Array.isArray(input)) return input;
+  return input
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+};

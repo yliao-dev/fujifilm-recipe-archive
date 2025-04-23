@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import RecipeForm from "../components/RecipeForm";
 import useCreateItem from "../hooks/useCreateItem";
+import { normalizeArrayField } from "../utils/dataUtils";
 
 const RecipeCreatePage = () => {
   const navigate = useNavigate();
@@ -8,10 +9,8 @@ const RecipeCreatePage = () => {
   const handleSubmit = (formData: any) => {
     const formattedData = {
       ...formData,
-      camera_models: formData.camera_models
-        .split(",")
-        .map((s: string) => s.trim()),
-      tags: formData.tags.split(",").map((s: string) => s.trim()), // Same for tags
+      camera_models: normalizeArrayField(formData.camera_models),
+      tags: normalizeArrayField(formData.tags),
     };
 
     // Now call the mutation function with the formatted data

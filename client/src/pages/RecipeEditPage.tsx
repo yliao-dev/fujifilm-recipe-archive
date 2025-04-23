@@ -4,6 +4,7 @@ import { renderError } from "./ErrorPage";
 import useUpdateItem from "../hooks/useUpdateItem";
 import useItem from "../hooks/useItem";
 import { EditRecipeData } from "../types/recipeTypes";
+import { normalizeArrayField } from "../utils/dataUtils";
 
 const RecipeEditPage = () => {
   const navigate = useNavigate();
@@ -26,17 +27,8 @@ const RecipeEditPage = () => {
   const handleSubmit = (formData: EditRecipeData) => {
     const normalizedData: EditRecipeData = {
       ...formData,
-      camera_models: formData.camera_models
-        ? Array.isArray(formData.camera_models)
-          ? formData.camera_models
-          : [formData.camera_models]
-        : [],
-
-      tags: formData.tags
-        ? Array.isArray(formData.tags)
-          ? formData.tags
-          : [formData.tags]
-        : [],
+      camera_models: normalizeArrayField(formData.camera_models),
+      tags: normalizeArrayField(formData.tags),
     };
 
     updateRecipe(
