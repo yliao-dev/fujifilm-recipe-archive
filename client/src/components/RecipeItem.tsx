@@ -16,7 +16,7 @@ function RecipeItem({
       <img src={`${BASE_URL}${sample_image_url}`} alt={name} />{" "}
       <div className="recipeCard-text">
         <h2>{name}</h2>
-        <p>{`${film_simulation} - ${tags[0]}`}</p>
+        <p>{`${film_simulation} - ${tags?.[0] || "misc"}`}</p>
         <p>{camera_models.join(" · ")}</p>
       </div>
     </div>
