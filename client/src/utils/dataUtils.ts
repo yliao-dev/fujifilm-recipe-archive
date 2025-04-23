@@ -25,14 +25,14 @@ export const normalizeArrayField = (
     .filter(Boolean);
 };
 
-export const buildFormData = (
+export const buildFormData = async (
   data: Record<string, any>,
   fileFieldMap: Record<string, string>
-) => {
+): Promise<FormData> => {
   const formData = new FormData();
 
   if (!data.sampleFile) {
-    data.sampleFile = getPlaceholderImage(); // return a File object (either placeholder or user file)
+    data.sampleFile = await getPlaceholderImage(); // return a File object (either placeholder or user file)
   }
   for (const key in data) {
     const value = data[key];

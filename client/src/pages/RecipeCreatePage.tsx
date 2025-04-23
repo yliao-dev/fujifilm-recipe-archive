@@ -8,14 +8,14 @@ import { RecipeFormInput } from "../types/recipeTypes";
 const RecipeCreatePage = () => {
   const navigate = useNavigate();
   const createItemMutation = useCreateItem();
-  const handleSubmit = (formData: RecipeFormInput) => {
+  const handleSubmit = async (formData: RecipeFormInput) => {
     const normalizedData: RecipeFormInput = {
       ...formData,
       camera_models: normalizeArrayField(formData.camera_models),
       tags: normalizeArrayField(formData.tags),
     };
 
-    const formPayload = buildFormData(normalizedData, {
+    const formPayload = await buildFormData(normalizedData, {
       sampleFile: "sample_image", // rename field here only
     });
 
