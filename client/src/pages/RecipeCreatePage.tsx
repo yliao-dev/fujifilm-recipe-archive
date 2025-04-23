@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import RecipeForm from "../components/RecipeForm";
 import useCreateItem from "../hooks/useCreateItem";
 import { buildFormData, normalizeArrayField } from "../utils/dataUtils";
+import { renderError } from "./ErrorPage";
 
 const RecipeCreatePage = () => {
   const navigate = useNavigate();
@@ -19,9 +20,8 @@ const RecipeCreatePage = () => {
 
     // Now call the mutation function with the formatted data
     createItemMutation.mutate(formPayload, {
-      onSuccess: () => {
-        navigate("/recipes");
-      },
+      onSuccess: () => navigate("/recipes"),
+      onError: (err) => renderError(500, err.message),
     });
   };
 
