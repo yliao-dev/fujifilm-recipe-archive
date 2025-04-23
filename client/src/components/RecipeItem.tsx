@@ -8,7 +8,7 @@ function RecipeItem({
   film_simulation,
   sample_image_url,
   camera_models,
-  tags,
+  tags = [],
 }: Recipe) {
   const navigate = useNavigate();
   return (
