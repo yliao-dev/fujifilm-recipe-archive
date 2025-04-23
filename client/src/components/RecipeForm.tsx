@@ -1,26 +1,22 @@
 // components/RecipeForm.tsx
 import { useState } from "react";
-import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import { SelectChangeEvent, TextField } from "@mui/material";
 import SelectField from "./SelectField";
+import ImageUploader from "./ImageUploader";
 import {
   basicFields,
   ExampleData,
   selectFields,
   settingFieldConfigs,
 } from "../data/formData";
-import { formatKey } from "../utils/formatKey";
-import { BASE_URL } from "../config";
-import { compressImage } from "../utils/imageUtils";
+import { formatKey } from "../utils/dataUtils";
+import { getPlaceholder } from "../utils/dataUtils";
 
 interface RecipeFormProps {
   mode?: "create" | "edit";
   initialData?: any;
   onSubmit: (formData: any) => void;
 }
-
-const getPlaceholder = (value: any) =>
-  Array.isArray(value) ? value.join(", ") : value || "";
 
 const RecipeForm = ({
   mode = "create",
@@ -42,9 +38,6 @@ const RecipeForm = ({
     }
   );
 
-  const [preview, setPreview] = useState<string | null>(
-    initialData?.sample_image_url || null
-  );
   const [sampleFile, setSampleFile] = useState<File | null>(null);
 
   const handleChange = (
@@ -63,29 +56,9 @@ const RecipeForm = ({
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    try {
-      const compressed = await compressImage(file); // Your reusable util
-      const previewUrl = URL.createObjectURL(compressed);
-      setPreview(previewUrl);
-      setSampleFile(compressed);
-      // Log file info
-      console.log("Compressed Image Info:");
-      console.log("Size:", (compressed.size / 1024).toFixed(2), "KB");
-      console.log("Type:", compressed.type);
-      const img = new Image();
-      img.onload = () => {
-        console.log("Width:", img.width, "px");
-        console.log("Height:", img.height, "px");
-      };
-      img.src = previewUrl;
-      //
-    } catch (err) {
-      console.error("Image compression error:", err);
-    }
+  const handleImageReady = (file: File, previewUrl: string) => {
+    setSampleFile(file);
+    setForm((prev: any) => ({ ...prev, sample_image_url: previewUrl }));
   };
 
   const example = ExampleData[0];
@@ -118,26 +91,10 @@ const RecipeForm = ({
           />
         ))}
 
-        <label className="image-upload">
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            hidden
-          />
-          {preview ? (
-            <img
-              src={`${BASE_URL}${initialData?.sample_image_url}`}
-              alt="Preview"
-              className="image-upload__preview"
-            />
-          ) : (
-            <div className="image-upload__placeholder">
-              <InsertPhotoIcon style={{ fontSize: "3rem" }} />
-              Upload a sample image
-            </div>
-          )}
-        </label>
+        <ImageUploader
+          initialUrl={initialData?.sample_image_url}
+          onImageReady={handleImageReady}
+        />
 
         <button
           className="nav_button"

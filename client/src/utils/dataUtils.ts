@@ -8,3 +8,6 @@ export const formatKey = (key: string) => {
     .replace(/nr/gi, "NR")
     .replace(/\b\w/g, (m) => m.toUpperCase());
 };
+
+export const getPlaceholder = (value: any): string =>
+  Array.isArray(value) ? value.join(", ") : value || "";

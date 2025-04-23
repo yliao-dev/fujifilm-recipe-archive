@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { renderError } from "./ErrorPage";
-import { formatKey } from "../utils/formatKey";
+import { formatKey } from "../utils/dataUtils";
 import { Edit, DeleteForever } from "@mui/icons-material";
 import useItem from "../hooks/useItem";
 import { BASE_URL } from "../config";
