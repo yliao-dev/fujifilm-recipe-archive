@@ -15,6 +15,16 @@
   outline: none;
 }
 
+.search__bar__container button {
+  border-radius: 0.25rem;
+  background-color: var(--fuji-red);
+  color: #ffffff;
+  width: 20%;
+}
+.search__bar__container button:hover {
+  opacity: 0.7;
+}
+
 .home__search::placeholder {
   color: var(--subtext);
 }

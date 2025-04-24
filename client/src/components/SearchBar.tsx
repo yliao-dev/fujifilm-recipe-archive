@@ -36,12 +36,7 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
         placeholder="Search by name, tags, simulation, or notes..."
         maxLength={100}
       />
-      <button
-        onClick={handleSearch}
-        className="px-4 py-2 rounded bg-black text-white hover:bg-gray-800 transition"
-      >
-        Search
-      </button>
+      <button onClick={handleSearch}>Search</button>
     </div>
   );
 };
