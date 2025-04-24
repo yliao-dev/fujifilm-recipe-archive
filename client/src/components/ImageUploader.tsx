@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import { BASE_URL } from "../config";
 import { compressImage } from "../utils/imageUtils";
@@ -10,6 +10,12 @@ interface Props {
 
 const ImageUploader = ({ initialUrl, onImageReady }: Props) => {
   const [preview, setPreview] = useState<string | null>(initialUrl || null);
+
+  useEffect(() => {
+    if (initialUrl) {
+      setPreview(`${BASE_URL}${initialUrl}`);
+    }
+  }, [initialUrl]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -40,11 +46,7 @@ const ImageUploader = ({ initialUrl, onImageReady }: Props) => {
     <label className="image-upload">
       <input type="file" accept="image/*" onChange={handleImageUpload} hidden />
       {preview ? (
-        <img
-          src={initialUrl ? `${BASE_URL}${initialUrl}` : preview}
-          alt="Preview"
-          className="image-upload__preview"
-        />
+        <img src={preview} alt="Preview" className="image-upload__preview" />
       ) : (
         <div className="image-upload__placeholder">
           <InsertPhotoIcon style={{ fontSize: "3rem" }} />
