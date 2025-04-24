@@ -38,11 +38,11 @@ const RecipeEditPage = () => {
         creator: formData.creator,
         notes: formData.notes,
         settings: formData.settings,
+        sample_image_url: formData.sample_image_url,
       };
 
       const recipe = await updateItemMutation.mutateAsync(payload);
 
-      // ⛔ Only upload if the user actually changed the image
       if (formData.isImageChanged && formData.sampleFile) {
         await uploadImageMutation.mutateAsync({
           recipeId: recipe.item._id,

@@ -21,11 +21,7 @@ interface RecipeFormProps {
   ) => void | Promise<void>;
 }
 
-const RecipeForm = ({
-  mode = "create",
-  initialData,
-  onSubmit,
-}: RecipeFormProps) => {
+const RecipeForm = ({ mode, initialData, onSubmit }: RecipeFormProps) => {
   const [form, setForm] = useState(
     initialData || {
       name: "",
@@ -34,7 +30,7 @@ const RecipeForm = ({
       creator: "",
       tags: "",
       notes: "",
-      sample_image_url: "",
+      sample_image_url: initialData?.sample_image_url || "",
       settings: Object.fromEntries(
         settingFieldConfigs.map(({ name }) => [name, ""])
       ),
@@ -63,17 +59,28 @@ const RecipeForm = ({
   const handleImageReady = (file: File, previewUrl: string) => {
     setSampleFile(file);
     setImageUrl(previewUrl);
+    setForm((prev: any) => ({
+      ...prev,
+      sample_image_url: previewUrl,
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    onSubmit({
+    const updatedPayload: RecipePayload & {
+      sampleFile?: File;
+      isImageChanged?: boolean;
+    } = {
       ...form,
+      sample_image_url: sampleFile
+        ? form.sample_image_url
+        : initialData?.sample_image_url, // If no new image, retain initial data
       sampleFile: sampleFile || undefined,
-      isImageChanged:
-        !!sampleFile && sampleFile.name !== initialData?.sample_image_url,
-    });
+      isImageChanged: !!sampleFile, // Only set isImageChanged if sampleFile exists
+    };
+
+    onSubmit(updatedPayload);
   };
 
   const example = ExampleData[0];

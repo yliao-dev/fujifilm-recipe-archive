@@ -22,6 +22,7 @@ const RecipeCreatePage = () => {
         creator: formData.creator,
         notes: formData.notes,
         settings: formData.settings,
+        sample_image_url: formData.sample_image_url,
       };
 
       // 1. Submit JSON data

@@ -27,15 +27,15 @@ const ImageUploader = ({ initialUrl, onImageReady }: Props) => {
       setPreview(previewUrl);
       onImageReady(compressed, previewUrl);
 
-      console.log("Compressed Image Info:");
-      console.log("Size:", (compressed.size / 1024).toFixed(2), "KB");
-      console.log("Type:", compressed.type);
+      // console.log("Compressed Image Info:");
+      // console.log("Size:", (compressed.size / 1024).toFixed(2), "KB");
+      // console.log("Type:", compressed.type);
 
       const img = new Image();
-      img.onload = () => {
-        console.log("Width:", img.width, "px");
-        console.log("Height:", img.height, "px");
-      };
+      // img.onload = () => {
+      //   console.log("Width:", img.width, "px");
+      //   console.log("Height:", img.height, "px");
+      // };
       img.src = previewUrl;
     } catch (err) {
       console.error("Image compression error:", err);

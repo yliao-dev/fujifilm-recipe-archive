@@ -17,6 +17,7 @@ export type RecipePayload = {
   notes?: string;
   settings: RecipeSettings;
   sampleFile?: File | null;
+  sample_image_url?: string;
 };
 
 export type RecipeSettings = {
