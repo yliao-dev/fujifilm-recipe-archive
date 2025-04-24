@@ -19,7 +19,7 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    if (recipesData) setFilteredRecipes(recipesData);
+    setFilteredRecipes([]);
   }, [recipesData]);
 
   if (isFetching) return <LoadingSpinner message="Loading recipe..." />;
