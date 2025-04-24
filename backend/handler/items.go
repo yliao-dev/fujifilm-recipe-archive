@@ -168,11 +168,28 @@ func UploadImage(c *fiber.Ctx) error {
     }
 
     imageURL := "/images/" + filename
+
+	// Update MongoDB recipe with sample_image_url
+    collection := c.Locals("db").(*mongo.Collection)
+    objectID, err := primitive.ObjectIDFromHex(itemID)
+    if err != nil {
+        return c.Status(400).JSON(fiber.Map{"error": "Invalid recipe ID"})
+    }
+
+    filter := bson.M{"_id": objectID}
+    update := bson.M{"$set": bson.M{"sample_image_url": imageURL}}
+
+    if _, err := collection.UpdateOne(context.Background(), filter, update); err != nil {
+        return c.Status(500).JSON(fiber.Map{"error": "Failed to update recipe with image URL"})
+    }
+	
+	
     return c.Status(200).JSON(fiber.Map{
         "message": "Image uploaded successfully",
         "image_url": imageURL,
     })
 }
+
 func createDirIfNotExist(dirPath string) error {
     if _, err := os.Stat(dirPath); os.IsNotExist(err) {
         err := os.MkdirAll(dirPath, os.ModePerm)
