@@ -62,7 +62,6 @@ const RecipeForm = ({
 
   const handleImageReady = (file: File, previewUrl: string) => {
     setSampleFile(file);
-    setForm((prev: any) => ({ ...prev, sample_image_url: previewUrl }));
     setImageUrl(previewUrl);
   };
 
