@@ -47,12 +47,10 @@ const RecipeForm = ({ mode, initialData, onSubmit }: RecipeFormProps) => {
   useEffect(() => {
     const isFormValid =
       form.name.trim() !== "" &&
-      Array.isArray(form.camera_models) &&
-      form.camera_models.length > 0 &&
-      form.film_simulation.trim() !== "";
-
-    setSubmitButtonDisabled(!isFormValid || loading); // Disable button if form is invalid or image is uploading
-  }, [form, loading]); // Add loading to the dependencies
+      form.film_simulation.trim() !== "" &&
+      form.camera_models.length > 0;
+    setSubmitButtonDisabled(!isFormValid || loading);
+  }, [form, loading]);
 
   const handleChange = (
     e:
@@ -78,11 +76,7 @@ const RecipeForm = ({ mode, initialData, onSubmit }: RecipeFormProps) => {
       ...prev,
       sample_image_url: previewUrl,
     }));
-
-    // Simulate image upload delay (e.g., API call)
-    setTimeout(() => {
-      setLoading(false); // Stop loading after the simulated delay
-    }, 2000); // Simulate a 2-second upload time
+    setLoading(false);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -135,7 +129,7 @@ const RecipeForm = ({ mode, initialData, onSubmit }: RecipeFormProps) => {
         <button
           className="nav_button"
           type="submit"
-          disabled={submitButtonDisabled} // Disable the button if form is invalid or loading
+          disabled={submitButtonDisabled} // Disable button if form is invalid or image is uploading
         >
           {mode === "edit" ? "Save Changes" : "Submit"}
         </button>
