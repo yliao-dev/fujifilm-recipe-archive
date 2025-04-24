@@ -1,5 +1,4 @@
-// components/RecipeForm.tsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SelectChangeEvent, TextField } from "@mui/material";
 import SelectField from "./SelectField";
 import ImageUploader from "./ImageUploader";
@@ -40,6 +39,21 @@ const RecipeForm = ({ mode, initialData, onSubmit }: RecipeFormProps) => {
   const [sampleFile, setSampleFile] = useState<File | null>(null);
   const [_, setImageUrl] = useState<string | null>(form.sample_image_url);
 
+  // State to control the disabled state of the submit button
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [loading, setLoading] = useState(false); // State to track image upload loading
+
+  // Validate form fields whenever form changes
+  useEffect(() => {
+    const isFormValid =
+      form.name.trim() !== "" &&
+      Array.isArray(form.camera_models) &&
+      form.camera_models.length > 0 &&
+      form.film_simulation.trim() !== "";
+
+    setSubmitButtonDisabled(!isFormValid || loading); // Disable button if form is invalid or image is uploading
+  }, [form, loading]); // Add loading to the dependencies
+
   const handleChange = (
     e:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -57,12 +71,18 @@ const RecipeForm = ({ mode, initialData, onSubmit }: RecipeFormProps) => {
   };
 
   const handleImageReady = (file: File, previewUrl: string) => {
+    setLoading(true); // Start loading
     setSampleFile(file);
     setImageUrl(previewUrl);
     setForm((prev: any) => ({
       ...prev,
       sample_image_url: previewUrl,
     }));
+
+    // Simulate image upload delay (e.g., API call)
+    setTimeout(() => {
+      setLoading(false); // Stop loading after the simulated delay
+    }, 2000); // Simulate a 2-second upload time
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -115,11 +135,7 @@ const RecipeForm = ({ mode, initialData, onSubmit }: RecipeFormProps) => {
         <button
           className="nav_button"
           type="submit"
-          disabled={
-            !form.name.trim() ||
-            !String(form.camera_models) ||
-            !form.film_simulation.trim()
-          }
+          disabled={submitButtonDisabled} // Disable the button if form is invalid or loading
         >
           {mode === "edit" ? "Save Changes" : "Submit"}
         </button>
