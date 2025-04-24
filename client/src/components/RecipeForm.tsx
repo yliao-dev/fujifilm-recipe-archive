@@ -40,6 +40,9 @@ const RecipeForm = ({
   );
 
   const [sampleFile, setSampleFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(
+    form.sample_image_url
+  );
 
   const handleChange = (
     e:
@@ -60,6 +63,7 @@ const RecipeForm = ({
   const handleImageReady = (file: File, previewUrl: string) => {
     setSampleFile(file);
     setForm((prev: any) => ({ ...prev, sample_image_url: previewUrl }));
+    setImageUrl(previewUrl);
   };
 
   const example = ExampleData[0];
