@@ -39,7 +39,11 @@ const HomePage = () => {
         </h1>
         <SearchBar onSearch={handleSearch} />
       </section>
-
+      <section className="home__card-grid">
+        <RecipeItems recipeData={filteredRecipes} />
+      </section>
+      <hr className="recipeList__divider" />
+      <h2>Featured Recipes</h2>
       <section className="home__card-grid">
         <RecipeItems recipeData={recipesData.slice(0, 3)} />
       </section>

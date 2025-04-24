@@ -23,7 +23,8 @@
 }
 
 .recipeDetail__intro p {
-  font-size: large;
+  margin-top: 2rem;
+  font-size: medium;
 }
 
 .recipeDetail__intro__content {

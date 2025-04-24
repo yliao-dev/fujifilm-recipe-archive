@@ -36,8 +36,10 @@ const RecipeDetailPage = () => {
     name,
     camera_models,
     film_simulation,
-    settings,
     creator,
+    tags,
+    notes,
+    settings,
     sample_image_url,
   } = recipeData;
   return (
@@ -50,7 +52,9 @@ const RecipeDetailPage = () => {
             <p>
               <strong>Film Simulation:</strong> {film_simulation} <br />
               <strong>Camera Models:</strong> {camera_models.join(" · ")} <br />
-              <strong>Creator:</strong> {creator}
+              <strong>Creator:</strong> {creator} <br />
+              <strong>Tags:</strong> {tags} <br />
+              <strong>notes:</strong> {notes}
             </p>
           </div>
           <div className="recipeDetail__modify">

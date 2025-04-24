@@ -36,7 +36,9 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
         placeholder="Search by name, tags, simulation, or notes..."
         maxLength={100}
       />
-      <button onClick={handleSearch}>Search</button>
+      <button type="button" onClick={handleSearch}>
+        Search
+      </button>
     </div>
   );
 };

@@ -34,11 +34,17 @@ export const filterRecipesByQuery = (
   return recipes.filter((recipe) => {
     return (
       recipe.name.toLowerCase().includes(normalizedQuery) ||
+      recipe.film_simulation.toLowerCase().includes(normalizedQuery) ||
+      (recipe.creator &&
+        recipe.creator.toLowerCase().includes(normalizedQuery)) ||
       (Array.isArray(recipe.tags) &&
         recipe.tags.some((tag) =>
           tag.toLowerCase().includes(normalizedQuery)
         )) ||
-      recipe.film_simulation.toLowerCase().includes(normalizedQuery) ||
+      (Array.isArray(recipe.camera_models) &&
+        recipe.camera_models.some((model) =>
+          model.toLowerCase().includes(normalizedQuery)
+        )) ||
       (recipe.notes && recipe.notes.toLowerCase().includes(normalizedQuery))
     );
   });
