@@ -16,7 +16,9 @@ import { RecipePayload } from "../types/recipeTypes";
 interface RecipeFormProps {
   mode?: "create" | "edit";
   initialData?: any;
-  onSubmit: (formData: RecipePayload) => void;
+  onSubmit: (
+    formData: RecipePayload & { sampleFile?: File; isImageChanged?: boolean }
+  ) => void | Promise<void>;
 }
 
 const RecipeForm = ({
@@ -40,9 +42,7 @@ const RecipeForm = ({
   );
 
   const [sampleFile, setSampleFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(
-    form.sample_image_url
-  );
+  const [_, setImageUrl] = useState<string | null>(form.sample_image_url);
 
   const handleChange = (
     e:
@@ -66,16 +66,21 @@ const RecipeForm = ({
     setImageUrl(previewUrl);
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    onSubmit({
+      ...form,
+      sampleFile: sampleFile || undefined,
+      isImageChanged:
+        !!sampleFile && sampleFile.name !== initialData?.sample_image_url,
+    });
+  };
+
   const example = ExampleData[0];
 
   return (
-    <form
-      className="recipeCreate__form__container"
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit({ ...form, sampleFile });
-      }}
-    >
+    <form className="recipeCreate__form__container" onSubmit={handleSubmit}>
       <div className="recipeCreate__form">
         {basicFields.map(({ name, label, required, multiline, rows }) => (
           <TextField

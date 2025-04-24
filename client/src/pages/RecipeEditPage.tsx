@@ -6,7 +6,6 @@ import useItem from "../hooks/useItem";
 import { RecipePayload } from "../types/recipeTypes";
 import { normalizeArrayField } from "../utils/dataUtils";
 import useUploadImage from "../hooks/useUploadImage";
-import { getPlaceholderImage } from "../utils/imageUtils";
 
 const RecipeEditPage = () => {
   const navigate = useNavigate();
@@ -27,9 +26,10 @@ const RecipeEditPage = () => {
   if (!recipeData) return renderError(404, "Recipe not found.");
   if (fetchError) return renderError(500, fetchError.message);
 
-  const handleSubmit = async (formData: RecipePayload) => {
+  const handleSubmit = async (
+    formData: RecipePayload & { sampleFile?: File; isImageChanged?: boolean }
+  ) => {
     try {
-      // 1. Prepare the text payload (excluding image)
       const payload: RecipePayload = {
         name: formData.name,
         film_simulation: formData.film_simulation,
@@ -39,15 +39,17 @@ const RecipeEditPage = () => {
         notes: formData.notes,
         settings: formData.settings,
       };
-      // 2. If sample image exists, upload it using returned recipe ID
+
       const recipe = await updateItemMutation.mutateAsync(payload);
-      const fileToUpload = formData.sampleFile || (await getPlaceholderImage());
-      if (fileToUpload) {
+
+      // ⛔ Only upload if the user actually changed the image
+      if (formData.isImageChanged && formData.sampleFile) {
         await uploadImageMutation.mutateAsync({
           recipeId: recipe.item._id,
-          file: fileToUpload,
+          file: formData.sampleFile,
         });
       }
+
       navigate(`/recipes/${id}`);
     } catch (err: any) {
       renderError(500, err.message);
