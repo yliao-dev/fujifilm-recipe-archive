@@ -1,8 +1,15 @@
-.home__search {
+.search__bar__container {
   width: 70%;
+  color: var(--text);
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+.search__bar {
+  width: 100%;
   padding: 0.75rem 1rem;
   border: 0.07rem solid var(--border);
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
   background: var(--surface);
   color: var(--text);
   outline: none;

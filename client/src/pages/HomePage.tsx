@@ -3,14 +3,29 @@ import SearchBar from "../components/SearchBar";
 import { Link } from "react-router-dom";
 import useItems from "../hooks/useItems";
 import { renderError } from "./ErrorPage";
+import LoadingSpinner from "../components/LoadingSpinner";
+import { useEffect, useState } from "react";
+import { filterRecipesByQuery } from "../utils/dataUtils";
+import { Recipe } from "../types/recipeTypes";
 
 const HomePage = () => {
-  const { data: recipesData, error, isLoading } = useItems();
-  if (isLoading) return null;
+  const { data: recipesData, error, isLoading: isFetching } = useItems();
+
+  const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
+  const handleSearch = (query: string) => {
+    if (!recipesData) return;
+    const filtered = filterRecipesByQuery(recipesData, query);
+    setFilteredRecipes(filtered);
+  };
+
+  useEffect(() => {
+    if (recipesData) setFilteredRecipes(recipesData);
+  }, [recipesData]);
+
+  if (isFetching) return <LoadingSpinner message="Loading recipe..." />;
 
   if (!recipesData) return renderError(404, "Recipe not found.");
-
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return renderError(500, error.message);
 
   return (
     <div className="home__page">
@@ -22,7 +37,7 @@ const HomePage = () => {
           </span>{" "}
           Film Simulation Recipes
         </h1>
-        <SearchBar />
+        <SearchBar onSearch={handleSearch} />
       </section>
 
       <section className="home__card-grid">

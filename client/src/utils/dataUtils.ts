@@ -1,3 +1,5 @@
+import { Recipe } from "../types/recipeTypes";
+
 export const formatKey = (key: string) => {
   return key
     .replace(/_/g, " ")
@@ -21,4 +23,23 @@ export const normalizeArrayField = (
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean);
+};
+
+export const filterRecipesByQuery = (
+  recipes: Recipe[],
+  query: string
+): Recipe[] => {
+  const normalizedQuery = query.toLowerCase();
+
+  return recipes.filter((recipe) => {
+    return (
+      recipe.name.toLowerCase().includes(normalizedQuery) ||
+      (Array.isArray(recipe.tags) &&
+        recipe.tags.some((tag) =>
+          tag.toLowerCase().includes(normalizedQuery)
+        )) ||
+      recipe.film_simulation.toLowerCase().includes(normalizedQuery) ||
+      (recipe.notes && recipe.notes.toLowerCase().includes(normalizedQuery))
+    );
+  });
 };
