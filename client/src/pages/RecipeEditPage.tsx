@@ -25,7 +25,7 @@ const RecipeEditPage = () => {
   const uploadImageMutation = useUploadImage();
 
   const [isImageUploading, setIsImageUploading] = useState(false);
-  const [isFormSubmitting, setIsFormSubmitting] = useState(false); // Track if form is submitting
+  const [, setIsFormSubmitting] = useState(false);
 
   if (isFetching) {
     return <LoadingSpinner message="Loading recipe..." />;
