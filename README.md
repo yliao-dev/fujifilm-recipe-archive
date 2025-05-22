@@ -11,6 +11,8 @@ Fujifilm Recipe Archive
 Fujifilm Recipes Collection
 Focus: Full-stack web app
 
+Considering a severless solution instead of backend
+
 ```
 [ User Browser ]
      |
