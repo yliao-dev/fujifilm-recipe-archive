@@ -5,7 +5,6 @@ import (
 	"context"
 	"log"
 	"os"
-	"path/filepath"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -144,51 +143,84 @@ func DeleteItem(c *fiber.Ctx) error {
 	return c.Status(200).JSON(fiber.Map{"success": true})
 }
 
-
 func UploadImage(c *fiber.Ctx) error {
-    itemID := c.Params("id")
-	log.Println("Item ID:", itemID) 
-    if itemID == "" {
-        return c.Status(400).JSON(fiber.Map{"error": "Item ID is required"})
-    }
-    file, err := c.FormFile("sample_image")
-    if err != nil {
-        return c.Status(400).JSON(fiber.Map{"error": "No image file found"})
-    }
+	itemID := c.Params("id")
+	if itemID == "" {
+		return c.Status(400).JSON(fiber.Map{"error": "Item ID is required"})
+	}
 
-    filename := itemID + filepath.Ext(file.Filename)
-    filePath := filepath.Join("public", "images", filename)
+	type Payload struct {
+		Image string `json:"image"`
+	}
+	var body Payload
+	if err := c.BodyParser(&body); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid JSON body"})
+	}
+	if body.Image == "" {
+		return c.Status(400).JSON(fiber.Map{"error": "Image URL is required"})
+	}
 
-    if err := createDirIfNotExist("public/images"); err != nil {
-        return c.Status(500).JSON(fiber.Map{"error": "Failed to create images directory"})
-    }
+	objectID, err := primitive.ObjectIDFromHex(itemID)
+	if err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid recipe ID"})
+	}
 
-    if err := c.SaveFile(file, filePath); err != nil {
-        return c.Status(500).JSON(fiber.Map{"error": "Failed to save image"})
-    }
+	collection := c.Locals("db").(*mongo.Collection)
+	filter := bson.M{"_id": objectID}
+	update := bson.M{"$set": bson.M{"sample_image_url": body.Image}}
 
-    imageURL := "/images/" + filename
+	if _, err := collection.UpdateOne(context.Background(), filter, update); err != nil {
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to update recipe with image URL"})
+	}
 
-	// Update MongoDB recipe with sample_image_url
-    collection := c.Locals("db").(*mongo.Collection)
-    objectID, err := primitive.ObjectIDFromHex(itemID)
-    if err != nil {
-        return c.Status(400).JSON(fiber.Map{"error": "Invalid recipe ID"})
-    }
-
-    filter := bson.M{"_id": objectID}
-    update := bson.M{"$set": bson.M{"sample_image_url": imageURL}}
-
-    if _, err := collection.UpdateOne(context.Background(), filter, update); err != nil {
-        return c.Status(500).JSON(fiber.Map{"error": "Failed to update recipe with image URL"})
-    }
-	
-	
-    return c.Status(200).JSON(fiber.Map{
-        "message": "Image uploaded successfully",
-        "image_url": imageURL,
-    })
+	return c.Status(200).JSON(fiber.Map{"message": "Image URL saved", "image_url": body.Image})
 }
+
+
+// func UploadImage(c *fiber.Ctx) error {
+//     itemID := c.Params("id")
+// 	log.Println("Item ID:", itemID) 
+//     if itemID == "" {
+//         return c.Status(400).JSON(fiber.Map{"error": "Item ID is required"})
+//     }
+//     file, err := c.FormFile("sample_image")
+//     if err != nil {
+//         return c.Status(400).JSON(fiber.Map{"error": "No image file found"})
+//     }
+
+//     filename := itemID + filepath.Ext(file.Filename)
+//     filePath := filepath.Join("public", "images", filename)
+
+//     if err := createDirIfNotExist("public/images"); err != nil {
+//         return c.Status(500).JSON(fiber.Map{"error": "Failed to create images directory"})
+//     }
+
+//     if err := c.SaveFile(file, filePath); err != nil {
+//         return c.Status(500).JSON(fiber.Map{"error": "Failed to save image"})
+//     }
+
+//     imageURL := "/images/" + filename
+
+// 	// Update MongoDB recipe with sample_image_url
+//     collection := c.Locals("db").(*mongo.Collection)
+//     objectID, err := primitive.ObjectIDFromHex(itemID)
+//     if err != nil {
+//         return c.Status(400).JSON(fiber.Map{"error": "Invalid recipe ID"})
+//     }
+
+//     filter := bson.M{"_id": objectID}
+//     update := bson.M{"$set": bson.M{"sample_image_url": imageURL}}
+
+//     if _, err := collection.UpdateOne(context.Background(), filter, update); err != nil {
+//         return c.Status(500).JSON(fiber.Map{"error": "Failed to update recipe with image URL"})
+//     }
+	
+	
+//     return c.Status(200).JSON(fiber.Map{
+//         "message": "Image uploaded successfully",
+//         "image_url": imageURL,
+//     })
+// }
 
 func createDirIfNotExist(dirPath string) error {
     if _, err := os.Stat(dirPath); os.IsNotExist(err) {
