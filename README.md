@@ -12,6 +12,7 @@ Fujifilm Recipes Collection
 Focus: Full-stack web app
 
 Considering a severless solution instead of backend
+erverless architecture e.g., Vercel functions + Cloudinary + MongoDB Atlas
 
 ```
 [ User Browser ]

@@ -4,13 +4,17 @@ import useCreateItemText from "../hooks/useCreateItem";
 import { normalizeArrayField } from "../utils/dataUtils";
 import { renderError } from "./ErrorPage";
 import { RecipePayload } from "../types/recipeTypes";
-import useUploadImage from "../hooks/useUploadImage";
 import { getPlaceholderImage } from "../utils/imageUtils";
+import {
+  useUpdateRecipeImage,
+  uploadToCloudinary,
+} from "../hooks/uploadToCloudinary";
 
 const RecipeCreatePage = () => {
   const navigate = useNavigate();
   const createRecipeMutation = useCreateItemText();
-  const uploadImageMutation = useUploadImage();
+  const updateRecipeImageMutation = useUpdateRecipeImage();
+
   const handleSubmit = async (formData: RecipePayload) => {
     try {
       // Prepare the text payload (excluding image)
@@ -30,12 +34,14 @@ const RecipeCreatePage = () => {
       // 2. If sample image exists, upload it using returned recipe ID
       const fileToUpload = formData.sampleFile || (await getPlaceholderImage());
       if (fileToUpload) {
-        await uploadImageMutation.mutateAsync({
+        const imageUrl = await uploadToCloudinary(fileToUpload);
+        // 3. Update backend with Cloudinary image URL
+        await updateRecipeImageMutation.mutateAsync({
           recipeId: recipe.item._id,
-          file: fileToUpload,
+          imageUrl,
         });
       }
-      // 3. Navigate to list
+      // 4. Navigate to list
       navigate("/recipes");
     } catch (err: any) {
       renderError(500, err.message);
