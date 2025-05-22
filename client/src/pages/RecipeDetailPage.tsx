@@ -42,10 +42,11 @@ const RecipeDetailPage = () => {
     settings,
     sample_image_url,
   } = recipeData;
+  console.log("sample_image_url", sample_image_url);
   return (
     <div className="recipeDetail__page">
       <section className="recipeDetail__intro">
-        <img src={`${BASE_URL}${sample_image_url}`} alt={name} />
+        <img src={sample_image_url} alt={name} />
         <div className="recipeDetail__intro__content">
           <div>
             <h1>{name}</h1>

@@ -13,7 +13,7 @@ function RecipeItem({
   const navigate = useNavigate();
   return (
     <div className="recipeCard" onClick={() => navigate(`/recipes/${_id}`)}>
-      <img src={`${BASE_URL}${sample_image_url}`} alt={name} />{" "}
+      <img src={sample_image_url} alt={name} />
       <div className="recipeCard-text">
         <h2>{name}</h2>
         <p>{`${film_simulation} - ${tags?.[0] || "misc"}`}</p>
