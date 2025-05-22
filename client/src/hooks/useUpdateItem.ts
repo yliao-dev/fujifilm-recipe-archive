@@ -1,51 +1,51 @@
 import { useMutation } from "@tanstack/react-query";
-import { BASE_URL } from "../config"; // Replace with your actual config
-import { EditJobResponse, EditJobData, EditJobError } from "../types"; // Add these types to your type definitions
+import { BASE_URL } from "../config";
+import { RecipeResponse, ApiError } from "../types/apiResponses";
+import { RecipePayload } from "../types/recipeTypes";
 
-// Mutation function for editing a job
-const editJob = async ({
-  jobId,
-  jobData,
+const updateItem = async ({
+  recipeId,
+  formPayload,
 }: {
-  jobId: string;
-  jobData: EditJobData;
-}): Promise<EditJobResponse> => {
-  const res = await fetch(`${BASE_URL}/items/${jobId}`, {
+  recipeId: string;
+  formPayload: RecipePayload;
+}): Promise<RecipeResponse> => {
+  const res = await fetch(`${BASE_URL}/items/${recipeId}`, {
     method: "PATCH",
     headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(jobData),
+    body: JSON.stringify(formPayload),
   });
 
   if (!res.ok) {
+    const text = await res.text();
+    console.error("❌ Bad response:", res.status, text);
+
     try {
-      const errorData: EditJobError = await res.json();
-      throw new Error(errorData.message || "Failed to update the job.");
+      const errorData: ApiError = JSON.parse(text);
+      throw new Error(errorData.message || "Failed to update the recipe.");
     } catch (err) {
-      throw new Error("Unexpected error occurred while updating the job.");
+      console.error("⚠️ Failed to parse error response:", text);
+      throw new Error("Unexpected error occurred while updating the recipe.");
     }
   }
 
-  const data: EditJobResponse = await res.json();
+  const data: RecipeResponse = await res.json();
   return data;
 };
 
-// Hook for using editJob mutation
-const useEditJob = () => {
-  return useMutation<
-    EditJobResponse,
-    Error,
-    { jobId: string; jobData: EditJobData }
-  >({
-    mutationFn: editJob, // Pass the mutation function
-    onError: (error: Error) => {
-      console.error("Error editing job:", error.message);
+const useUpdateItem = (recipeId: string) => {
+  return useMutation<RecipeResponse, Error, RecipePayload>({
+    mutationFn: (formPayload) => updateItem({ recipeId, formPayload }),
+    onSuccess: (data: RecipeResponse) => {
+      console.log("Recipe updated successfully:", data);
     },
-    onSuccess: (data: EditJobResponse) => {
-      console.log("Job updated successfully:", data);
+    onError: (error: Error) => {
+      console.error("Error updating recipe:", error.message);
     },
   });
 };
 
-export default useEditJob;
+export default useUpdateItem;

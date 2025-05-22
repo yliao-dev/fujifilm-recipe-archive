@@ -1,0 +1,96 @@
+[
+  {
+    "_id": "68060191038afd2be96548a9",
+    "name": "Patch123",
+    "camera_models": [
+      "X-T5,X100V"
+    ],
+    "film_simulation": "Classic Chrome",
+    "creator": "y liao",
+    "tags": [
+      "color,street, 123"
+    ],
+    "notes": "Shot on a sunny day",
+    "sample_image_url": "/images/placeholder.webp",
+    "created_at": "2025-04-21T10:28:01+02:00",
+    "settings": {
+      "grain_effect": "Weak, Small",
+      "color_chrome_effect": "Strong",
+      "color_chrome_fx_blue": "Weak",
+      "white_balance": "Auto, +1 Red, -2 Blue",
+      "dynamic_range": "DR100",
+      "highlight": "0",
+      "shadow": "+1",
+      "color": "+3",
+      "sharpness": "0",
+      "noise_reduction": "-2",
+      "clarity": "+1",
+      "iso": "Auto 6400",
+      "exposure_compensation": "-1"
+    }
+  },
+  {
+    "_id": "68060196038afd2be96548aa",
+    "name": "test2",
+    "camera_models": [
+      "X-T4",
+      "X100V"
+    ],
+    "film_simulation": "Classic Chrome",
+    "creator": "y liao",
+    "tags": [
+      "color",
+      "street"
+    ],
+    "notes": "Shot on a sunny day",
+    "sample_image_url": "/images/placeholder.webp",
+    "created_at": "2025-04-21T10:28:06+02:00",
+    "settings": {
+      "grain_effect": "Weak, Small",
+      "color_chrome_effect": "Strong",
+      "color_chrome_fx_blue": "Weak",
+      "white_balance": "Auto, +1 Red, -2 Blue",
+      "dynamic_range": "DR400",
+      "highlight": "0",
+      "shadow": "-2",
+      "color": "+3",
+      "sharpness": "0",
+      "noise_reduction": "-4",
+      "clarity": "+1",
+      "iso": "Auto 6400",
+      "exposure_compensation": "-1"
+    }
+  },
+  {
+    "_id": "6806019e038afd2be96548ab",
+    "name": "test4",
+    "camera_models": [
+      "X-T5",
+      "X100V"
+    ],
+    "film_simulation": "N Chrome",
+    "creator": "y liao",
+    "tags": [
+      "color",
+      "street"
+    ],
+    "notes": "Shot on a sunny day",
+    "sample_image_url": "/images/placeholder.webp",
+    "created_at": "2025-04-21T10:28:14+02:00",
+    "settings": {
+      "grain_effect": "Weak, Small",
+      "color_chrome_effect": "Strong",
+      "color_chrome_fx_blue": "Weak",
+      "white_balance": "Auto, +1 Red, -2 Blue",
+      "dynamic_range": "DR400",
+      "highlight": "0",
+      "shadow": "-2",
+      "color": "+3",
+      "sharpness": "0",
+      "noise_reduction": "-4",
+      "clarity": "+1",
+      "iso": "Auto 6400",
+      "exposure_compensation": "-1"
+    }
+  }
+]

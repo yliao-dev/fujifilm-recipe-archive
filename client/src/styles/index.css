@@ -1,0 +1,88 @@
+@import "./variables.css";
+@import "./recipeItem.css";
+@import "./sideTabNav.css";
+@import "./customMUI.css";
+
+@import "./homePage.css";
+@import "./searchBar.css";
+@import "./recipeListPage.css";
+@import "./recipeDetailPage.css";
+@import "./recipeCreatePage.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Merriweather", serif;
+}
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+section {
+  padding: 1.2rem;
+  align-items: center;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.2rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0.1rem;
+}
+
+p {
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  font-weight: var(--font-weight-regular);
+  color: var(--subtext);
+  letter-spacing: 0.07rem;
+  line-height: 2;
+}
+
+.nav_button {
+  margin-top: 3rem;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--fuji-red);
+  color: white;
+  text-decoration: none;
+}
+
+.nav_button:hover {
+  background-color: var(--fuji-red);
+}
+
+.nav_button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+/* Optional: toast entrance animation */
+@keyframes slideIn {
+  from {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  section {
+    width: 90%;
+    max-width: 75rem;
+  }
+}

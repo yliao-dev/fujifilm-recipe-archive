@@ -1,0 +1,44 @@
+.side-tab-nav {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 1000;
+}
+
+.tab {
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.25rem 0;
+  transition: width 0.2s ease;
+  width: 3rem;
+}
+
+.tab:hover {
+  width: 8rem;
+}
+
+.tab-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--surface);
+  padding: 0.5rem 1rem;
+}
+
+.tab-item:hover,
+.tab-item.active {
+  background: var(--fuji-red);
+}
+
+.tab-label {
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.tab:hover .tab-label {
+  opacity: 1;
+}

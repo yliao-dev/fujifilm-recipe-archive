@@ -1,48 +1,43 @@
 import { useMutation } from "@tanstack/react-query";
-import { BASE_URL } from "../config"; // Replace with your actual config
-import { CreateJobResponse, CreateJobError, JobBody } from "../types"; // Your types
+import { BASE_URL } from "../config";
+import { RecipePayload } from "../types/recipeTypes";
+import { ApiError, RecipeResponse } from "../types/apiResponses";
 
-// Mutation function for creating a job
-const createJob = async (jobBody: JobBody): Promise<CreateJobResponse> => {
-  // Send request to the server
+const createItemText = async ({
+  formPayload,
+}: {
+  formPayload: RecipePayload;
+}): Promise<RecipeResponse> => {
   const res = await fetch(`${BASE_URL}/items`, {
     method: "POST",
     headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(jobBody),
+    body: JSON.stringify(formPayload),
   });
 
   if (!res.ok) {
     try {
-      const errorData: CreateJobError = await res.json(); // Handle error response
-      throw new Error(
-        errorData.message || "Something went wrong while creating the job"
-      );
+      const errorData: ApiError = await res.json();
+      throw new Error(errorData.message || "Failed to update the recipe.");
     } catch (err) {
-      // If JSON parsing fails, handle it gracefully
-      throw new Error("Unexpected error occurred while creating the job.");
+      throw new Error("Unexpected error occurred while updating the recipe.");
     }
   }
 
-  // Parse and return the successful response
-  const data: CreateJobResponse = await res.json();
-  return data;
+  return res.json();
 };
 
-// Hook for using createJob mutation
-const useCreateItem = () => {
-  return useMutation<CreateJobResponse, Error, JobBody>({
-    mutationFn: createJob, // Pass mutation function
-    onError: (error: Error) => {
-      console.error("Error creating job:", error.message);
-      // Optionally, you can display an error notification or handle state updates here
+const useCreateItemText = () =>
+  useMutation<RecipeResponse, Error, RecipePayload>({
+    mutationFn: (formPayload) => createItemText({ formPayload }),
+    onSuccess: (data) => {
+      console.log("Recipe created successfully:", data);
     },
-    onSuccess: (data: CreateJobResponse) => {
-      console.log("Job created successfully:", data);
-      // Optionally, navigate or trigger UI updates upon success
+    onError: (error) => {
+      console.error("Error creating recipe:", error.message);
     },
   });
-};
 
-export default useCreateItem;
+export default useCreateItemText;

@@ -1,0 +1,82 @@
+.recipeList__page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 5rem 2rem;
+  box-sizing: border-box;
+}
+
+.recipeList__intro {
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.recipeList__intro p {
+  font-size: 1rem;
+  color: var(--subtext);
+}
+
+.recipeList__divider {
+  margin: 1.5rem auto;
+  width: 90%;
+  height: 2px;
+  border: none;
+  background-color: var(--fuji-red);
+  opacity: 0.7;
+  transition: background-color 0.3s ease;
+}
+
+.recipeList__card-grid {
+  display: grid;
+  margin-top: auto;
+  gap: 2rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  width: 80%;
+}
+
+.pagination button {
+  background: var(--fuji-red);
+  color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  justify-self: start;
+}
+
+.hidden-button {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pagination button:hover {
+  background-color: var(--fuji-red);
+}
+
+/* Tablet and above */
+@media (min-width: 768px) {
+  .recipeList__card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop and above */
+@media (min-width: 1024px) {
+  .recipeList__card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1440) {
+  .recipeList__card-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

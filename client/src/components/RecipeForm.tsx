@@ -1,0 +1,172 @@
+import { useEffect, useState } from "react";
+import { SelectChangeEvent, TextField } from "@mui/material";
+import SelectField from "./SelectField";
+import ImageUploader from "./ImageUploader";
+import {
+  basicFields,
+  ExampleData,
+  selectFields,
+  settingFieldConfigs,
+} from "../data/formData";
+import { formatKey } from "../utils/dataUtils";
+import { getPlaceholder } from "../utils/dataUtils";
+import { RecipePayload } from "../types/recipeTypes";
+
+interface RecipeFormProps {
+  mode?: "create" | "edit";
+  initialData?: any;
+  onSubmit: (
+    formData: RecipePayload & { sampleFile?: File; isImageChanged?: boolean }
+  ) => void | Promise<void>;
+}
+
+const RecipeForm = ({ mode, initialData, onSubmit }: RecipeFormProps) => {
+  const [form, setForm] = useState(
+    initialData || {
+      name: "",
+      camera_models: "",
+      film_simulation: "",
+      creator: "",
+      tags: "",
+      notes: "",
+      sample_image_url: initialData?.sample_image_url || "",
+      settings: Object.fromEntries(
+        settingFieldConfigs.map(({ name }) => [name, ""])
+      ),
+    }
+  );
+
+  const [sampleFile, setSampleFile] = useState<File | null>(null);
+  const [_, setImageUrl] = useState<string | null>(form.sample_image_url);
+
+  // State to control the disabled state of the submit button
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [loading, setLoading] = useState(false); // State to track image upload loading
+
+  // Validate form fields whenever form changes
+  useEffect(() => {
+    const isFormValid =
+      form.name.trim() !== "" &&
+      form.film_simulation.trim() !== "" &&
+      form.camera_models.length > 0;
+    setSubmitButtonDisabled(!isFormValid || loading);
+  }, [form, loading]);
+
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent
+  ) => {
+    const { name, value } = e.target;
+    if (settingFieldConfigs.some((field) => field.name === name)) {
+      setForm((prev: any) => ({
+        ...prev,
+        settings: { ...prev.settings, [name]: value },
+      }));
+    } else {
+      setForm((prev: any) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleImageReady = (file: File, previewUrl: string) => {
+    setLoading(true); // Start loading
+    setSampleFile(file);
+    setImageUrl(previewUrl);
+    setForm((prev: any) => ({
+      ...prev,
+      sample_image_url: previewUrl,
+    }));
+    setLoading(false);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const updatedPayload: RecipePayload & {
+      sampleFile?: File;
+      isImageChanged?: boolean;
+    } = {
+      ...form,
+      sample_image_url: sampleFile
+        ? form.sample_image_url
+        : initialData?.sample_image_url, // If no new image, retain initial data
+      sampleFile: sampleFile || undefined,
+      isImageChanged: !!sampleFile, // Only set isImageChanged if sampleFile exists
+    };
+
+    onSubmit(updatedPayload);
+  };
+
+  const example = ExampleData[0];
+
+  return (
+    <form className="recipeCreate__form__container" onSubmit={handleSubmit}>
+      <div className="recipeCreate__form">
+        {basicFields.map(({ name, label, required, multiline, rows }) => (
+          <TextField
+            key={name}
+            label={label}
+            name={name}
+            value={form[name]}
+            onChange={handleChange}
+            placeholder={
+              getPlaceholder(initialData?.[name]) ||
+              getPlaceholder((example as any)?.[name])
+            }
+            required={required}
+            multiline={multiline}
+            rows={rows}
+            variant="outlined"
+            className="custom__textfield"
+          />
+        ))}
+
+        <ImageUploader
+          initialUrl={initialData?.sample_image_url}
+          onImageReady={handleImageReady}
+        />
+
+        <button
+          className="nav_button"
+          type="submit"
+          disabled={submitButtonDisabled} // Disable button if form is invalid or image is uploading
+        >
+          {mode === "edit" ? "Save Changes" : "Submit"}
+        </button>
+      </div>
+
+      <div className="recipeCreate__form">
+        {settingFieldConfigs.map(({ name, type }) => (
+          <div key={name}>
+            {type === "select" && selectFields[name] ? (
+              <SelectField
+                label={formatKey(name)}
+                name={name}
+                value={form.settings[name]}
+                options={selectFields[name]}
+                onChange={handleChange}
+              />
+            ) : (
+              <TextField
+                name={name}
+                label={formatKey(name)}
+                value={form.settings[name]}
+                onChange={handleChange}
+                placeholder={
+                  getPlaceholder(initialData?.settings?.[name]) ||
+                  getPlaceholder(
+                    example.settings[name as keyof typeof example.settings]
+                  )
+                }
+                variant="outlined"
+                className="custom__textfield"
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    </form>
+  );
+};
+
+export default RecipeForm;

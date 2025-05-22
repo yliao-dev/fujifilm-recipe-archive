@@ -1,13 +1,13 @@
 package main
 
 import (
+	"backend/handler"
+	"backend/middleware"
 	"context"
 	"fmt"
-	"golang-backend/handler"
-	"golang-backend/middleware"
-
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
@@ -20,7 +20,7 @@ func main() {
 
 	if os.Getenv("ENV") != "production" {
 		// load the .evn file if not in production
-		err := godotenv.Load("../client/.env")
+		err := godotenv.Load(".env")
 		if err != nil {
 			log.Fatal("error loading .env file", err)
 		}
@@ -47,32 +47,45 @@ func main() {
 		log.Fatalf("Failed to ping MongoDB: %v", err)
 	}
 	fmt.Println("Connected to MONGODB ATLAS")
-	// -------- MongoDB END Section -------- //
 	
 	// -------- API Calls Section -------- //
 
 	app := fiber.New()
 
+
+	absPath, err := filepath.Abs("public/images")
+	if err != nil {
+		log.Fatal("Failed to resolve image path:", err)
+	}
+	app.Static("/api/images", absPath)
+
+
 	// Middleware
 	app.Use(middleware.LoggingMiddleware)         // Log every request
 	app.Use(middleware.CORSConfig())             // Handle CORS
-	// app.Use(middleware.AuthMiddleware)           // Handle authentication (only for certain routes)
+	app.Use(middleware.AuthMiddleware)           // Handle authentication (only for certain routes)
 	app.Use(middleware.AttachDBMiddleware(client)) // Attach MongoDB to request
+
 
 	app.Get("/api/items", handler.GetItems)
 	app.Get("/api/items/:id", handler.GetItem)
-	app.Post("/api/items", handler.CreateItems)
-	app.Patch("/api/items/:id", handler.PatchItems)
-	app.Delete("/api/items/:id", handler.DeleteItems)
+	app.Post("/api/items", handler.CreateItem)
+	app.Patch("/api/items/:id", handler.PatchItem)
+	app.Delete("/api/items/:id", handler.DeleteItem)
+
+	// New route for image upload
+	app.Post("/api/items/:id/image", handler.UploadImage)
+	
+	if os.Getenv("ENV") == "production" {
+		app.Static("/", ".client/dist")
+	}
+	
 
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
-	if os.Getenv("ENV") == "production" {
-		app.Static("/", ".client/dist")
-	}
-	
+
 
 	log.Fatal(app.Listen("0.0.0.0:" + port))
 }

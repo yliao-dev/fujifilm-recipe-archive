@@ -1,0 +1,31 @@
+/* === TextField === */
+.custom__textfield {
+  width: 100%;
+}
+
+.custom__textfield .MuiInputBase-root {
+  background: white;
+  border-radius: 0.25rem;
+}
+
+.custom__textfield .MuiInputBase-input {
+  font-weight: var(--font-weight-light);
+  text-align: left;
+}
+
+/* === SelectField === */
+.custom__selectField {
+  width: 100%;
+}
+
+.custom__selectField .MuiInputBase-root {
+  background: white;
+  border-radius: 0.25rem;
+  font-weight: var(--font-weight-light);
+}
+
+/* Dropdown menu items */
+.custom__dropdown .MuiMenuItem-root {
+  font-weight: var(--font-weight-light);
+  font-size: 0.85rem;
+}

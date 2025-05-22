@@ -1,16 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "../config";
-import { Item } from "../types";
+import { Recipe } from "../types/recipeTypes";
 
 const useItems = () => {
-  return useQuery<Item[], Error>({
-    queryKey: ["items"], // Unique key for this query
+  return useQuery<Recipe[], Error>({
+    queryKey: ["items"],
     queryFn: async () => {
       try {
         const res = await fetch(`${BASE_URL}/items/`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
           },
         });
         const data = await res.json();

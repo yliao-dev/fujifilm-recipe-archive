@@ -1,0 +1,13 @@
+:root {
+  --bg: #fdfafa;
+  --surface: #f5f5f5;
+  --fuji-red: #ed1941;
+  --text: #2a2a2a;
+  --subtext: #7c7c7c;
+  --border: #dcdcdc;
+  --dark: #4b4a4a;
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-bold: 500;
+}
