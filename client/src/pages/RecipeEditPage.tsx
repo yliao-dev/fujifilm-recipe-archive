@@ -1,13 +1,16 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import RecipeForm from "../components/RecipeForm";
 import { renderError } from "./ErrorPage";
 import useUpdateItem from "../hooks/useUpdateItem";
 import useItem from "../hooks/useItem";
 import { RecipePayload } from "../types/recipeTypes";
 import { normalizeArrayField } from "../utils/dataUtils";
-import useUploadImage from "../hooks/useUploadImage";
-import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
+import {
+  useUpdateRecipeImage,
+  uploadToCloudinary,
+} from "../hooks/uploadToCloudinary";
 
 const RecipeEditPage = () => {
   const navigate = useNavigate();
@@ -22,7 +25,7 @@ const RecipeEditPage = () => {
   } = useItem(id);
 
   const updateItemMutation = useUpdateItem(id);
-  const uploadImageMutation = useUploadImage();
+  const updateRecipeImageMutation = useUpdateRecipeImage();
 
   const [isImageUploading, setIsImageUploading] = useState(false);
   const [, setIsFormSubmitting] = useState(false);
@@ -40,6 +43,14 @@ const RecipeEditPage = () => {
     try {
       setIsFormSubmitting(true); // Set form submitting state
 
+      let imageUrl = recipeData.sample_image_url;
+      // If the image has changed, wait for the image upload mutation to complete
+      if (formData.isImageChanged && formData.sampleFile) {
+        setIsImageUploading(true); // Set loading state for image upload
+        imageUrl = await uploadToCloudinary(formData.sampleFile); // must return secure_url
+        setIsImageUploading(false); // Reset after upload
+      }
+
       const payload: RecipePayload = {
         name: formData.name,
         film_simulation: formData.film_simulation,
@@ -48,21 +59,9 @@ const RecipeEditPage = () => {
         creator: formData.creator,
         notes: formData.notes,
         settings: formData.settings,
-        sample_image_url: formData.sample_image_url,
+        sample_image_url: imageUrl,
       };
-
-      // Wait for the recipe update mutation to complete
-      const updatedRecipe = await updateItemMutation.mutateAsync(payload);
-
-      // If the image has changed, wait for the image upload mutation to complete
-      if (formData.isImageChanged && formData.sampleFile) {
-        setIsImageUploading(true); // Set loading state for image upload
-        await uploadImageMutation.mutateAsync({
-          recipeId: updatedRecipe.item._id,
-          file: formData.sampleFile as File,
-        });
-        setIsImageUploading(false); // Reset after upload
-      }
+      await updateItemMutation.mutateAsync(payload);
 
       // Only navigate after the update and image upload (if any) are complete
       navigate(`/recipes/${id}`);

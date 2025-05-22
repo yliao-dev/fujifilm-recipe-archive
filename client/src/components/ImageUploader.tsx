@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
-import { BASE_URL } from "../config";
 import { compressImage } from "../utils/imageUtils";
 
 interface Props {
@@ -13,7 +12,7 @@ const ImageUploader = ({ initialUrl, onImageReady }: Props) => {
 
   useEffect(() => {
     if (initialUrl) {
-      setPreview(`${BASE_URL}${initialUrl}`);
+      setPreview(initialUrl);
     }
   }, [initialUrl]);
 

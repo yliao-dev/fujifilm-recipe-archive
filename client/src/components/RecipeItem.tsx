@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { Recipe } from "../types/recipeTypes";
-import { BASE_URL } from "../config";
 
 function RecipeItem({
   _id,
