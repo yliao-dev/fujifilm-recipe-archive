@@ -7,10 +7,7 @@ import useItem from "../hooks/useItem";
 import { RecipePayload } from "../types/recipeTypes";
 import { normalizeArrayField } from "../utils/dataUtils";
 import LoadingSpinner from "../components/LoadingSpinner";
-import {
-  useUpdateRecipeImage,
-  uploadToCloudinary,
-} from "../hooks/uploadToCloudinary";
+import { uploadToCloudinary } from "../hooks/uploadToCloudinary";
 
 const RecipeEditPage = () => {
   const navigate = useNavigate();
@@ -25,7 +22,6 @@ const RecipeEditPage = () => {
   } = useItem(id);
 
   const updateItemMutation = useUpdateItem(id);
-  const updateRecipeImageMutation = useUpdateRecipeImage();
 
   const [isImageUploading, setIsImageUploading] = useState(false);
   const [, setIsFormSubmitting] = useState(false);

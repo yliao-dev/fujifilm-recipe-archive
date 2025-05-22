@@ -4,7 +4,6 @@ import (
 	"backend/types"
 	"context"
 	"log"
-	"os"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -221,13 +220,3 @@ func UploadImage(c *fiber.Ctx) error {
 //         "image_url": imageURL,
 //     })
 // }
-
-func createDirIfNotExist(dirPath string) error {
-    if _, err := os.Stat(dirPath); os.IsNotExist(err) {
-        err := os.MkdirAll(dirPath, os.ModePerm)
-        if err != nil {
-            return err
-        }
-    }
-    return nil
-}

@@ -3,7 +3,6 @@ import { renderError } from "./ErrorPage";
 import { formatKey } from "../utils/dataUtils";
 import { Edit, DeleteForever } from "@mui/icons-material";
 import useItem from "../hooks/useItem";
-import { BASE_URL } from "../config";
 import { useState } from "react";
 import { Dialog, DialogTitle, DialogActions, Button } from "@mui/material";
 import useDeleteItem from "../hooks/useDeleteItem";
