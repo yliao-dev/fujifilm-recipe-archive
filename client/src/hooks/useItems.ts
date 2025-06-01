@@ -18,7 +18,6 @@ const useItems = () => {
         if (!res.ok) {
           throw new Error(data.error || "something wrong");
         }
-
         return data || [];
       } catch (error) {}
       throw new Error("An error occurred while fetching data"); // Handling errors properly
