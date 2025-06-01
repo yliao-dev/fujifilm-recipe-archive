@@ -66,7 +66,9 @@ func main() {
 	app.Use(middleware.AuthMiddleware)           // Handle authentication (only for certain routes)
 	app.Use(middleware.AttachDBMiddleware(client)) // Attach MongoDB to request
 
-
+	app.Get("/health", func(c *fiber.Ctx) error {
+		return c.SendStatus(fiber.StatusOK)
+	})
 	app.Get("/api/items", handler.GetItems)
 	app.Get("/api/items/:id", handler.GetItem)
 	app.Post("/api/items", handler.CreateItem)
