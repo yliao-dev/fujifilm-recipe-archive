@@ -69,6 +69,10 @@ func main() {
 	app.Get("/health", func(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusOK)
 	})
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Backend running")
+	})
+	
 	app.Get("/api/items", handler.GetItems)
 	app.Get("/api/items/:id", handler.GetItem)
 	app.Post("/api/items", handler.CreateItem)
