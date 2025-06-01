@@ -10,7 +10,7 @@ import (
 
 func AuthMiddleware(c *fiber.Ctx) error {
 	// Allow unauthenticated access to health check and favicon
-	if c.Path() == "/health" || c.Path() == "/favicon.ico" {
+	if c.Path() == "/health" || c.Path() == "/favicon.ico" || c.Path() == "/" {
 		return c.Next()
 	}
 
