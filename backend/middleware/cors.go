@@ -13,7 +13,7 @@ import (
 func CORSConfig() fiber.Handler {
 	allowOrigins := "http://localhost:5173"  // Default for development
 	if os.Getenv("ENV") == "production" {
-		allowOrigins = "http://localhost:4173" // Set this to your production frontend URL
+		allowOrigins = "https://fujifilm-recipe-archive.vercel.app"
 	}
 	return cors.New(cors.Config{
 		AllowOrigins: allowOrigins,  // Set dynamic URL based on ENV
