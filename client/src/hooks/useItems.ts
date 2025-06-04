@@ -7,6 +7,8 @@ const useItems = () => {
     queryKey: ["items"],
     queryFn: async () => {
       try {
+        console.log(import.meta.env.VITE_API_URL);
+
         const res = await fetch(`${BASE_URL}/items/`, {
           method: "GET",
           headers: {
